@@ -2,7 +2,7 @@
     <wb-module deploy-name="TareaProgramada1">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/businessLogic"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <property name="context-root" value="TareaProgramada1"/>
         <property name="java-output-path" value="/TareaProgramada1/WebContent/WEB-INF/classes"/>
     </wb-module>
