@@ -1,18 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.sql.SQLException;
-import java.util.Random;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.PBEParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +37,7 @@ public class RegisterStudent extends HttpServlet {
 		String name = request.getParameter("name");
 		String lastName = request.getParameter("lastName");
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
+		String password = encrypt(request.getParameter("password"));
 		
 		Student newStudent = new Student(id, name, lastName, email, password);
 		try {
@@ -65,4 +56,7 @@ public class RegisterStudent extends HttpServlet {
 				student.getName()+"','"+student.getLastName()+"','"+student.getEmail()+"','"+student.getPassword()+"','"+student.getRole()+"')");
 	}
 
+	private static String encrypt(String pPassword) throws UnsupportedEncodingException{
+        return Base64.getEncoder().encodeToString(pPassword.getBytes("utf-8"));
+    }
 }

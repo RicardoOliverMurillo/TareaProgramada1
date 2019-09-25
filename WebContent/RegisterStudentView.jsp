@@ -23,7 +23,7 @@
 				<div class="card-body">
 					<form action="RegisterStudent" method="POST">
 						<div class="form-group">
-							<input type="text" name="id" placeholder="ID"
+							<input type="number" name="id" placeholder="ID"
 								class="form-control">
 						</div>
 						<div class="form-group">
@@ -35,7 +35,7 @@
 								class="form-control">
 						</div>
 						<div class="form-group">
-							<input type="text" name="email" placeholder="Personal email"
+							<input type="email" name="email" placeholder="Personal email"
 								class="form-control">
 						</div>
 						<div class="form-group">
