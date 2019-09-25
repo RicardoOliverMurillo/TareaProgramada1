@@ -18,20 +18,25 @@ public class Comment {
 	private Float score;
 	private String toneName;
 	private String description;
-	private static ArrayList<Comment> commentArray = new ArrayList<Comment>();
+	private static int count = 0;
+	private int id;
+	private String idOwner;
 	
 	public Comment() {}
 	
 	public Comment(String pDescription) {
-		analyzeComment(pDescription);
-	}
-
-	public Comment(Float pScore, String pToneName ,String pDescription) {
 		description = pDescription;
-		score = pScore;
-		toneName = pToneName;
+		setId(count++);
 	}
 
+	public ArrayList<Comment> analyzeComment(Comment comment) {
+		ToneAnalyzer toneAnalyzer = authentication();
+		ToneOptions toneOptions = new ToneOptions.Builder().text(comment.description).build();
+		DocumentAnalysis toneAnalysis = toneAnalyzer.tone(toneOptions).execute().getDocumentTone();
+		ArrayList<Comment> result = parseInfo(toneAnalysis, comment.description);
+		return result;
+	}
+	
 	private ToneAnalyzer authentication() {
 		IamOptions options = new IamOptions.Builder().apiKey(apiKey).build();
 		ToneAnalyzer toneAnalyzer = new ToneAnalyzer(version, options);
@@ -39,24 +44,20 @@ public class Comment {
 		return toneAnalyzer;
 	}
 	
-	private void analyzeComment(String comment) {
-		ToneAnalyzer toneAnalyzer = authentication();
-		ToneOptions toneOptions = new ToneOptions.Builder().text(comment).build();
-		DocumentAnalysis toneAnalysis = toneAnalyzer.tone(toneOptions).execute().getDocumentTone();
-		parseInfo(toneAnalysis, comment);	
-	}
-	
-	private void parseInfo(DocumentAnalysis toneAnalysis, String text) {
+	private ArrayList<Comment> parseInfo(DocumentAnalysis toneAnalysis, String text) {
 		JSONObject obj = new JSONObject(toneAnalysis);
+		ArrayList<Comment> result = new ArrayList<Comment>();
 
 		JSONArray arr = obj.getJSONArray("tones");
 		for (int i = 0; i < arr.length(); i++)
 		{
-		    Float score = arr.getJSONObject(i).getFloat("score");
-		    String toneName = arr.getJSONObject(i).getString("toneName");
-		    Comment newComment = new Comment(score, toneName, text);
-		    commentArray.add(newComment);
+			Comment comment = new Comment();
+		    comment.setDescription(text);
+		    comment.setScore(arr.getJSONObject(i).getFloat("score"));
+		    comment.setToneName(arr.getJSONObject(i).getString("toneName"));
+		    result.add(comment);
 		}
+		return result;
 	}
 	
 	public String toString() {
@@ -67,13 +68,13 @@ public class Comment {
 		return msg;
 	}
 	
-	public ArrayList<Comment> getCommentArray(String toneName){
+	public ArrayList<Comment> getCommentArray(String toneName, ArrayList<Comment> result){
 		ArrayList<Comment> list = new ArrayList<Comment>();
-		for(int i = 0; i < commentArray.size(); i++) {
-			System.out.print(commentArray.get(i));
-			if(commentArray.get(i).toneName.equals(toneName)) {
-				System.out.println(commentArray.get(i));
-				list.add(commentArray.get(i));
+		for(int i = 0; i < result.size(); i++) {
+			System.out.print(result.get(i));
+			if(result.get(i).toneName.equals(toneName)) {
+				System.out.println(result.get(i));
+				list.add(result.get(i));
 			}
 		}
 		return list;
@@ -101,5 +102,21 @@ public class Comment {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getIdOwner() {
+		return idOwner;
+	}
+
+	public void setIdOwner(String idOwner) {
+		this.idOwner = idOwner;
 	}
 }

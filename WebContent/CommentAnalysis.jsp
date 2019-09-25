@@ -16,7 +16,7 @@
 <body>
 	<!--Navbar-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Admin Page</a>
+		<a class="navbar-brand" href="AdminView.jsp">Admin Page</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -28,6 +28,9 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
+			</ul>
+			<ul class="navbar-nav ml-auto"> 
+				<li class="nav-item active"><a class="nav-link" href="loginView.jsp">sign out</a></li>
 			</ul>
 		</div>
 	</nav>

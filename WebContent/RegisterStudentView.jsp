@@ -13,7 +13,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Personal information</a>
+		<a class="navbar-brand" href="StudentView.jsp">Personal information</a>
 	</nav>
 	<br><br>
 	<div class="row">

@@ -14,7 +14,7 @@
 <body>
 	<!--Navbar-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Student Page</a>
+		<a class="navbar-brand" href="StudentView.jsp">Student Page</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -29,6 +29,9 @@
 				<li class="nav-item active"><a class="nav-link" href="#">Reports</a></li>
 				<li class="nav-item active"><a class="nav-link" href="AddComment.jsp">Comment</a></li>
 				<li class="nav-item active"><a class="nav-link" href="#">Information</a></li>
+			</ul>
+			<ul class="navbar-nav ml-auto"> 
+				<li class="nav-item active"><a class="nav-link" href="loginView.jsp">sign out</a></li>
 			</ul>
 		</div>
 	</nav>
