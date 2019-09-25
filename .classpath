@@ -27,5 +27,9 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Program Files/IBM/IBM DATA SERVER DRIVER/java/db2jcc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/IBM/IBM DATA SERVER DRIVER/java/db2jcc4.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/IBM/IBM DATA SERVER DRIVER/java/sqlj.zip"/>
+	<classpathentry kind="lib" path="C:/Program Files/IBM/IBM DATA SERVER DRIVER/java/sqlj4.zip"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

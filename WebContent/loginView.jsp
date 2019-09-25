@@ -29,9 +29,18 @@
 							class="form-control" required>
 					</div>
 					<div>
+					<select class="custom-select" id="groupOptions1" name="role">
+						<option selected>Choose role...</option>
+						<option value="student">Student</option>
+						<option value="admin">Admin</option>
+					</select>
+					</div>
+					<br>
+					<div>
 						<button type="submit" class="btn btn-success btn-block">Log
 							in</button>
 					</div>
+					<br>
 					<div>
 						<a href="RegisterStudentView.jsp" class="btn btn-primary btn-block">Register</a>
 					</div>

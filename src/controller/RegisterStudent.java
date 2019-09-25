@@ -1,12 +1,25 @@
 package controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.sql.SQLException;
+import java.util.Random;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.PBEParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.DaoStudent;
 import userLogic.Student;
 
 /**
@@ -15,6 +28,7 @@ import userLogic.Student;
 @WebServlet("/RegisterStudent")
 public class RegisterStudent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private DaoStudent db = new DaoStudent();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,8 +49,20 @@ public class RegisterStudent extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		Student newStudent = new Student(id, name, lastName, email, password);
-		System.out.println(newStudent.toString());
+		try {
+			registerStudent(newStudent);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		response.sendRedirect("loginView.jsp");
+	}
+	
+	private void registerStudent(Student student) throws Exception {
+
+		db.manipulationQuery("INSERT INTO CXF11927.STUDENT(ID,NAME, LASTNAME, EMAIL, PASSWORD, ROLE) VALUES ('"+student.getId()+"','"+
+				student.getName()+"','"+student.getLastName()+"','"+student.getEmail()+"','"+student.getPassword()+"','"+student.getRole()+"')");
 	}
 
 }
