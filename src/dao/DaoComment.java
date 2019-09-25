@@ -1,30 +1,28 @@
 package dao;
 
-import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import userLogic.Student;
+import userLogic.Comment;
 
+public class DaoComment {
 
-public class DaoStudent {
-	
 	private Statement stmt;
     private ResultSet rs;
     private Db2Connection db; 
     private Connection conn;
-    private ArrayList<Student> result = new ArrayList<Student>();
+    private ArrayList<Comment> result = new ArrayList<Comment>();
     
-    public DaoStudent() {
+    public DaoComment() {
     	db = Db2Connection.getInstance();
 		conn = Db2Connection.getConnection();
     }
 	
-	public ArrayList<Student> selectQuery(String query) throws SQLException{
-		Student newStudent = new Student();
+	public ArrayList<Comment> selectQuery(String query) throws SQLException{
+		
         stmt = conn.createStatement();                                           
         System.out.println(" Creado el objeto Statement de JDBC");
         // Ejecutar una consulta y generar instancia del conjunto de resultados
@@ -32,12 +30,12 @@ public class DaoStudent {
         System.out.println(" Creado el objeto JDBC ResultSet");
         // Imprimir todos los números de empleado en el dispositivo de salida estándar
         while (rs.next()) {
-        	newStudent.setId(rs.getString(1));
-        	newStudent.setName(rs.getString(2));
-        	newStudent.setLastName(rs.getString(3));
-        	newStudent.setEmail(rs.getString(4));
-        	newStudent.setPassword(rs.getString(5));
-        	result.add(newStudent);
+        	Comment newComment = new Comment();
+        	newComment.setIdOwner(rs.getString(2));
+        	newComment.setDescription(rs.getString(3));
+        	newComment.setToneName(rs.getString(4));
+        	newComment.setScore(rs.getFloat(5));
+        	result.add(newComment);
         }
         System.out.println(" Buscadas todas las filas del conjunto resultados JDBC");
         // Cerrar el conjunto de resultados

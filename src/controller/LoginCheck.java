@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.DaoStudent;
 import dao.Db2Connection;
+import userLogic.Session;
 import userLogic.Student;
 
 /**
@@ -22,7 +23,6 @@ import userLogic.Student;
 @WebServlet("/LoginCheck")
 public class LoginCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DaoStudent db = new DaoStudent();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,9 +46,10 @@ public class LoginCheck extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String role = request.getParameter("role");
+		Session session = new Session(username);
 		
 		try {
-			if(validateUser(username, password, role)) {
+			if(session.login(username, password, role)) {
 				if(role.equals("admin")) {
 					response.sendRedirect("AdminView.jsp");
 				}else if(role.equals("student")){
@@ -61,16 +62,5 @@ public class LoginCheck extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	private boolean validateUser(String username, String password, String role) throws SQLException {
-		ArrayList<Student> result = db.selectQuery("SELECT * FROM CXF11927.STUDENT WHERE ID = '"+ username+"'");
-		System.out.println(result.size());
-		for(int i = 0; i < result.size(); i++) {
-			if(result.get(i).getId().equals(username) && result.get(i).getPassword().equals(password)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
