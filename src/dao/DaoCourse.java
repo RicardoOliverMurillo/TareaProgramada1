@@ -6,22 +6,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import userLogic.Comment;
+import careerLogic.Course;
 
-public class DaoComment {
-
+public class DaoCourse {
 	private Statement stmt;
     private ResultSet rs;
     private Db2Connection db; 
     private Connection conn;
-    private ArrayList<Comment> result = new ArrayList<Comment>();
-    
-    public DaoComment() {
+    private ArrayList<Course> result = new ArrayList<Course>();
+    public DaoCourse() {
     	db = Db2Connection.getInstance();
 		conn = Db2Connection.getConnection();
     }
 	
-	public ArrayList<Comment> selectQuery(String query) throws SQLException{
+	public ArrayList<Course> selectQuery(String query) throws SQLException{
+		Course newCourse = new Course();
         stmt = conn.createStatement();                                           
         System.out.println(" Creado el objeto Statement de JDBC");
         // Ejecutar una consulta y generar instancia del conjunto de resultados
@@ -29,12 +28,13 @@ public class DaoComment {
         System.out.println(" Creado el objeto JDBC ResultSet");
         // Imprimir todos los números de empleado en el dispositivo de salida estándar
         while (rs.next()) {
-        	Comment newComment = new Comment();
-        	newComment.setIdOwner(rs.getString(2));
-        	newComment.setDescription(rs.getString(3));
-        	newComment.setToneName(rs.getString(4));
-        	newComment.setScore(rs.getFloat(5));
-        	result.add(newComment);
+        	newCourse.setId(rs.getString(1));
+        	newCourse.setName(rs.getString(2));
+        	newCourse.setSumCredits(Integer.parseInt(rs.getString(3)));
+        	newCourse.setSemester((Integer.parseInt(rs.getString(4))));
+        	newCourse.setKnowledgeArea(rs.getString(4));
+        	newCourse.setType(rs.getString(5));
+        	result.add(newCourse);
         }
         System.out.println(" Buscadas todas las filas del conjunto resultados JDBC");
         // Cerrar el conjunto de resultados
@@ -65,5 +65,4 @@ public class DaoComment {
         conn.commit();
         System.out.println ( " Transacción confirmada" );
     }
-
 }

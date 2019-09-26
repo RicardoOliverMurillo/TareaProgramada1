@@ -28,6 +28,7 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
+				<li class="nav-item active"><a class="nav-link" href="RelevantInformation.jsp">Information</a></li>
 			</ul>
 			<ul class="navbar-nav ml-auto"> 
 				<li class="nav-item active"><a class="nav-link" href="loginView.jsp">sign out</a></li>
