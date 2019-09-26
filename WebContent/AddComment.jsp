@@ -32,7 +32,7 @@
 				<li class="nav-item active"><a class="nav-link" href="#">Reports</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="AddComment.jsp">Comment</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">Information</a></li>
+				<li class="nav-item active"><a class="nav-link" href="ViewInformation.jsp">Information</a></li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active"><a class="nav-link"
@@ -52,7 +52,7 @@
 			<div class="card-body">
 				<form action="AddComment" method="POST">
 					<div class="form-group">
-						<p>We would like to know your opinion. Please add a comment to
+						<p>We would like to know your opinion. Please add a comment to help us
 							improve.</p>
 						<textarea class="form-control" name="comment" rows="3" required></textarea>
 					</div>
@@ -98,5 +98,6 @@
 			</div>
 		</div>
 	</div>
+	<br>
 </body>
 </html>

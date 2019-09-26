@@ -36,7 +36,7 @@ public class Db2Connection {
         	Class.forName(jdbcClassName);
             conn = DriverManager.getConnection(url, user, password);
             conn.setAutoCommit(false);
-            System.out.println("conexion abierta / papas fritas");
+            System.out.println("conexion abierta");
         } catch (Exception e) {
             System.out.println("Exception opening connection: " + e);
         }
