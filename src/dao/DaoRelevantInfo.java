@@ -28,7 +28,7 @@ public class DaoRelevantInfo {
         	RelevantInfo newInfo = new RelevantInfo();
         	newInfo.setType(rs.getString(1));
         	newInfo.setDescription(rs.getString(2));
-        	newInfo.setCareer(rs.getString(3));
+        	//newInfo.setCareer(rs.getString(3));
         	result.add(newInfo);
         }
         rs.close();

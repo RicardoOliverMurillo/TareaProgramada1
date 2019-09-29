@@ -39,7 +39,7 @@ public class InformationController extends HttpServlet {
 			String type = request.getParameter("type");
 			String information = request.getParameter("information");
 			String career = request.getParameter("career");
-			RelevantInfo info = new RelevantInfo(type, information,career);
+			RelevantInfo info = new RelevantInfo(type, information/*,career*/);
 			
 			try {
 				insertInformation(info);
@@ -67,7 +67,7 @@ public class InformationController extends HttpServlet {
 			String type = request.getParameter("type");
 			String information = request.getParameter("information");
 			String career = request.getParameter("career");
-			RelevantInfo info = new RelevantInfo(type, information,career);
+			RelevantInfo info = new RelevantInfo(type, information/*,career*/);
 			
 			try {
 				updateInformation(info);
@@ -126,7 +126,7 @@ public class InformationController extends HttpServlet {
 	
 	private void insertInformation(RelevantInfo info) throws SQLException {
 		db.manipulationQuery("INSERT INTO CXF11927.INFORMATION(TYPE,DESCRIPTION, CAREER) VALUES "
-			+ "('"+info.getType()+"','"+info.getDescription()+"','"+info.getCareer()+"')");
+			+ "('"+info.getType()+"','"+info.getDescription()+/*"','"+info.getCareer()+*/"')");
 	}
 	
 	private String getInformation(String type, String career) throws SQLException {
@@ -136,11 +136,14 @@ public class InformationController extends HttpServlet {
 	}
 	
 	private void updateInformation(RelevantInfo info) throws SQLException {
-		db.manipulationQuery("UPDATE CXF11927.INFORMATION SET TYPE = '"+info.getType()+"', "
+		/*db.manipulationQuery("UPDATE CXF11927.INFORMATION SET TYPE = '"+info.getType()+"', "
 				+ "DESCRIPTION = '"+info.getDescription()+"', "
 				+ "CAREER = '"+info.getCareer()+"' WHERE "
 				+ "TYPE = '"+info.getType()+"' AND "
-				+ "CAREER = '"+info.getCareer()+"'");
+				+ "CAREER = '"+info.getCareer()+"'");*/
+		db.manipulationQuery("UPDATE CXF11927.INFORMATION SET TYPE = '"+info.getType()+"', "
+				+ "DESCRIPTION = '"+info.getDescription()+"' WHERE "
+				+ "TYPE = '"+info.getType()+"'");
 	}
 	
 	private ArrayList<RelevantInfo> getInformation(String career) throws SQLException{

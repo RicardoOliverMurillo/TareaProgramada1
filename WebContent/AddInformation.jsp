@@ -42,11 +42,6 @@
 		<div class="card">
 			<div class="card-body">
 				<form action="InformationController" method="GET">
-					<select class="custom-select" id="groupOptions1"
-						name="career">
-						<option selected>Choose a career...</option>
-						<option value="ATI">ATI</option>
-					</select>
 					<input type="text" class="form-control" name = "type" value = <%=type%>>
 					<div class="form-group">
 						<textarea class="form-control" name="information" rows="5" required></textarea>
