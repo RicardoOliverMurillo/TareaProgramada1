@@ -24,17 +24,50 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">2050 Plan</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">2051 Plan</a></li>
+				<li class="nav-item active"><a class="nav-link" href="StudentView.jsp">Study plans</a></li>
 				<li class="nav-item active"><a class="nav-link" href="#">Reports</a></li>
-				<li class="nav-item active"><a class="nav-link" href="AddComment.jsp">Comment</a></li>
-				<li class="nav-item active"><a class="nav-link" href="ViewInformation.jsp">Information</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="AddComment.jsp">Comment</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="ViewInformation.jsp">Information</a></li>
 			</ul>
-			<ul class="navbar-nav ml-auto"> 
-				<li class="nav-item active"><a class="nav-link" href="loginView.jsp">sign out</a></li>
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active"><a class="nav-link"
+					href="loginView.jsp">sign out</a></li>
 			</ul>
 		</div>
 	</nav>
 	<!--End of Navbar-->
+	<br>
+	<h4 class="text-center">Career study plans</h4>
+	<br>
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-body">
+					<form action="CourseController" method="GET">
+						<h5 class="card-title">Plan 2050</h5>
+						<div>
+							<button name="2050" type="submit"
+								class="btn btn-outline-info btn-block">view</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-body">
+					<form action="CourseController" method="GET">
+						<h5 class="card-title">Plan 2051</h5>
+						<div>
+							<button name="2051" type="submit"
+								class="btn btn-outline-info btn-block">view</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

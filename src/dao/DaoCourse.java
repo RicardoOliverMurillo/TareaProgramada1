@@ -19,8 +19,7 @@ public class DaoCourse {
 		conn = Db2Connection.getConnection();
     }
 	
-	public ArrayList<Course> selectQuery(String query) throws SQLException{
-		Course newCourse = new Course();
+	public ArrayList<Course> selectQuery(String query) throws SQLException{		
         stmt = conn.createStatement();                                           
         System.out.println(" Creado el objeto Statement de JDBC");
         // Ejecutar una consulta y generar instancia del conjunto de resultados
@@ -28,12 +27,13 @@ public class DaoCourse {
         System.out.println(" Creado el objeto JDBC ResultSet");
         // Imprimir todos los números de empleado en el dispositivo de salida estándar
         while (rs.next()) {
+        	Course newCourse = new Course();
         	newCourse.setId(rs.getString(1));
         	newCourse.setName(rs.getString(2));
         	newCourse.setSumCredits(Integer.parseInt(rs.getString(3)));
         	newCourse.setSemester((Integer.parseInt(rs.getString(4))));
-        	newCourse.setKnowledgeArea(rs.getString(4));
-        	newCourse.setType(rs.getString(5));
+        	newCourse.setKnowledgeArea(rs.getString(5));
+        	System.out.println("Name-->" + newCourse.getName());
         	result.add(newCourse);
         }
         System.out.println(" Buscadas todas las filas del conjunto resultados JDBC");
@@ -65,4 +65,47 @@ public class DaoCourse {
         conn.commit();
         System.out.println ( " Transacción confirmada" );
     }
+	
+	public Course getCourse(String query) throws SQLException {
+		stmt = conn.createStatement();                                           
+		Course newCourse = new Course();
+		rs = stmt.executeQuery(query);
+		while (rs.next()) {
+    		newCourse.setId(rs.getString(1));
+    		newCourse.setName(rs.getString(2));
+    		newCourse.setSumCredits(Integer.parseInt(rs.getString(3)));
+    		newCourse.setSemester((Integer.parseInt(rs.getString(4))));
+    		newCourse.setKnowledgeArea(rs.getString(5));
+    	}
+    	rs.close();
+    	stmt.close();
+    	conn.commit();
+    	return newCourse;
+	}
+	
+	public ArrayList<String> getPassCourses(String query) throws SQLException{
+		stmt = conn.createStatement();                                           
+		ArrayList<String> list = new ArrayList<String>();
+		rs = stmt.executeQuery(query);
+		while (rs.next()) {
+    		list.add(rs.getString(1));
+    	}
+    	rs.close();
+    	stmt.close();
+    	conn.commit();
+    	return list;
+	}
+	
+	public ArrayList<String> getDependentCourses(String query) throws SQLException{
+		stmt = conn.createStatement();                                           
+		ArrayList<String> list = new ArrayList<String>();
+		rs = stmt.executeQuery(query);
+		while (rs.next()) {
+    		list.add(rs.getString(1));
+    	}
+    	rs.close();
+    	stmt.close();
+    	conn.commit();
+    	return list;
+	}
 }

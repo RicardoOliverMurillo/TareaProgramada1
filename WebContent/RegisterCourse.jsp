@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="careerLogic.Course" %>
+<%@ page import="dao.DaoCourse" %>
+<%@page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,11 +33,13 @@
 			</ul>
 		</div>
 	</nav>
+	<%DaoCourse db = new DaoCourse(); %>
+	<%ArrayList<Course> data = db.selectQuery("SELECT * FROM CXF11927.COURSE"); %>
 	<!--End of Navbar-->
 	<br><br>
 	<div class="row">
 		<!--FORM-->
-		<div class="col-md-5 mx-auto">
+		<div class="col-md-8 mx-auto">
 			<div class="card">
 				<div class="card-body">
 					<form action="CourseController" method="POST">
@@ -54,14 +59,51 @@
 							<input type="number" name="semester" placeholder="Semester"
 								class="form-control">
 						</div>
-						<div class="form-group">
-							<input type="text" name="knowledgeArea" placeholder="Knowledge Area"
-								class="form-control">
+						<div>
+							<select class="custom-select" name="knowledgeArea">
+								<option selected>Choose a knowledge area...</option>
+								<option value="Plataforma Tecnológica de las Organizaciones">Plataforma
+									Tecnológica de las Organizaciones</option>
+								<option value="Fundamentos de las Organizaciones">Fundamentos
+									de las Organizaciones</option>
+								<option value="Conocimientos y Competencias Fundamentales">Conocimientos
+									y Competencias Fundamentales</option>
+								<option value="Desarrollo Tecnológico Empresarial">Desarrollo
+									Tecnológico Empresarial</option>
+								<option value=" ">Sin área</option>
+							</select>
 						</div>
-						<div class="form-group">
-							<input type="text" name="type" placeholder="Type"
-								class="form-control">
+						<br>
+						<div>
+							<select class="custom-select" name="requirements">
+								<option selected>Choose courses requirements...</option>
+								<%
+									for (int i = 0; i < data.size(); i++) {
+								%>
+								<option value=<%=data.get(i).getId()%>><%=data.get(i).getName()%></option>
+								<%
+									}
+								%>
+							</select>
+							<button name = "addRequirements" type="submit" class="btn btn-outline-info" 
+							formaction="CourseController" formmethod="POST" >add</button>
 						</div>
+						<br>
+						<div>
+							<select class="custom-select" name="corequirements">
+								<option selected>Choose corequisite courses...</option>
+								<%
+									for (int i = 0; i < data.size(); i++) {
+								%>
+								<option value=<%=data.get(i).getId()%>><%=data.get(i).getName()%></option>
+								<%
+									}
+								%>
+							</select>
+							<button name="addCorequirements" type="submit" class="btn btn-outline-info"
+							formaction="CourseController" formmethod="POST">add</button>
+						</div>
+						<br>
 						<div>
 							<button type="submit" class="btn btn-success btn-block">Confirm</button>
 						</div>
