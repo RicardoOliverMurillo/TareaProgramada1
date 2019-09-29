@@ -42,15 +42,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import careerLogic.Career;
+import careerLogic.Course;
 import careerLogic.Plan;
+import careerLogic.PlanInterface;
 import dao.DaoPlan;
+import dao.DaoPlanInterface;
 import dao.DaoCareer;
+import dao.DaoCareerInterface;
 
 /**
  * Servlet implementation class PlanController
  */
 @WebServlet("/PlanController")
-public class PlanController extends HttpServlet {
+public class PlanController extends HttpServlet implements PlanInterface,DaoCareerInterface,DaoPlanInterface{
 	private static final long serialVersionUID = 1L;
 	DaoPlan dbPlan = new DaoPlan();
 	DaoCareer dbCareer = new DaoCareer();
@@ -62,24 +66,6 @@ public class PlanController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-	
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Career> careerList = new ArrayList<Career>();
-		String idCareer = request.getParameter("careerOption");
-		try {
-			careerList = getAllCareers();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		request.setAttribute("listCareers", careerList);
-		RequestDispatcher rd = request.getRequestDispatcher("RegisterPlanView.jsp");
-		rd.forward(request, response);
-		careerList.clear();
-
-	}*/
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -138,6 +124,72 @@ public class PlanController extends HttpServlet {
 		result = dbPlan.selectQueryPlan("SELECT * FROM CXF11927.PLAN WHERE IDCAREER = '"+idCareer+"'");
 		System.out.println("entró");
 		return result;
+	}
+
+	@Override
+	public void addCourse(Course course) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generateNetView() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addKnowledgeArea(String description) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Career getCareer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCareer(Career career) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Plan> selectQueryPlan(String query) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void manipulationQueryPlan(String query) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Career> selectQueryCareer(String query) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void manipulationQueryCareer(String query) throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

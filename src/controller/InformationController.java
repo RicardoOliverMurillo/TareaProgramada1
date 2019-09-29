@@ -39,7 +39,7 @@ public class InformationController extends HttpServlet {
 			String type = request.getParameter("type");
 			String information = request.getParameter("information");
 			String career = request.getParameter("career");
-			RelevantInfo info = new RelevantInfo(type, information/*,career*/);
+			RelevantInfo info = new RelevantInfo(type, information,career);
 			
 			try {
 				insertInformation(info);
@@ -67,7 +67,7 @@ public class InformationController extends HttpServlet {
 			String type = request.getParameter("type");
 			String information = request.getParameter("information");
 			String career = request.getParameter("career");
-			RelevantInfo info = new RelevantInfo(type, information/*,career*/);
+			RelevantInfo info = new RelevantInfo(type, information,career);
 			
 			try {
 				updateInformation(info);
@@ -136,14 +136,14 @@ public class InformationController extends HttpServlet {
 	}
 	
 	private void updateInformation(RelevantInfo info) throws SQLException {
-		/*db.manipulationQuery("UPDATE CXF11927.INFORMATION SET TYPE = '"+info.getType()+"', "
+		db.manipulationQuery("UPDATE CXF11927.INFORMATION SET TYPE = '"+info.getType()+"', "
 				+ "DESCRIPTION = '"+info.getDescription()+"', "
 				+ "CAREER = '"+info.getCareer()+"' WHERE "
 				+ "TYPE = '"+info.getType()+"' AND "
-				+ "CAREER = '"+info.getCareer()+"'");*/
-		db.manipulationQuery("UPDATE CXF11927.INFORMATION SET TYPE = '"+info.getType()+"', "
+				+ "CAREER = '"+info.getCareer()+"'");
+		/*db.manipulationQuery("UPDATE CXF11927.INFORMATION SET TYPE = '"+info.getType()+"', "
 				+ "DESCRIPTION = '"+info.getDescription()+"' WHERE "
-				+ "TYPE = '"+info.getType()+"'");
+				+ "TYPE = '"+info.getType()+"'");*/
 	}
 	
 	private ArrayList<RelevantInfo> getInformation(String career) throws SQLException{

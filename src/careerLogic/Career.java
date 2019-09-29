@@ -20,7 +20,7 @@ public class Career {
 	}
 	
 	public void addInfo(String pType, String pDescription) {
-		RelevantInfo info = new RelevantInfo(pType,pDescription);
+		RelevantInfo info = new RelevantInfo(pType,pDescription,this.id);
 		infos.add(info);
 	}
 	

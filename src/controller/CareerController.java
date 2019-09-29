@@ -12,13 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import careerLogic.Career;
+import careerLogic.CareerInterface;
+import careerLogic.Plan;
 import dao.DaoCareer;
+import dao.DaoCareerInterface;
 
 /**
  * Servlet implementation class CareerController
  */
 @WebServlet("/CareerController")
-public class CareerController extends HttpServlet {
+public class CareerController extends HttpServlet implements CareerInterface,DaoCareerInterface{
 	private static final long serialVersionUID = 1L;
 	DaoCareer dbCareer = new DaoCareer();
        
@@ -87,6 +90,54 @@ public class CareerController extends HttpServlet {
 		ArrayList<Career> result = new ArrayList<Career>();
 		result = dbCareer.selectQueryCareer("SELECT * FROM CXF11927.CAREER");
 		return result;
+	}
+
+	@Override
+	public void addInfo(String pType, String pDescription) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addPlan(Plan plan) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Career> selectQueryCareer(String query) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void manipulationQueryCareer(String query) throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

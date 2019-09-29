@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="careerLogic.RelevantInfo" %>
-<%@page import="java.util.ArrayList" %>
+<%@ page import="careerLogic.Career" %>
+<%@ page import="dao.DaoCareer" %>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,13 +48,17 @@
 	<%
 		ArrayList result = (ArrayList) request.getAttribute("result");
 	%>
+	<%DaoCareer db = new DaoCareer(); %>
+	<%ArrayList<Career> careerList = db.selectQueryCareer("SELECT * FROM CXF11927.CAREER");%>
 	<div class="col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">
 				<form action="InformationController" method="GET">
 					<select class="custom-select" id="groupOptions1" name="career">
 						<option selected>Choose a career...</option>
-						<option value="ATI">ATI</option>
+						<% for (int i = 0; i < careerList.size(); i++) { %>
+							<option value=<%=careerList.get(i).getId()%>><%=careerList.get(i).getId()%></option>
+						<% } %>
 					</select>
 					<div>
 						<button name="searchInfo" type="submit"

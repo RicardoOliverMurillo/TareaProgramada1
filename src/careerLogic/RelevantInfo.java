@@ -3,12 +3,12 @@ package careerLogic;
 public class RelevantInfo {
 	private String type;
 	private String description;
-	//private String career;
+	private String career;
 	
-	public RelevantInfo(String pType, String pDescription/*, String pCareer*/) {
+	public RelevantInfo(String pType, String pDescription, String pCareer) {
 		type = pType;
 		description = pDescription;
-		/*career = pCareer;*/
+		career = pCareer;
 	}
 	
 	public RelevantInfo() {
@@ -27,11 +27,11 @@ public class RelevantInfo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	/*public String getCareer() {
+	public String getCareer() {
 		return career;
 	}
 	public void setCareer(String career) {
 		this.career = career;
-	}*/
+	}
 	
 }

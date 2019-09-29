@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="careerLogic.Career" %>
+<%@ page import="dao.DaoCareer" %>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,10 +23,15 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterCareerView.jsp">Career Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterPlanView.jsp">Plan Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterCourse.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
 				<li class="nav-item active"><a class="nav-link"
@@ -33,8 +41,10 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="loginView.jsp">sign out</a></li>
 			</ul>
-		</div>
+		</div>	
 	</nav>
+	<%DaoCareer db = new DaoCareer(); %>
+	<%ArrayList<Career> careerList = db.selectQueryCareer("SELECT * FROM CXF11927.CAREER");%>
 	<br>
 	<% String type = (String)request.getAttribute("type"); %>
 	<h4 class="text-center">Add career information</h4>
@@ -42,6 +52,12 @@
 		<div class="card">
 			<div class="card-body">
 				<form action="InformationController" method="GET">
+					<select class="custom-select" id="groupOptions1" name="career">
+						<option selected>Choose a career...</option>
+						<% for (int i = 0; i < careerList.size(); i++) { %>
+							<option value=<%=careerList.get(i).getId()%>><%=careerList.get(i).getId()%></option>
+						<% } %>
+					</select>
 					<input type="text" class="form-control" name = "type" value = <%=type%>>
 					<div class="form-group">
 						<textarea class="form-control" name="information" rows="5" required></textarea>
