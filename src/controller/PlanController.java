@@ -108,20 +108,20 @@ public class PlanController extends HttpServlet implements PlanInterface,DaoCare
 	}
 	
 	private void addPlan(Plan plan) throws SQLException {
-		dbPlan.manipulationQueryPlan("INSERT INTO CXF11927.PLAN(IDPLAN,IDCAREER) VALUES "
+		dbPlan.manipulationQueryPlan("INSERT INTO PLANS(IDPLAN,IDCAREER) VALUES "
 				+ "('"+plan.getId()+"','"+plan.getCareer().getId()+"')");
 	}
 	
 	private ArrayList<Career> getCareer(String idCareer) throws SQLException {
 		ArrayList<Career> result = new ArrayList<Career>();
-		result = dbCareer.selectQueryCareer("SELECT * FROM CXF11927.CAREER WHERE IDCAREER = '"+idCareer+"'");
+		result = dbCareer.selectQueryCareer("SELECT * FROM CAREERS WHERE IDCAREER = '"+idCareer+"'");
 		return result;
 	}
 	
 	private ArrayList<Plan> getPlans(String idCareer) throws SQLException {
 		System.out.println(idCareer+" hola");
 		ArrayList<Plan> result = new ArrayList<Plan>();
-		result = dbPlan.selectQueryPlan("SELECT * FROM CXF11927.PLAN WHERE IDCAREER = '"+idCareer+"'");
+		result = dbPlan.selectQueryPlan("SELECT * FROM PLANS WHERE IDCAREER = '"+idCareer+"'");
 		System.out.println("entró");
 		return result;
 	}

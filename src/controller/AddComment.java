@@ -83,7 +83,7 @@ public class AddComment extends HttpServlet {
 	private void addComment(ArrayList<Comment> result) throws SQLException {
 		for(int i = 0; i < result.size(); i++) {
 			Comment comment = result.get(i);
-			db.manipulationQuery("INSERT INTO CXF11927.COMMENT(IDCOMMENT,IDOWNER, DESCRIPTION, TONENAME, SCORE) VALUES "
+			db.manipulationQuery("INSERT INTO COMMENTS(IDCOMMENT,IDOWNER, DESCRIPTION, TONENAME, SCORE) VALUES "
 					+ "('"+comment.getId()+"','"+Session.getUser()+"','"+comment.getDescription()+"','"+comment.getToneName()
 					+ "',"+comment.getScore()+")");
 		}
@@ -91,13 +91,13 @@ public class AddComment extends HttpServlet {
 	
 	private ArrayList<Comment> getComment(String option) throws SQLException {
 		ArrayList<Comment> result = new ArrayList<Comment>();
-		result = db.selectQuery("SELECT * FROM CXF11927.COMMENT WHERE TONENAME = '"+option+"'");
+		result = db.selectQuery("SELECT * FROM COMMENTS WHERE TONENAME = '"+option+"'");
 		return result;
 	}
 	
 	private ArrayList<Comment> getCommentStudent(String id) throws SQLException {
 		ArrayList<Comment> result = new ArrayList<Comment>();
-		result = db.selectQuery("SELECT * FROM CXF11927.COMMENT WHERE IDOWNER = '"+id+"'");
+		result = db.selectQuery("SELECT * FROM COMMENTS WHERE IDOWNER = '"+id+"'");
 		return result;
 	}
 	
