@@ -82,13 +82,13 @@ public class CareerController extends HttpServlet implements CareerInterface,Dao
 	}
 	
 	private void addCareer(Career career) throws SQLException {
-		dbCareer.manipulationQueryCareer("INSERT INTO CXF11927.CAREER(IDCAREER,NAME) VALUES "
+		dbCareer.manipulationQueryCareer("INSERT INTO CAREERS(IDCAREER,NAME) VALUES "
 				+ "('"+career.getId()+"','"+career.getName()+"')");
 	}
 	
 	private ArrayList<Career> getAllCareer() throws SQLException {
 		ArrayList<Career> result = new ArrayList<Career>();
-		result = dbCareer.selectQueryCareer("SELECT * FROM CXF11927.CAREER");
+		result = dbCareer.selectQueryCareer("SELECT * FROM CAREERS");
 		return result;
 	}
 

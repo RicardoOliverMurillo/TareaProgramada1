@@ -17,7 +17,7 @@ public class Session {
 	
 	public boolean login(String username, String password, String role) throws SQLException {
 		DaoStudent db = new DaoStudent();
-		ArrayList<Student> result = db.selectQuery("SELECT * FROM CXF11927.STUDENT WHERE ID = '"+ username+"'");
+		ArrayList<Student> result = db.selectQuery("SELECT * FROM USERS WHERE IDUSER = '"+ username+"'");
 		System.out.println(result.size());
 		for(int i = 0; i < result.size(); i++) {
 			String tempPassword = result.get(i).getPassword();

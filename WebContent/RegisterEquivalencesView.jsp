@@ -2,13 +2,13 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="careerLogic.Plan"%>
-<%@ page import="careerLogic.Career" %>
-<%@ page import="dao.DaoCareer" %>
+<%@ page import="careerLogic.Course"%>
+<%@ page import="dao.DaoPlan" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Register Plan</title>
+<title>Register Equivalences</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -48,48 +48,52 @@
 			</ul>
 		</div>
 	</nav>
-	<%DaoCareer db = new DaoCareer(); %>
-	<%ArrayList<Career> careerList = db.selectQueryCareer("SELECT * FROM CAREERS");%>
-	<%ArrayList planList = (ArrayList) request.getAttribute("listPlans");%>
+	<%DaoPlan db = new DaoPlan(); %>
+	<%ArrayList<Plan> planList = db.selectQueryPlan("SELECT * FROM CXF11927.PLAN");%>
+	<%ArrayList courseList = (ArrayList) request.getAttribute("listCourses");%>
+	<%ArrayList equivalenceList = (ArrayList) request.getAttribute("listEquivalences");%>
 	<!--End of Navbar-->
 	<h4 class="text-center">Register Plan</h4>
 	<div class="col-md-6 mx-auto">
 		<div class="card">
 			<div class="card-body">
 				<form action="PlanController" method="POST">				
-					<div class="form-group">
-						<input type="text" name="idPlan" placeholder="ID"
-							class="form-control">
-					</div>
-					<select class="custom-select" name="idCareer">
-						<option selected>Choose a career...</option>
-						<% for (int i = 0; i < careerList.size(); i++) { %>
-							<option value=<%=careerList.get(i).getId()%>><%=careerList.get(i).getId()%></option>
+					<select class="custom-select" name="idPlan1">
+						<option selected>Plan 1</option>
+						<% for (int i = 0; i < planList.size(); i++) { %>
+							<option value=<%=planList.get(i).getId()%>><%=planList.get(i).getId()%></option>
 						<% } %>
 					</select>
-					<div>
-						<button name = "addPlan" type="submit" class="btn btn-success btn-block">Confirm</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<br>
-	<div class="col-md-6 mx-auto">
-		<div class="card">
-			<div class="card-body">
-				<form action="PlanController" method="POST">
-					<select class="custom-select" name="careerOption">
-						<option selected>Choose a career...</option>
-						<% for (int i = 0; i < careerList.size(); i++) { %>
-							<option value=<%=careerList.get(i).getId()%>><%=careerList.get(i).getId()%></option>
+					<select class="custom-select" name="idPlan2">
+						<option selected>Plan 2</option>
+						<% for (int i = 0; i < planList.size(); i++) { %>
+							<option value=<%=planList.get(i).getId()%>><%=planList.get(i).getId()%></option>
 						<% } %>
 					</select>
+					<button name = "choosePlans" type="submit" class="btn btn-success btn-block">Select</button>
+					<br>
+					<% if (courseList != null) { %>
 					<div>
-						<button name = "allPlans" type="submit" class="btn btn-outline-secondary btn-block">Show all plans</button>
+						<select class="custom-select" name="idPlan1">
+							<option selected>Course 1</option>
+							<% for (int i = 0; i < courseList.size(); i++) { %>
+								<option value=<%=courseList.get(i).getId()%>><%=courseList.get(i).getId()%></option>
+							<% } %>
+						</select>
+						<select class="custom-select" name="idPlan2">
+							<option selected>Course 2</option>
+							<% for (int i = 0; i < courseList.size(); i++) { %>
+								<option value=<%=courseList.get(i).getId()%>><%=courseList.get(i).getId()%></option>
+							<% } %>
+						</select>
+						<button name = "addEquivalence" type="submit" class="btn btn-success btn-block">Add Equivalence</button>
 					</div>
+					<% } %>
 					<br>
 					<% if (planList != null) { %>
+					<div>
+						<button name = "allEquivalences" type="submit" class="btn btn-outline-secondary btn-block">Show all equivalences</button>
+					</div>
 					<table class="table table-sm col-md-12 mx-auto">
 						<thead>
 							<tr>
@@ -97,10 +101,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% for (int i = 0; i < planList.size(); i++) { %>
-							<% Plan plan = (Plan) planList.get(i); %>
+							<% for (int i = 0; i < equivalenceList.size(); i++) { %>
+							<% Course equivalence = (Course) equivalenceList.get(i); %>
 								<tr>
-									<td><%= plan.getId() %></td>
+									<td><%= equivalence.getId() %></td>
 								</tr>
 							<% } %>
 						</tbody>

@@ -52,7 +52,7 @@ public class RegisterStudent extends HttpServlet {
 	
 	private void registerStudent(Student student) throws Exception {
 
-		db.manipulationQuery("INSERT INTO CXF11927.STUDENT(ID,NAME, LASTNAME, EMAIL, PASSWORD, ROLE) VALUES ('"+student.getId()+"','"+
+		db.manipulationQuery("INSERT INTO USERS(IDUSER,NAME, LASTNAME, EMAIL, PASSWORD, ROLE) VALUES ('"+student.getId()+"','"+
 				student.getName()+"','"+student.getLastName()+"','"+student.getEmail()+"','"+student.getPassword()+"','"+student.getRole()+"')");
 	}
 
