@@ -126,7 +126,7 @@ public class InformationController extends HttpServlet {
 	
 	private void insertInformation(RelevantInfo info) throws SQLException {
 		db.manipulationQuery("INSERT INTO CXF11927.INFORMATION(TYPE,DESCRIPTION, CAREER) VALUES "
-			+ "('"+info.getType()+"','"+info.getDescription()+"','"+info.getCareer()+"')");
+			+ "('"+info.getType()+"','"+info.getDescription()+/*"','"+info.getCareer()+*/"')");
 	}
 	
 	private String getInformation(String type, String career) throws SQLException {
@@ -141,6 +141,9 @@ public class InformationController extends HttpServlet {
 				+ "CAREER = '"+info.getCareer()+"' WHERE "
 				+ "TYPE = '"+info.getType()+"' AND "
 				+ "CAREER = '"+info.getCareer()+"'");
+		/*db.manipulationQuery("UPDATE CXF11927.INFORMATION SET TYPE = '"+info.getType()+"', "
+				+ "DESCRIPTION = '"+info.getDescription()+"' WHERE "
+				+ "TYPE = '"+info.getType()+"'");*/
 	}
 	
 	private ArrayList<RelevantInfo> getInformation(String career) throws SQLException{
