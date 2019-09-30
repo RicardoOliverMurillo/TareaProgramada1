@@ -8,23 +8,30 @@ public class Course {
 	private int sumCredits;
 	private int semester;
 	private String knowledgeArea;
-	private String type;
-	//private Plan plan;
-	private ArrayList<Course> corequisites;
-	private ArrayList<Course> requisites;
+	private Plan plan;
+	private ArrayList<String> corequisites;
+	private ArrayList<String> requisites;
 	private ArrayList<Course> equivalences;
 	
-	public Course (String id, String name, int sumCredits, int semester, String knowledgeArea, String type) {
+	public Course (String id, String name, int sumCredits, int semester, String knowledgeArea, Plan plan) {
 		this.id = id;
 		this.name = name;
 		this.sumCredits = sumCredits;
 		this.semester = semester;
 		this.knowledgeArea = knowledgeArea;
-		this.type = type;
-		//insert plan line here
-		this.corequisites = new ArrayList<Course>();
-		this.requisites = new ArrayList<Course>();
+		this.plan = plan;
+		this.corequisites = new ArrayList<String>();
+		this.requisites = new ArrayList<String>();
 		this.equivalences = new ArrayList<Course>();
+	}
+	
+	public boolean isAprove(ArrayList<String> courses, String id) {
+		for(int i = 0; i < courses.size(); i++) {
+			if(id.equals(courses.get(i))) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public Course() {
@@ -71,19 +78,11 @@ public class Course {
 		this.knowledgeArea = knowledgeArea;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public ArrayList<Course> getCorequisites() {
+	public ArrayList<String> getCorequisites() {
 		return corequisites;
 	}
 
-	public ArrayList<Course> getRequisites() {
+	public ArrayList<String> getRequisites() {
 		return requisites;
 	}
 
@@ -95,12 +94,20 @@ public class Course {
 		this.equivalences.add(course);
 	}
 	
-	public void addRequisites(Course course) {
+	public void addRequisites(String course) {
 		this.requisites.add(course);
 	}
 	
-	public void addCorequisites(Course course) {
+	public void addCorequisites(String course) {
 		this.corequisites.add(course);
+	}
+
+	public Plan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
 	}
 	
 }

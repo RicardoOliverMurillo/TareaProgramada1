@@ -47,6 +47,8 @@
 	<%ArrayList<Career> careerList = db.selectQueryCareer("SELECT * FROM CXF11927.CAREER");%>
 	<br>
 	<% String type = (String)request.getAttribute("type"); %>
+	<% DaoCareer db = new DaoCareer(); %>
+	<% ArrayList<Career> careers = (ArrayList<Career>) db.selectQueryCareer("SELECT * FROM CAREERS"); %>
 	<h4 class="text-center">Add career information</h4>
 	<div class="col-md-8 mx-auto">
 		<div class="card">
@@ -54,9 +56,9 @@
 				<form action="InformationController" method="GET">
 					<select class="custom-select" id="groupOptions1" name="career">
 						<option selected>Choose a career...</option>
-						<% for (int i = 0; i < careerList.size(); i++) { %>
-							<option value=<%=careerList.get(i).getId()%>><%=careerList.get(i).getId()%></option>
-						<% } %>
+						<%for(int i = 0; i < careers.size(); i++){ %>
+							<option value=<%=careers.get(i).getId() %>><%=careers.get(i).getName() %></option>
+						<%} %>
 					</select>
 					<input type="text" class="form-control" name = "type" value = <%=type%>>
 					<div class="form-group">

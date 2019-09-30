@@ -26,9 +26,9 @@ public class DaoRelevantInfo {
         rs = stmt.executeQuery(query);
         while (rs.next()) {
         	RelevantInfo newInfo = new RelevantInfo();
-        	newInfo.setType(rs.getString(1));
-        	newInfo.setDescription(rs.getString(2));
-        	newInfo.setCareer(rs.getString(3));
+        	newInfo.setType(rs.getString(2));
+        	newInfo.setDescription(rs.getString(3));
+        	newInfo.setCareer(rs.getString(4));
         	result.add(newInfo);
         }
         rs.close();
@@ -50,7 +50,7 @@ public class DaoRelevantInfo {
         stmt = conn.createStatement();                                           
         rs = stmt.executeQuery(query);
         while (rs.next()) {
-        	text = rs.getString(2);
+        	text = rs.getString(1);
         }
         rs.close();
         stmt.close();

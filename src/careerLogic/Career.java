@@ -8,19 +8,25 @@ public class Career {
 	private ArrayList<RelevantInfo> infos;
 	private ArrayList<Plan> plans;
 	
-	public Career() {
-	}
-	
-
-	public Career(String pId, String pName){
-		this.id = pId;
-		this.name = pName;
+	public Career(String pId) {
+		this.setId(pId);
 		this.infos = new ArrayList<RelevantInfo>();
 		this.plans = new ArrayList<Plan>();
 	}
 	
+
+	public Career(String pId, String pName){
+		this(pId);
+		this.name = pName;
+	}
+	
+	public Career() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public void addInfo(String pType, String pDescription) {
-		RelevantInfo info = new RelevantInfo(pType,pDescription,this.id);
+		RelevantInfo info = new RelevantInfo(pType,pDescription);
 		infos.add(info);
 	}
 	
@@ -41,20 +47,19 @@ public class Career {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public ArrayList<RelevantInfo> getInfos(){
+		return infos;
+	}
 
 
-	/**
-	 * @return the id
-	 */
 	public String getId() {
 		return id;
 	}
 
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 }
+

@@ -14,14 +14,14 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.ibm.db2.jcc</groupId>
-			<artifactId>db2jcc</artifactId>
-			<version>db2jcc4</version>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>7.0.0.jre8</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ibm.watson.developer_cloud</groupId>
-			<artifactId>java-sdk</artifactId>
-			<version>6.13.2</version>
+			<groupId>com.ibm.watson</groupId>
+			<artifactId>ibm-watson</artifactId>
+			<version>7.4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
@@ -35,8 +35,8 @@
 		</dependency>
 	</dependencies>
 	<properties>
-	    <maven.compiler.source>1.8</maven.compiler.source>
-	    <maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>

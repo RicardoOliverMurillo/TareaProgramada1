@@ -46,5 +46,8 @@ public class Session {
         byte[] decode = Base64.getDecoder().decode(pPassword.getBytes());
         return new String(decode, "utf-8");
     }
-
+	
+	public static String encrypt(String pPassword) throws UnsupportedEncodingException{
+        return Base64.getEncoder().encodeToString(pPassword.getBytes("utf-8"));
+    }
 }

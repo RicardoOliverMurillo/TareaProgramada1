@@ -8,20 +8,18 @@ public class Plan {
 	private ArrayList<String> knowledgeAreaDesciption;
 	private ArrayList<Course> courses;
 	
-	public Plan() {
+	public Plan(String pId) {
+		id = pId;
 		knowledgeAreaDesciption = new ArrayList<String>();
 		courses = new ArrayList<Course>();
 	}
-
 	public Plan(String pId, Career pCareer) {
-		this.id = pId;
-		this.career = pCareer;
-		this.knowledgeAreaDesciption = new ArrayList<String>();
-		this.courses = new ArrayList<Course>();
+		this(pId);
+		career = pCareer;
 	}
 	
 	public void addCourse(Course course) {
-		this.courses.add(course);
+		courses.add(course);
 	}
 	
 	public void generateNetView() {
@@ -29,7 +27,7 @@ public class Plan {
 	}
 	
 	public void addKnowledgeArea(String description) {
-		this.knowledgeAreaDesciption.add(description);
+		knowledgeAreaDesciption.add(description);
 	}
 	
 	/**

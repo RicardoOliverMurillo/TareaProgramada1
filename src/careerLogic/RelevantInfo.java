@@ -5,10 +5,9 @@ public class RelevantInfo {
 	private String description;
 	private String career;
 	
-	public RelevantInfo(String pType, String pDescription, String pCareer) {
+	public RelevantInfo(String pType, String pDescription) {
 		type = pType;
 		description = pDescription;
-		career = pCareer;
 	}
 	
 	public RelevantInfo() {

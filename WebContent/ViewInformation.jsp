@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="careerLogic.RelevantInfo" %>
+<%@ page import="careerLogic.RelevantInfo" %>
 <%@ page import="careerLogic.Career" %>
 <%@ page import="dao.DaoCareer" %>
 <%@page import="java.util.ArrayList"%>
@@ -27,10 +27,7 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">2050
-						Plan</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">2051
-						Plan</a></li>
+				<li class="nav-item active"><a class="nav-link" href="StudentView.jsp">Study plans</a></li>
 				<li class="nav-item active"><a class="nav-link" href="#">Reports</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="AddComment.jsp">Comment</a></li>
@@ -48,17 +45,17 @@
 	<%
 		ArrayList result = (ArrayList) request.getAttribute("result");
 	%>
-	<%DaoCareer db = new DaoCareer(); %>
-	<%ArrayList<Career> careerList = db.selectQueryCareer("SELECT * FROM CXF11927.CAREER");%>
+	<% DaoCareer db = new DaoCareer(); %>
+	<% ArrayList<Career> careers = (ArrayList<Career>) db.selectQueryCareer("SELECT * FROM CAREERS"); %>
 	<div class="col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">
 				<form action="InformationController" method="GET">
 					<select class="custom-select" id="groupOptions1" name="career">
 						<option selected>Choose a career...</option>
-						<% for (int i = 0; i < careerList.size(); i++) { %>
-							<option value=<%=careerList.get(i).getId()%>><%=careerList.get(i).getId()%></option>
-						<% } %>
+						<%for(int i = 0; i < careers.size(); i++){ %>
+							<option value=<%=careers.get(i).getId() %>><%=careers.get(i).getName() %></option>
+						<%} %>
 					</select>
 					<div>
 						<button name="searchInfo" type="submit"

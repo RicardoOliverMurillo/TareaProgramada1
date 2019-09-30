@@ -40,6 +40,6 @@ public class DaoCareer {
         stmt.executeUpdate(query);                   
         stmt.close();
         conn.commit();
-        System.out.println ("Transacción confirmada" );
+        System.out.println ("TransacciÃ³n confirmada" );
     }
 }

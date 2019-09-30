@@ -7,7 +7,7 @@ public class Student {
 	private String lastName;
 	private String email;
 	private String password;
-	private String role = "student";
+	private String role = "Student";
 	
 	public Student(String id, String name, String lastName, String email, String password) {
 		this.id = id;
