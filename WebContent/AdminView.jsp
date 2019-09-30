@@ -24,7 +24,10 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterCareerView.jsp">Career Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterPlanView.jsp">Plan Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterCourse.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"

@@ -3,7 +3,7 @@
 <%@ page import="careerLogic.RelevantInfo" %>
 <%@ page import="careerLogic.Career" %>
 <%@ page import="dao.DaoCareer" %>
-<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -59,3 +59,4 @@ public class RegisterStudent extends HttpServlet {
 		Db2Connection.getInstance();
 	}
 }
+

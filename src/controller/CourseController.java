@@ -179,7 +179,4 @@ public class CourseController extends HttpServlet {
 		data.clear();
 		return result;
 	}
-	
-	
-
 }
