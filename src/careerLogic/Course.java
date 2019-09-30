@@ -8,18 +8,18 @@ public class Course {
 	private int sumCredits;
 	private int semester;
 	private String knowledgeArea;
-	//private Plan plan;
+	private Plan plan;
 	private ArrayList<String> corequisites;
 	private ArrayList<String> requisites;
 	private ArrayList<Course> equivalences;
 	
-	public Course (String id, String name, int sumCredits, int semester, String knowledgeArea) {
+	public Course (String id, String name, int sumCredits, int semester, String knowledgeArea, Plan plan) {
 		this.id = id;
 		this.name = name;
 		this.sumCredits = sumCredits;
 		this.semester = semester;
 		this.knowledgeArea = knowledgeArea;
-		//insert plan line here
+		this.plan = plan;
 		this.corequisites = new ArrayList<String>();
 		this.requisites = new ArrayList<String>();
 		this.equivalences = new ArrayList<Course>();
@@ -100,6 +100,14 @@ public class Course {
 	
 	public void addCorequisites(String course) {
 		this.corequisites.add(course);
+	}
+
+	public Plan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
 	}
 	
 }

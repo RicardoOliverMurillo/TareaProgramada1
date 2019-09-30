@@ -9,12 +9,16 @@ public class Db2Connection {
 	
 	private static Connection conn;
 	private static Db2Connection db2Connection;
-	private static String jdbcClassName="com.ibm.db2.jcc.DB2Driver";
 	
 	private Db2Connection() {
 		try {
-            openConnection("jdbc:db2://dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net:50000/BLUDB",
-    	    		"cxf11927", "7qmf2j3x@b116dkr");
+			 String hostName = "server1pyr.database.windows.net";
+		     String dbName = "PYR1";
+		     String user = "adminpyr@server1pyr";
+		     String password = "Ati123456.";
+		     String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;"
+		            + "hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
+			openConnection(url);
         } catch (Exception e) {
             System.out.println("Error connecting");
         }
@@ -31,11 +35,10 @@ public class Db2Connection {
         return db2Connection;
     }  
     
-    private static void openConnection(String url, String user, String password) {
+    private static void openConnection(String url) {
         try {
-        	Class.forName(jdbcClassName);
-            conn = DriverManager.getConnection(url, user, password);
-            conn.setAutoCommit(false);
+        	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        	conn = DriverManager.getConnection(url);
             System.out.println("conexion abierta");
         } catch (Exception e) {
             System.out.println("Exception opening connection: " + e);

@@ -96,7 +96,7 @@ public class DaoCourse {
     	return list;
 	}
 	
-	public ArrayList<String> getDependentCourses(String query) throws SQLException{
+	public ArrayList<String> getId(String query) throws SQLException{
 		stmt = conn.createStatement();                                           
 		ArrayList<String> list = new ArrayList<String>();
 		rs = stmt.executeQuery(query);

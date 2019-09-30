@@ -34,7 +34,8 @@
 		</div>
 	</nav>
 	<%DaoCourse db = new DaoCourse(); %>
-	<%ArrayList<Course> data = db.selectQuery("SELECT * FROM CXF11927.COURSE"); %>
+	<%ArrayList<Course> data = db.selectQuery("SELECT * FROM COURSES");%>
+	<%ArrayList<String> planId = db.getId("SELECT IDPLAN FROM PLANS");%>
 	<!--End of Navbar-->
 	<br><br>
 	<div class="row">
@@ -43,6 +44,15 @@
 			<div class="card">
 				<div class="card-body">
 					<form action="CourseController" method="POST">
+						<div>
+							<select class="custom-select" name="plan">
+								<option selected>Choose a plan...</option>
+								<%for(int i = 0; i < planId.size(); i++) {%>
+									<option value=<%=planId.get(i) %>><%=planId.get(i) %></option>
+								<%}%>
+							</select>
+						</div>
+						<br>
 						<div class="form-group">
 							<input type="text" name="id" placeholder="ID"
 								class="form-control">

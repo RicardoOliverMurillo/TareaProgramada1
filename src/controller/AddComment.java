@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DaoComment;
+import servicios.SentimentAnalyzer;
 import userLogic.Comment;
 import userLogic.Session;
 
@@ -23,6 +24,7 @@ import userLogic.Session;
 public class AddComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DaoComment db = new DaoComment();
+	SentimentAnalyzer analyzer = new SentimentAnalyzer();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -70,7 +72,8 @@ public class AddComment extends HttpServlet {
 		else if (request.getParameter("add") != null) {
 			String text = request.getParameter("comment");
 			Comment newComment = new Comment(text);
-			ArrayList<Comment> result = newComment.analyzeComment(newComment);
+			System.out.println(newComment.toString());
+			ArrayList<Comment> result = analyzer.analyzeComment(newComment);
 			try {
 				addComment(result);
 			} catch (SQLException e) {
@@ -83,21 +86,21 @@ public class AddComment extends HttpServlet {
 	private void addComment(ArrayList<Comment> result) throws SQLException {
 		for(int i = 0; i < result.size(); i++) {
 			Comment comment = result.get(i);
-			db.manipulationQuery("INSERT INTO CXF11927.COMMENT(IDCOMMENT,IDOWNER, DESCRIPTION, TONENAME, SCORE) VALUES "
-					+ "('"+comment.getId()+"','"+Session.getUser()+"','"+comment.getDescription()+"','"+comment.getToneName()
+			db.manipulationQuery("INSERT INTO COMMENTS (IDOWNER, DESCRIPTION, TONENAME, SCORE) VALUES "
+					+ "('"+Session.getUser()+"','"+comment.getDescription()+"','"+comment.getToneName()
 					+ "',"+comment.getScore()+")");
 		}
 	}
 	
 	private ArrayList<Comment> getComment(String option) throws SQLException {
 		ArrayList<Comment> result = new ArrayList<Comment>();
-		result = db.selectQuery("SELECT * FROM CXF11927.COMMENT WHERE TONENAME = '"+option+"'");
+		result = db.selectQuery("SELECT * FROM COMMENTS WHERE TONENAME = '"+option+"'");
 		return result;
 	}
 	
 	private ArrayList<Comment> getCommentStudent(String id) throws SQLException {
 		ArrayList<Comment> result = new ArrayList<Comment>();
-		result = db.selectQuery("SELECT * FROM CXF11927.COMMENT WHERE IDOWNER = '"+id+"'");
+		result = db.selectQuery("SELECT * FROM COMMENTS WHERE IDOWNER = '"+id+"'");
 		return result;
 	}
 	

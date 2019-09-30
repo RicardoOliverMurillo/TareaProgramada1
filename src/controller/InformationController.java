@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import careerLogic.Career;
 import careerLogic.RelevantInfo;
 import dao.DaoRelevantInfo;
 
@@ -36,13 +37,13 @@ public class InformationController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getParameter("add") != null) {
+			Career career = new Career(request.getParameter("career"));
 			String type = request.getParameter("type");
 			String information = request.getParameter("information");
-			String career = request.getParameter("career");
-			RelevantInfo info = new RelevantInfo(type, information,career);
+			career.addInfo(type, information);
 			
 			try {
-				insertInformation(info);
+				insertInformation(career);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -64,13 +65,13 @@ public class InformationController extends HttpServlet {
 			rd.forward(request, response);
 		}
 		else if(request.getParameter("update") != null){
+			Career career = new Career(request.getParameter("career"));
 			String type = request.getParameter("type");
 			String information = request.getParameter("information");
-			String career = request.getParameter("career");
-			RelevantInfo info = new RelevantInfo(type, information,career);
+			career.addInfo(type, information);
 			
 			try {
-				updateInformation(info);
+				updateInformation(career);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -124,28 +125,34 @@ public class InformationController extends HttpServlet {
 		}
 	}
 	
-	private void insertInformation(RelevantInfo info) throws SQLException {
-		db.manipulationQuery("INSERT INTO CXF11927.INFORMATION(TYPE,DESCRIPTION, CAREER) VALUES "
-			+ "('"+info.getType()+"','"+info.getDescription()+"','"+info.getCareer()+"')");
+	private void insertInformation(Career info) throws SQLException {
+		ArrayList<RelevantInfo> data = info.getInfos(); 
+		for(int i = 0; i < data.size(); i++) {
+			db.manipulationQuery("INSERT INTO INFORMATIONS(TYPE,DESCRIPTION,IDCAREER) VALUES "
+					+ "('"+data.get(i).getType()+"','"+data.get(i).getDescription()+"','"+info.getId()+"')");
+		}
 	}
 	
 	private String getInformation(String type, String career) throws SQLException {
-		String text = db.getInformation("SELECT * FROM CXF11927.INFORMATION WHERE TYPE = '"+type+
-				"' AND CAREER = '"+ career+"'");
+		String text = db.getInformation("SELECT DESCRIPTION FROM INFORMATIONS WHERE TYPE = '"+type+
+				"' AND IDCAREER = '"+ career+"'");
 		return text;
 	}
 	
-	private void updateInformation(RelevantInfo info) throws SQLException {
-		db.manipulationQuery("UPDATE CXF11927.INFORMATION SET TYPE = '"+info.getType()+"', "
-				+ "DESCRIPTION = '"+info.getDescription()+"', "
-				+ "CAREER = '"+info.getCareer()+"' WHERE "
-				+ "TYPE = '"+info.getType()+"' AND "
-				+ "CAREER = '"+info.getCareer()+"'");
+	private void updateInformation(Career info) throws SQLException {
+		ArrayList<RelevantInfo> data = info.getInfos(); 
+		for(int i = 0; i < data.size(); i++) {
+			db.manipulationQuery("UPDATE INFORMATIONS SET TYPE = '"+data.get(i).getType()+"', "
+				+ "DESCRIPTION = '"+data.get(i).getDescription()+"', "
+				+ "IDCAREER = '"+info.getId()+"' WHERE "
+				+ "TYPE = '"+data.get(i).getType()+"' AND "
+				+ "IDCAREER = '"+info.getId()+"'");
+		}
 	}
 	
 	private ArrayList<RelevantInfo> getInformation(String career) throws SQLException{
 		ArrayList<RelevantInfo> result = new ArrayList<RelevantInfo>();
-		result = db.selectQuery("SELECT * FROM CXF11927.INFORMATION WHERE CAREER = '"+ career+"'");
+		result = db.selectQuery("SELECT * FROM INFORMATIONS WHERE IDCAREER = '"+ career+"'");
 		return result;
 	}
 }

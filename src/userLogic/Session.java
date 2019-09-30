@@ -17,7 +17,7 @@ public class Session {
 	
 	public boolean login(String username, String password, String role) throws SQLException {
 		DaoStudent db = new DaoStudent();
-		ArrayList<Student> result = db.selectQuery("SELECT * FROM CXF11927.STUDENT WHERE ID = '"+ username+"'");
+		ArrayList<Student> result = db.selectQuery("SELECT * FROM USERS WHERE IDUSER = '"+ username+"'");
 		System.out.println(result.size());
 		for(int i = 0; i < result.size(); i++) {
 			String tempPassword = result.get(i).getPassword();
@@ -46,5 +46,8 @@ public class Session {
         byte[] decode = Base64.getDecoder().decode(pPassword.getBytes());
         return new String(decode, "utf-8");
     }
-
+	
+	public static String encrypt(String pPassword) throws UnsupportedEncodingException{
+        return Base64.getEncoder().encodeToString(pPassword.getBytes("utf-8"));
+    }
 }

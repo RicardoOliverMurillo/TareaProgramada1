@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DaoStudent;
+import dao.Db2Connection;
+import userLogic.Session;
 import userLogic.Student;
 
 /**
@@ -37,7 +39,7 @@ public class RegisterStudent extends HttpServlet {
 		String name = request.getParameter("name");
 		String lastName = request.getParameter("lastName");
 		String email = request.getParameter("email");
-		String password = encrypt(request.getParameter("password"));
+		String password = Session.encrypt(request.getParameter("password"));
 		
 		Student newStudent = new Student(id, name, lastName, email, password);
 		try {
@@ -52,11 +54,8 @@ public class RegisterStudent extends HttpServlet {
 	
 	private void registerStudent(Student student) throws Exception {
 
-		db.manipulationQuery("INSERT INTO CXF11927.STUDENT(ID,NAME, LASTNAME, EMAIL, PASSWORD, ROLE) VALUES ('"+student.getId()+"','"+
+		db.manipulationQuery("INSERT INTO USERS (IDUSER, NAME, LASTNAME, EMAIL, PASSWORD, ROLE) VALUES ('"+student.getId()+"','"+
 				student.getName()+"','"+student.getLastName()+"','"+student.getEmail()+"','"+student.getPassword()+"','"+student.getRole()+"')");
+		Db2Connection.getInstance();
 	}
-
-	private static String encrypt(String pPassword) throws UnsupportedEncodingException{
-        return Base64.getEncoder().encodeToString(pPassword.getBytes("utf-8"));
-    }
 }

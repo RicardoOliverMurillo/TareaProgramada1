@@ -91,7 +91,7 @@
 					</ul>
 				</div>
 				<br>
-				<form action="CourseController" method="POST">
+				<form action="ApprovedCoursesController" method="POST">
 					<select class="custom-select" name="state">
 						<option selected>Did you pass the course?</option>
 						<option value="yes">Yes</option>
