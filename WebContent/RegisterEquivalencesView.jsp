@@ -49,68 +49,62 @@
 		</div>
 	</nav>
 	<%DaoPlan db = new DaoPlan(); %>
-	<%ArrayList<Plan> planList = db.selectQueryPlan("SELECT * FROM CXF11927.PLAN");%>
-	<%ArrayList courseList = (ArrayList) request.getAttribute("listCourses");%>
-	<%ArrayList equivalenceList = (ArrayList) request.getAttribute("listEquivalences");%>
+	<%ArrayList<Plan> planList = db.selectQueryPlan("SELECT * FROM PLANS");%>
+	<%ArrayList courseList1 = (ArrayList) request.getAttribute("list1Courses");%>
+	<%ArrayList courseList2 = (ArrayList) request.getAttribute("list2Courses");%>
 	<!--End of Navbar-->
 	<h4 class="text-center">Register Plan</h4>
 	<div class="col-md-6 mx-auto">
 		<div class="card">
 			<div class="card-body">
-				<form action="PlanController" method="POST">				
+				<form action="EquivalencesController" method="POST">				
 					<select class="custom-select" name="idPlan1">
 						<option selected>Plan 1</option>
 						<% for (int i = 0; i < planList.size(); i++) { %>
 							<option value=<%=planList.get(i).getId()%>><%=planList.get(i).getId()%></option>
 						<% } %>
 					</select>
-					<select class="custom-select" name="idPlan2">
-						<option selected>Plan 2</option>
-						<% for (int i = 0; i < planList.size(); i++) { %>
-							<option value=<%=planList.get(i).getId()%>><%=planList.get(i).getId()%></option>
-						<% } %>
-					</select>
-					<button name = "choosePlans" type="submit" class="btn btn-success btn-block">Select</button>
+					<button name = "choosePlan1" type="submit" class="btn btn-success btn-block">Select Plan 1</button>
 					<br>
-					<% if (courseList != null) { %>
 					<div>
-						<select class="custom-select" name="idPlan1">
+						<select class="custom-select" name="idCourse1">
 							<option selected>Course 1</option>
-							<% for (int i = 0; i < courseList.size(); i++) { %>
-								<option value=<%=courseList.get(i).getId()%>><%=courseList.get(i).getId()%></option>
+							<% if (courseList1 != null) { %>
+							<% System.out.println("courseList1.size() "+ courseList1.size()); %>
+							<% for (int i = 0; i < courseList1.size(); i++) { %>
+								<% Course course1 = (Course) courseList1.get(i); %>
+								<% System.out.println("course1.getId() "+ course1.getId()); %>
+								<option value=<%=course1.getId()%>><%=course1.getId()%></option>
+							<% } %>
 							<% } %>
 						</select>
-						<select class="custom-select" name="idPlan2">
-							<option selected>Course 2</option>
-							<% for (int i = 0; i < courseList.size(); i++) { %>
-								<option value=<%=courseList.get(i).getId()%>><%=courseList.get(i).getId()%></option>
-							<% } %>
-						</select>
-						<button name = "addEquivalence" type="submit" class="btn btn-success btn-block">Add Equivalence</button>
+						<button name = "chooseCourse1" type="submit" class="btn btn-success btn-block">Select Course 1</button>
 					</div>
-					<% } %>
 					<br>
-					<% if (planList != null) { %>
 					<div>
-						<button name = "allEquivalences" type="submit" class="btn btn-outline-secondary btn-block">Show all equivalences</button>
-					</div>
-					<table class="table table-sm col-md-12 mx-auto">
-						<thead>
-							<tr>
-								<th scope="col">PLAN</th>
-							</tr>
-						</thead>
-						<tbody>
-							<% for (int i = 0; i < equivalenceList.size(); i++) { %>
-							<% Course equivalence = (Course) equivalenceList.get(i); %>
-								<tr>
-									<td><%= equivalence.getId() %></td>
-								</tr>
+						<select class="custom-select" name="idPlan2">
+							<option selected>Plan 2</option>
+							<% for (int i = 0; i < planList.size(); i++) { %>
+								<option value=<%=planList.get(i).getId()%>><%=planList.get(i).getId()%></option>
 							<% } %>
-						</tbody>
-					</table>
-					<% } %>
-				</form>
+						</select>
+						<button name = "choosePlan2" type="submit" class="btn btn-success btn-block">Select Plan 2</button>
+					</div>	
+					<br>
+					<div>
+						<select class="custom-select" name="idCourse2">
+							<option selected>Course 2</option>
+							<% if (courseList2 != null) { %>
+							<% for (int i = 0; i < courseList2.size(); i++) { %>
+								<% Course course2 = (Course) courseList2.get(i); %>
+								<option value=<%=course2.getId()%>><%=course2.getId()%></option>
+							<% } %>
+							<% } %>
+						</select>
+						<button name = "chooseCourse2" type="submit" class="btn btn-success btn-block">Select Course 2</button>
+					</div>
+					<br>
+					<button name = "addEquivalence" type="submit" class="btn btn-success btn-block">Add Equivalence</button>
 			</div>
 		</div>
 	</div>

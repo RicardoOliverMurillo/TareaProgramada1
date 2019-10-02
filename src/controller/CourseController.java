@@ -61,8 +61,8 @@ public class CourseController extends HttpServlet {
 	
 	private void registerCourse(Course course) throws Exception {
 		System.out.println("ejecutando query");
-		db.manipulationQuery("INSERT INTO COURSES(ID,NAME, SUMCREDITS, SEMESTER, KNOWLEDGEAREA, TYPE) VALUES ('"+course.getId()+"','"+
-				course.getName()+"','"+course.getSumCredits()+"','"+course.getSemester()+"','"+course.getKnowledgeArea()+"','"+course.getType()+"')");
+		db.manipulationQuery("INSERT INTO COURSES(IDCOURSE,NAME, SUMCREDITS, SEMESTER, KNOWLEDGEAREA, IDPLAN) VALUES ('"+course.getId()+"','"+
+				course.getName()+"','"+course.getSumCredits()+"','"+course.getSemester()+"','"+course.getKnowledgeArea()+"','"+course.getIdPlan()+"')");
 	}
 
 }
