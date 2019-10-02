@@ -39,32 +39,39 @@
 	</nav>
 	<!--End of Navbar-->
 	<br>
-	<h4 class="text-center">Career study plans</h4>
 	<br>
-	<div class="row">
-		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<form action="CourseController" method="GET">
-						<h5 class="card-title">Plan 2050</h5>
-						<div>
-							<button name="2050" type="submit"
-								class="btn btn-outline-info btn-block">view</button>
+	<div class="col-md-10 mx-auto">
+		<div class="card">
+			<div class="card-body">
+			<h4 class="text-center">Career study plans</h4>
+			<br>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<form action="CourseController" method="GET">
+									<h5 class="card-title">Plan 2050</h5>
+									<div>
+										<button name="2050" type="submit"
+											class="btn btn-outline-info btn-block">view</button>
+									</div>
+								</form>
+							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<form action="CourseController" method="GET">
-						<h5 class="card-title">Plan 2051</h5>
-						<div>
-							<button name="2051" type="submit"
-								class="btn btn-outline-info btn-block">view</button>
+					</div>
+					<div class="col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<form action="CourseController" method="GET">
+									<h5 class="card-title">Plan 2051</h5>
+									<div>
+										<button name="2051" type="submit"
+											class="btn btn-outline-info btn-block">view</button>
+									</div>
+								</form>
+							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>

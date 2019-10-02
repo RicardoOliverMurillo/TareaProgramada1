@@ -46,6 +46,7 @@ public class CourseController extends HttpServlet {
 				request.setAttribute("pass", getPassCourses(Session.getUser()));
 				request.setAttribute("passCredits", getPassCredits(getPassCourses(Session.getUser()),plan));
 				request.setAttribute("totalCredits", getTotalCredits());
+				request.setAttribute("planId", plan);
 				RequestDispatcher rd = request.getRequestDispatcher("PlanView.jsp");
 				rd.forward(request, response);
 				matriz = null;
@@ -92,7 +93,8 @@ public class CourseController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else {
+			
+		} else {
 			String id = request.getParameter("id");
 			String name = request.getParameter("name");
 			int sumCredits = Integer.parseInt(request.getParameter("sumCredits"));

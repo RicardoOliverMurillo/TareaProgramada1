@@ -21,11 +21,7 @@ public class DaoCourse {
 	
 	public ArrayList<Course> selectQuery(String query) throws SQLException{		
         stmt = conn.createStatement();                                           
-        System.out.println(" Creado el objeto Statement de JDBC");
-        // Ejecutar una consulta y generar instancia del conjunto de resultados
         rs = stmt.executeQuery(query);
-        System.out.println(" Creado el objeto JDBC ResultSet");
-        // Imprimir todos los números de empleado en el dispositivo de salida estándar
         while (rs.next()) {
         	Course newCourse = new Course();
         	newCourse.setId(rs.getString(1));
@@ -33,21 +29,11 @@ public class DaoCourse {
         	newCourse.setSumCredits(Integer.parseInt(rs.getString(3)));
         	newCourse.setSemester((Integer.parseInt(rs.getString(4))));
         	newCourse.setKnowledgeArea(rs.getString(5));
-        	System.out.println("Name-->" + newCourse.getName());
         	result.add(newCourse);
         }
-        System.out.println(" Buscadas todas las filas del conjunto resultados JDBC");
-        // Cerrar el conjunto de resultados
         rs.close();
-        System.out.println(" Cerrado el conjunto de resultados de JDBC");
-        
-        // Cerrar el objeto Statement
         stmt.close();
-        System.out.println(" Cerrado el objeto Statement de JDBC");
-
-        // La conexión debe estar en un límite de unidad trabajo para permitir cierre
         conn.commit();
-        System.out.println ( " Transacción confirmada" );
         return result;
     }
 

@@ -23,12 +23,18 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
+					href="RegisterCareerView.jsp">Career Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterPlanView.jsp">Plan Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterCourse.jsp">Course Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
-				<li class="nav-item active"><a class="nav-link" href="RelevantInformation.jsp">Information</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="RelevantInformation.jsp">Information</a></li>
 			</ul>
 			<ul class="navbar-nav ml-auto"> 
 				<li class="nav-item active"><a class="nav-link" href="loginView.jsp">sign out</a></li>
@@ -45,7 +51,7 @@
 				<p class="text-primary">The comment has a score of 0.5</p>
 				<p class="text-success">The comment has a score greater than 0.5
 					and less than 0.75</p>
-				<p class="text-danger">The comment has a score greater than 0.75</p>
+				<p class="text-warning">The comment has a score greater than 0.75</p>
 				<form action="AddComment" method="GET">
 					<select class="custom-select" id="groupOptions1" name="option">
 						<option selected>Choose an emotion...</option>
@@ -98,7 +104,7 @@
 								</tr>
 							<% } %>
 							<% if(score > 0.75){ %>
-								<tr  class="table-danger">
+								<tr  class="table-warning">
 								<td><%= comment.getToneName() %></td>
 								<td><%= comment.getScore() %></td>
 								<td><%= comment.getDescription() %></td>

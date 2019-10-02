@@ -50,6 +50,7 @@
 	<div class="col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">
+			<h4 align="center">View career information</h4>
 				<form action="InformationController" method="GET">
 					<select class="custom-select" id="groupOptions1" name="career">
 						<option selected>Choose a career...</option>

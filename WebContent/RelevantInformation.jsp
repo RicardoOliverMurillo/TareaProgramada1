@@ -21,10 +21,14 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterCareerView.jsp">Career Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterPlanView.jsp">Plan Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="RegisterCourse.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
 				<li class="nav-item active"><a class="nav-link"
@@ -37,59 +41,66 @@
 		</div>
 	</nav>
 	<br>
-	<h4 class="text-center">Relevant information</h4>
-	<div class="row">
-		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<form action="InformationController" method="POST">
-						<h5 class="card-title">Employment Area</h5>
-						<div>
-							<button name="addEA" type="submit"
-								class="btn btn-outline-info btn-block">Add info</button>
+	<div class="col-md-12 mx-auto">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="text-center">Relevant information</h4>
+				<br>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="card">
+							<div class="card-body">
+								<form action="InformationController" method="POST">
+									<h5 class="card-title">Employment Area</h5>
+									<div>
+										<button name="addEA" type="submit"
+											class="btn btn-outline-info btn-block">Add info</button>
+									</div>
+									<br>
+									<div>
+										<button name="updateEA" type="submit"
+											class="btn btn-outline-info btn-block">Update</button>
+									</div>
+								</form>
+							</div>
 						</div>
-						<br>
-						<div>
-							<button name="updateEA" type="submit"
-								class="btn btn-outline-info btn-block">Update</button>
+					</div>
+					<div class="col-sm-4">
+						<div class="card">
+							<div class="card-body">
+								<form action="InformationController" method="POST">
+									<h5 class="card-title">Student Profile</h5>
+									<div>
+										<button name="addSP" type="submit"
+											class="btn btn-outline-info btn-block">Add info</button>
+									</div>
+									<br>
+									<div>
+										<button name="updateSP" type="submit"
+											class="btn btn-outline-info btn-block">Update</button>
+									</div>
+								</form>
+							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<form action="InformationController" method="POST">
-						<h5 class="card-title">Student Profile</h5>
-						<div>
-							<button name="addSP" type="submit"
-								class="btn btn-outline-info btn-block">Add info</button>
+					</div>
+					<div class="col-sm-4">
+						<div class="card">
+							<div class="card-body">
+								<form action="InformationController" method="POST">
+									<h5 class="card-title">Major Characteristics</h5>
+									<div>
+										<button name="addMC" type="submit"
+											class="btn btn-outline-info btn-block">Add info</button>
+									</div>
+									<br>
+									<div>
+										<button name="updateMC" type="submit"
+											class="btn btn-outline-info btn-block">Update</button>
+									</div>
+								</form>
+							</div>
 						</div>
-						<br>
-						<div>
-							<button name="updateSP" type="submit"
-								class="btn btn-outline-info btn-block">Update</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="card">
-				<div class="card-body">
-					<form action="InformationController" method="POST">
-						<h5 class="card-title">Major Characteristics</h5>
-						<div>
-							<button name="addMC" type="submit"
-								class="btn btn-outline-info btn-block">Add info</button>
-						</div>
-						<br>
-						<div>
-							<button name="updateMC" type="submit"
-								class="btn btn-outline-info btn-block">Update</button>
-						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>

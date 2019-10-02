@@ -43,10 +43,11 @@
 	<!--End of Navbar-->
 	<br>
 	<br>
-	<h4 class="text-center">Add new comment</h4>
 	<div class="col-md-6 mx-auto">
 		<div class="card">
 			<div class="card-body">
+			<h4 class="text-center">Add new comment</h4>
+			<br>
 				<form action="AddComment" method="POST">
 					<div class="form-group">
 						<p>We would like to know your opinion. Please add a comment to help us
