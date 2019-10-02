@@ -18,6 +18,9 @@ public class Plan {
 		career = pCareer;
 	}
 	
+	public Plan() {
+		// TODO Auto-generated constructor stub
+	}
 	public void addCourse(Course course) {
 		courses.add(course);
 	}

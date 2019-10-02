@@ -25,10 +25,8 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterCareerView.jsp">Career Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
@@ -36,22 +34,19 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterCourse.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
-					href="RegisterEquivalencesView.jsp">Equivalences Register</a></li>
-				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="RelevantInformation.jsp">Information</a></li>
 			</ul>
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active"><a class="nav-link"
-					href="loginView.jsp">sign out</a></li>
+			<ul class="navbar-nav ml-auto"> 
+				<li class="nav-item active"><a class="nav-link" href="loginView.jsp">sign out</a></li>
 			</ul>
 		</div>
 	</nav>
 	<%DaoPlan db = new DaoPlan(); %>
 	<%ArrayList<Plan> planList = db.selectQueryPlan("SELECT * FROM CXF11927.PLAN");%>
-	<%ArrayList courseList = (ArrayList) request.getAttribute("listCourses");%>
-	<%ArrayList equivalenceList = (ArrayList) request.getAttribute("listEquivalences");%>
+	<%ArrayList<Course> courseList = (ArrayList<Course>) request.getAttribute("listCourses");%>
+	<%ArrayList<Course> equivalenceList = (ArrayList<Course>) request.getAttribute("listEquivalences");%>
 	<!--End of Navbar-->
 	<h4 class="text-center">Register Plan</h4>
 	<div class="col-md-6 mx-auto">

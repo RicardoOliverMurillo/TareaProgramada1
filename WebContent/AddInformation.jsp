@@ -43,8 +43,6 @@
 			</ul>
 		</div>	
 	</nav>
-	<%DaoCareer db = new DaoCareer(); %>
-	<%ArrayList<Career> careerList = db.selectQueryCareer("SELECT * FROM CXF11927.CAREER");%>
 	<br>
 	<% String type = (String)request.getAttribute("type"); %>
 	<% DaoCareer db = new DaoCareer(); %>

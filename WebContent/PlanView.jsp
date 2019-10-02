@@ -27,7 +27,8 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="StudentView.jsp">Study plans</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="StudentView.jsp">Study plans</a></li>
 				<li class="nav-item active"><a class="nav-link" href="#">Reports</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="AddComment.jsp">Comment</a></li>
@@ -46,18 +47,14 @@
 		ArrayList<String> pass = (ArrayList<String>) request.getAttribute("pass");
 		int passCredits = (int) request.getAttribute("passCredits");
 		int totalCredits = (int) request.getAttribute("totalCredits");
+		String plan = (String) request.getAttribute("planId");
 		Course course = new Course();
 	%>
-	<br>
-	<h5>Approved courses: <%=pass.size() %></h5>
-	<h5>Approved credits: <%=passCredits %></h5>
-	<h5>Total credits: <%=totalCredits %></h5>
-	<br>
 	<%
 		if (result != null) {
 	%>
 	<form action="CourseController" method="GET">
-		<table id= "plan" class="table table-borderless">
+		<table id="plan" class="table table-borderless">
 			<thead>
 				<tr>
 					<th>Semester 0</th>
@@ -87,9 +84,9 @@
 					<%
 						if (course.isAprove(pass, result[row][col])) {
 					%>
-					<td><button name="course" type="submit" class="btn btn-success"
-							formaction="CourseController" formmethod="GET"
-							value=<%=result[row][col]%>><%=result[row][col]%></button></td>
+					<td><button name="course" type="submit"
+							class="btn btn-success" formaction="CourseController"
+							formmethod="GET" value=<%=result[row][col]%>><%=result[row][col]%></button></td>
 					<%
 						} else {
 					%>
@@ -118,5 +115,71 @@
 		</table>
 		<%}%>
 	</form>
+	<div class="container">
+		<div class="row">
+			<div class="col-3">
+				<h5 class="font-weight-bold text-center">General information</h5>
+				<h5 class="text-center">
+					Approved courses:
+					<%=pass.size()%></h5>
+				<h5 class="text-center">
+					Approved credits:
+					<%=passCredits%></h5>
+				<h5 class="text-center">
+					Total credits:
+					<%=totalCredits%></h5>
+			</div>
+			<div class="col-9">
+				<div class="row">
+					<div class="col">
+					<form action="ApprovedCoursesController" method="POST">
+						<h5  class="font-weight-bold">Select by semester</h5>
+						<div>
+							<select class="custom-select" name="ApprovedSem">
+								<option selected>Choose a semester...</option>
+								<%for(int i = 0; i <= 10; i++){ %>
+								<option value=<%=i %>><%=i %></option>
+								<%} %>
+							</select>
+						</div>
+						<br>
+						<button name="addSem" type="submit" class="btn btn-outline-success"  value=<%=plan %>>add</button>
+						<button name="removeSem" type="submit" class="btn btn-outline-danger"  value=<%=plan %>>remove</button>
+					</form>
+					</div>
+					<div class="col">
+					<form action="ApprovedCoursesController" method="POST">
+						<h5 class="font-weight-bold">Select by knowledge area</h5>
+						<div>
+							<select class="custom-select" name="ApprovedArea">
+								<option selected>Choose a knowledge area...</option>
+								<option value="Plataforma Tecnológica de las Organizaciones">Plataforma
+									Tecnológica de las Organizaciones</option>
+								<option value="Fundamentos de las Organizaciones">Fundamentos
+									de las Organizaciones</option>
+								<option value="Conocimientos y Competencias Fundamentales">Conocimientos
+									y Competencias Fundamentales</option>
+								<option value="Desarrollo Tecnológico Empresarial">Desarrollo
+									Tecnológico Empresarial</option>
+								<option value=" ">Sin área</option>
+							</select>
+						</div>
+						<br>
+						<button name="addArea" type="submit" class="btn btn-outline-success" value=<%=plan %>>add</button>
+						<button name="removeArea" type="submit" class="btn btn-outline-danger" value=<%=plan %>>remove</button>
+					</form>
+					</div>
+					<form action="ApprovedCoursesController" method="POST">
+					<div class="col">
+						<h5 class="font-weight-bold">Select by plan</h5>
+						<button name="addPlan" type="submit" class="btn btn-outline-success" value=<%=plan %>>add</button>
+						<button name="removePlan" type="submit" class="btn btn-outline-danger" value=<%=plan %>>remove</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
 </body>
 </html>
