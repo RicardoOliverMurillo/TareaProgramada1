@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="careerLogic.Course" %>
-<%@ page import="dao.DaoCourse" %>
 <%@page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
@@ -33,6 +32,8 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterCourse.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
+					href="RegisterEquivalencesView.jsp">Equivalences Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="RelevantInformation.jsp">Information</a></li>
@@ -42,9 +43,8 @@
 			</ul>
 		</div>
 	</nav>
-	<%DaoCourse db = new DaoCourse(); %>
-	<%ArrayList<Course> data = db.selectQuery("SELECT * FROM COURSES");%>
-	<%ArrayList<String> planId = db.getId("SELECT IDPLAN FROM PLANS");%>
+	<%ArrayList<Course> data = (ArrayList<Course>)request.getAttribute("data");%>
+	<%String planId = (String) request.getAttribute("planId");%>
 	<!--End of Navbar-->
 	<br><br>
 	<div class="row">
@@ -55,13 +55,9 @@
 				<h4 align="center">Course information</h4>
 				<br>
 					<form action="CourseController" method="POST">
-						<div>
-							<select class="custom-select" name="plan">
-								<option selected>Choose a plan...</option>
-								<%for(int i = 0; i < planId.size(); i++) {%>
-									<option value=<%=planId.get(i) %>><%=planId.get(i) %></option>
-								<%}%>
-							</select>
+						<div class="form-group">
+							<input type="text" name="plan" placeholder=<%=planId %>
+								class="form-control" value=<%=planId %>> 
 						</div>
 						<br>
 						<div class="form-group">

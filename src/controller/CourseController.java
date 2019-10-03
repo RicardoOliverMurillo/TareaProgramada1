@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import careerLogic.Course;
 import careerLogic.Plan;
 import dao.DaoCourse;
+import dao.DaoEquivalences;
 import userLogic.Session;
 
 /**
@@ -22,7 +23,8 @@ import userLogic.Session;
 @WebServlet("/CourseController")
 public class CourseController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DaoCourse db = new DaoCourse();
+	private DaoCourse dbCourse = new DaoCourse();
+	private DaoEquivalences dbEquivalences = new DaoEquivalences();
 	private static String plan = "";
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,11 +43,11 @@ public class CourseController extends HttpServlet {
 			plan = "2050";
 			try {
 				String[][] matriz = new String[10][11];
-				matriz = getCourses();
+				matriz = getCourses(plan);
 				request.setAttribute("result", matriz);
 				request.setAttribute("pass", getPassCourses(Session.getUser()));
 				request.setAttribute("passCredits", getPassCredits(getPassCourses(Session.getUser()),plan));
-				request.setAttribute("totalCredits", getTotalCredits());
+				request.setAttribute("totalCredits", getTotalCredits(plan));
 				request.setAttribute("planId", plan);
 				RequestDispatcher rd = request.getRequestDispatcher("PlanView.jsp");
 				rd.forward(request, response);
@@ -53,15 +55,69 @@ public class CourseController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}else if(request.getParameter("course") != null) {
+		}
+		if(request.getParameter("2051") != null) {
+			plan = "2051";
+			try {
+				String[][] matriz = new String[10][11];
+				matriz = getCourses(plan);
+				request.setAttribute("result", matriz);
+				request.setAttribute("pass", getPassCoursesEquivalences(Session.getUser()));
+				request.setAttribute("passCredits", getPassCredits(getPassCoursesEquivalences(Session.getUser()),plan));
+				request.setAttribute("totalCredits", getTotalCredits(plan));
+				request.setAttribute("planId", plan);
+				RequestDispatcher rd = request.getRequestDispatcher("EquivalencesPlanView.jsp");
+				rd.forward(request, response);
+				matriz = null;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(request.getParameter("course") != null) {
 			String id = request.getParameter("course");
 			try {
-				System.out.println("Plan"+plan);
 				Course course = getCourse(id, plan);
 				request.setAttribute("data", course);
 				request.setAttribute("requirements", getRequirements(id,plan));
 				request.setAttribute("corequirements", getCorequirements(id,plan));
 				RequestDispatcher rd = request.getRequestDispatcher("CourseInfoView.jsp");
+				rd.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(request.getParameter("courseEquivalence") != null) {
+			String id = request.getParameter("courseEquivalence");
+			try {
+				Course course = getCourse(id, plan);
+				request.setAttribute("data", course);
+				request.setAttribute("requirements", getRequirements(id,plan));
+				request.setAttribute("corequirements", getCorequirements(id,plan));
+				RequestDispatcher rd = request.getRequestDispatcher("CourseInfoEquivalenceView.jsp");
+				rd.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(request.getParameter("add2050Course") != null) {
+			plan = "2050";
+			try {
+				ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = " +plan);
+				request.setAttribute("data", data);
+				request.setAttribute("planId", plan);
+				RequestDispatcher rd = request.getRequestDispatcher("RegisterCourse.jsp");
+				rd.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(request.getParameter("add2051Course") != null) {
+			plan = "2051";
+			try {
+				ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = " +plan);
+				request.setAttribute("data", data);
+				request.setAttribute("planId", plan);
+				RequestDispatcher rd = request.getRequestDispatcher("RegisterCourse.jsp");
 				rd.forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -113,13 +169,35 @@ public class CourseController extends HttpServlet {
 	}
 	
 	private Course getCourse(String idCourse, String idPlan) throws SQLException {
-		Course course = db.getCourse("SELECT * FROM COURSES WHERE IDCOURSE = '"+idCourse+"' AND IDPLAN = '"+idPlan+"'");
+		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDCOURSE = '"+idCourse+"' AND IDPLAN = '"+idPlan+"'");
+		Course course = null;
+		for(int i = 0; i < data.size(); i++) {
+			course = data.get(i);
+		}
 		return course;
 	}
 	
 	private ArrayList<String> getPassCourses(String idStudent) throws SQLException {
-		ArrayList<String> result = db.getPassCourses("SELECT IDCOURSE FROM STUDENTCOURSE WHERE IDSTUDENT = '"+idStudent+"'");
+		ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDCOURSE FROM STUDENTCOURSE WHERE IDSTUDENT = '"+idStudent+"'");
 		return result;
+	}
+	
+	private ArrayList<String> getPassCoursesEquivalences(String idStudent) throws SQLException{
+		ArrayList<String> data = getPassCourses(idStudent);
+		ArrayList<String> result = new ArrayList<String>();
+		for(int i = 0; i < data.size(); i++) {
+			String equivalence = getEquivalences(data.get(i));
+			result.add(equivalence);
+		}
+		return result;
+	}
+	
+	private String getEquivalences(String idCourse) throws SQLException{
+			ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDCOURSE2 FROM EQUIVALENCES WHERE IDCOURSE1 = '"+idCourse+"'");
+			if(result.size()>0) {
+				return result.get(0);
+			}
+			return null;
 	}
 	
 	private int getPassCredits(ArrayList<String> courses, String idPlan) throws SQLException {
@@ -131,8 +209,8 @@ public class CourseController extends HttpServlet {
 		return total;
 	}
 	
-	private int getTotalCredits() throws SQLException {
-		ArrayList<Course> data = db.selectQuery("SELECT * FROM COURSES");
+	private int getTotalCredits(String pla) throws SQLException {
+		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = " + plan);
 		int total = 0;
 		for(int i = 0; i < data.size(); i++) {
 			total= total + data.get(i).getSumCredits();
@@ -142,30 +220,30 @@ public class CourseController extends HttpServlet {
 	}
 	
 	private ArrayList<String> getRequirements(String idCourse, String idPlan) throws SQLException{
-		ArrayList<String> result = db.getId("SELECT IDREQUIREMENT FROM REQUIREMENTS WHERE IDCOURSE = '"+idCourse+"' AND IDPLAN = '"+idPlan+"'");
+		ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDREQUIREMENT FROM REQUIREMENTS WHERE IDCOURSE = '"+idCourse+"' AND IDPLAN = '"+idPlan+"'");
 		return result;
 	}
 	
 	private ArrayList<String> getCorequirements(String idCourse, String idPlan) throws SQLException{
-		ArrayList<String> result = db.getId("SELECT IDCOREQUIREMENT FROM COREQUIREMENTS WHERE IDCOURSE = '"+idCourse+"' AND IDPLAN = '"+idPlan+"'");
+		ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDCOREQUIREMENT FROM COREQUIREMENTS WHERE IDCOURSE = '"+idCourse+"' AND IDPLAN = '"+idPlan+"'");
 		return result;
 	}
 	
 	private void registerCourse(Course course) throws Exception {
-		db.manipulationQuery("INSERT INTO COURSES (IDCOURSE,NAME,SUMCREDITS, SEMESTER, KNOWLEDGEAREA, IDPLAN) VALUES ('"+course.getId()+"','"+
+		dbCourse.manipulationQuery("INSERT INTO COURSES (IDCOURSE,NAME,SUMCREDITS, SEMESTER, KNOWLEDGEAREA, IDPLAN) VALUES ('"+course.getId()+"','"+
 				course.getName()+"','"+course.getSumCredits()+"','"+course.getSemester()+"','"+course.getKnowledgeArea()+"','"+course.getPlan().getId()+"')");
 	}
 	
 	private void registerRequirements(String idCourse, String idRequirement, String idPlan) throws Exception {
-		db.manipulationQuery("INSERT INTO REQUIREMENTS (IDCOURSE,IDREQUIREMENT,IDPLAN) VALUES ('"+idCourse+"','"+idRequirement+"','"+idPlan+"')");
+		dbEquivalences.manipulationQuery("INSERT INTO REQUIREMENTS (IDCOURSE,IDREQUIREMENT,IDPLAN) VALUES ('"+idCourse+"','"+idRequirement+"','"+idPlan+"')");
 	}
 	
 	private void registerCorequirements(String idCourse, String idCorequirement,String idPlan) throws Exception {
-		db.manipulationQuery("INSERT INTO COREQUIREMENTS (IDCOURSE,IDCOREQUIREMENT,IDPLAN) VALUES ('"+idCourse+"','"+idCorequirement+"','"+idPlan+"')");
+		dbEquivalences.manipulationQuery("INSERT INTO COREQUIREMENTS (IDCOURSE,IDCOREQUIREMENT,IDPLAN) VALUES ('"+idCourse+"','"+idCorequirement+"','"+idPlan+"')");
 	}
 	
-	private String[][] getCourses() throws SQLException{
-		ArrayList<Course> data = db.selectQuery("SELECT * FROM COURSES");
+	private String[][] getCourses(String plan) throws SQLException{
+		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = "+plan);
 		String[][] result = new String[10][11];
 		System.out.println(data.size());
 		for(int i = 0; i < data.size(); i++) {

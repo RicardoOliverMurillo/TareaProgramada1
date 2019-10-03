@@ -1,25 +1,18 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import careerLogic.Career;
 
-public class DaoCareer {
-	private Statement stmt;
-    private ResultSet rs;
-    private Db2Connection db; 
-    private Connection conn;
+public class DaoCareer extends Dao{
     
     public DaoCareer() {
-    	db = Db2Connection.getInstance();
-		conn = Db2Connection.getConnection();
+		super();
     }
     
-    public ArrayList<Career> selectQueryCareer(String query) throws SQLException{
+    @Override
+    public ArrayList<Career> selectQuery(String query) throws SQLException{
         ArrayList<Career> result = new ArrayList<Career>();
         stmt = conn.createStatement();                                           
         rs = stmt.executeQuery(query);
@@ -35,11 +28,5 @@ public class DaoCareer {
         return result;
     }
 
-	public void manipulationQueryCareer(String query) throws SQLException {
-        stmt = conn.createStatement();                                           
-        stmt.executeUpdate(query);                   
-        stmt.close();
-        conn.commit();
-        System.out.println ("Transacción confirmada" );
-    }
+	
 }

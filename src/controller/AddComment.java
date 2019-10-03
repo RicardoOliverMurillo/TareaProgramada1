@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DaoComment;
-import servicios.SentimentAnalyzer;
+import services.SentimentAnalyzer;
 import userLogic.Comment;
 import userLogic.Session;
+import userLogic.Student;
 
 
 /**
@@ -71,11 +72,13 @@ public class AddComment extends HttpServlet {
 		}
 		else if (request.getParameter("add") != null) {
 			String text = request.getParameter("comment");
-			Comment newComment = new Comment(text);
-			System.out.println(newComment.toString());
-			ArrayList<Comment> result = analyzer.analyzeComment(newComment);
+			Student student = new Student(Session.getUser());
+			student.addComment(text);
 			try {
-				addComment(result);
+				for(int i = 0; i < student.getComments().size(); i++) {
+					ArrayList<Comment> result = analyzer.analyzeComment(student.getComments().get(i));
+					addComment(result);
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

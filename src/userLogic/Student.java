@@ -1,6 +1,8 @@
 package userLogic;
 
-public class Student {
+import java.util.ArrayList;
+
+public class Student implements StudentInterface{
 	
 	private String id;
 	private String name;
@@ -8,19 +10,28 @@ public class Student {
 	private String email;
 	private String password;
 	private String role = "Student";
+	private ArrayList<Comment> comments;
+	
+	public Student(String id) {
+		this.id = id;
+		this.comments = new ArrayList<Comment>();
+	}
 	
 	public Student(String id, String name, String lastName, String email, String password) {
-		this.id = id;
+		this(id);
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-	}
-	
-	public Student() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
+	public void addComment(String text) {
+		Comment comment = new Comment(text);
+		comments.add(comment);
+	}
+	
+	
 	public String toString() {
 		String msg = "";
 		msg+= "Id: "+ id + "\n"; 
@@ -78,4 +89,7 @@ public class Student {
 		this.role = role;
 	}
 
+	public ArrayList<Comment> getComments(){
+		return comments;
+	}
 }

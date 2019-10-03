@@ -7,7 +7,7 @@ import java.util.Base64;
 
 import dao.DaoStudent;
 
-public class Session {
+public class Session implements SessionInterface{
 	
 	private static String user;
 	

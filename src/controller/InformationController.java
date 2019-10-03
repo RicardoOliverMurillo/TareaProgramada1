@@ -134,8 +134,12 @@ public class InformationController extends HttpServlet {
 	}
 	
 	private String getInformation(String type, String career) throws SQLException {
-		String text = db.getInformation("SELECT DESCRIPTION FROM INFORMATIONS WHERE TYPE = '"+type+
+		String text = new String();
+		ArrayList<RelevantInfo> data = db.selectQuery("SELECT * FROM INFORMATIONS WHERE TYPE = '"+type+
 				"' AND IDCAREER = '"+ career+"'");
+		for(int i = 0; i < data.size(); i++) {
+			text = data.get(i).getDescription();
+		}
 		return text;
 	}
 	

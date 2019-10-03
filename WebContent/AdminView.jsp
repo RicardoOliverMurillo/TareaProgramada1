@@ -30,6 +30,8 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterCourse.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
+					href="RegisterEquivalencesView.jsp">Equivalences Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="RelevantInformation.jsp">Information</a></li>
@@ -40,6 +42,42 @@
 		</div>
 	</nav>
 	<!--End of navbar-->
-
+	<br>
+	<div class="col-md-10 mx-auto">
+		<div class="card">
+			<div class="card-body">
+			<h4 class="text-center">Add courses</h4>
+			<br>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<form action="CourseController" method="GET">
+									<h5 class="card-title">Add course 2050</h5>
+									<div>
+										<button name="add2050Course" type="submit"
+											class="btn btn-outline-success btn-block" value="2050Course">add</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<form action="CourseController" method="GET">
+									<h5 class="card-title">Add course 2051</h5>
+									<div>
+										<button name="add2051Course" type="submit"
+											class="btn btn-outline-success btn-block" value="2050Course">add</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
