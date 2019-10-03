@@ -12,7 +12,7 @@ public class Student implements StudentInterface{
 	private String role = "Student";
 	private ArrayList<Comment> comments;
 	
-	public Student() {}
+	public Student () {}
 	
 	public Student(String id) {
 		this.id = id;
