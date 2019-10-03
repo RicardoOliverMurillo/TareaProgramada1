@@ -1,0 +1,6 @@
+---
+applications:
+- name: TareaProgramada1-165605
+  memory: 256M
+  host: ram2051
+  domain: mybluemix.net
