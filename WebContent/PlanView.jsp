@@ -53,6 +53,9 @@
 	<%
 		if (result != null) {
 	%>
+	<br>
+	<h3 align="center" class="font-weight-bold text-center">Study plan #<%=plan %></h3>
+	<br>
 	<form action="CourseController" method="GET">
 		<table id="plan" class="table table-borderless">
 			<thead>
@@ -118,16 +121,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-3">
-				<h5 class="font-weight-bold text-center">General information</h5>
-				<h5 class="text-center">
+				<h5 class="font-weight-bold text-left">General information</h5>
+				<h5 class="text-left">
 					Approved courses:
 					<%=pass.size()%></h5>
-				<h5 class="text-center">
+				<h5 class="text-left">
 					Approved credits:
 					<%=passCredits%></h5>
-				<h5 class="text-center">
+				<h5 class="text-left">
 					Total credits:
 					<%=totalCredits%></h5>
+				<h6 class="font-weight-bold text-left">Color code</h6>
+				<h6 class="text-left text-success">Approved courses</h6>
+				<h6 class="text-left text-info">Pending courses</h6>
 			</div>
 			<div class="col-9">
 				<div class="row">

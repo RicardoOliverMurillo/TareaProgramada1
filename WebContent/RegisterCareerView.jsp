@@ -32,6 +32,8 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterCourse.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
+					href="RegisterEquivalencesView.jsp">Equivalences Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="RelevantInformation.jsp">Information</a></li>

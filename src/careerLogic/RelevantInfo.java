@@ -11,7 +11,6 @@ public class RelevantInfo {
 	}
 	
 	public RelevantInfo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getType() {

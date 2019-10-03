@@ -32,6 +32,8 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterCourse.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
+					href="RegisterEquivalencesView.jsp">Equivalences Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="RelevantInformation.jsp">Information</a></li>
@@ -45,7 +47,7 @@
 	<%String text = (String) request.getAttribute("text"); %>
 	<% String type = (String)request.getAttribute("type"); %>
 	<% DaoCareer db = new DaoCareer(); %>
-	<% ArrayList<Career> careers = (ArrayList<Career>) db.selectQueryCareer("SELECT * FROM CAREERS"); %>
+	<% ArrayList<Career> careers = (ArrayList<Career>) db.selectQuery("SELECT * FROM CAREERS"); %>
 	<h4 class="text-center">Update career information</h4>
 	<div class="col-md-8 mx-auto">
 		<div class="card">

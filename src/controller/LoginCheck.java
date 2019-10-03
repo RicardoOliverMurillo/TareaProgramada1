@@ -1,21 +1,14 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DaoStudent;
-import dao.Db2Connection;
 import userLogic.Session;
-import userLogic.Student;
 
 /**
  * Servlet implementation class LoginCheck
@@ -59,7 +52,6 @@ public class LoginCheck extends HttpServlet {
 				response.sendRedirect("loginView.jsp");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

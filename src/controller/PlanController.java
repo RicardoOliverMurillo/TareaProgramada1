@@ -46,15 +46,13 @@ import careerLogic.Course;
 import careerLogic.Plan;
 import careerLogic.PlanInterface;
 import dao.DaoPlan;
-import dao.DaoPlanInterface;
 import dao.DaoCareer;
-import dao.DaoCareerInterface;
 
 /**
  * Servlet implementation class PlanController
  */
 @WebServlet("/PlanController")
-public class PlanController extends HttpServlet implements PlanInterface,DaoCareerInterface,DaoPlanInterface{
+public class PlanController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	DaoPlan dbPlan = new DaoPlan();
 	DaoCareer dbCareer = new DaoCareer();
@@ -108,88 +106,22 @@ public class PlanController extends HttpServlet implements PlanInterface,DaoCare
 	}
 	
 	private void addPlan(Plan plan) throws SQLException {
-		dbPlan.manipulationQueryPlan("INSERT INTO PLANS(IDPLAN,IDCAREER) VALUES "
+		dbPlan.manipulationQuery("INSERT INTO PLANS(IDPLAN,IDCAREER) VALUES "
 				+ "('"+plan.getId()+"','"+plan.getCareer().getId()+"')");
 	}
 	
 	private ArrayList<Career> getCareer(String idCareer) throws SQLException {
 		ArrayList<Career> result = new ArrayList<Career>();
-		result = dbCareer.selectQueryCareer("SELECT * FROM CAREERS WHERE IDCAREER = '"+idCareer+"'");
+		result = dbCareer.selectQuery("SELECT * FROM CAREERS WHERE IDCAREER = '"+idCareer+"'");
 		return result;
 	}
 	
 	private ArrayList<Plan> getPlans(String idCareer) throws SQLException {
 		System.out.println(idCareer+" hola");
 		ArrayList<Plan> result = new ArrayList<Plan>();
-		result = dbPlan.selectQueryPlan("SELECT * FROM PLANS WHERE IDCAREER = '"+idCareer+"'");
+		result = dbPlan.selectQuery("SELECT * FROM PLANS WHERE IDCAREER = '"+idCareer+"'");
 		System.out.println("entró");
 		return result;
-	}
-
-	@Override
-	public void addCourse(Course course) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void generateNetView() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addKnowledgeArea(String description) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setId(String id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Career getCareer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setCareer(Career career) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ArrayList<Plan> selectQueryPlan(String query) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void manipulationQueryPlan(String query) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ArrayList<Career> selectQueryCareer(String query) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void manipulationQueryCareer(String query) throws SQLException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -2,7 +2,7 @@ package careerLogic;
 
 import java.util.ArrayList;
 
-public class Plan {
+public class Plan implements PlanInterface{
 	private String id;
 	private Career career;
 	private ArrayList<String> knowledgeAreaDesciption;

@@ -34,6 +34,8 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterCourse.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
+					href="RegisterEquivalencesView.jsp">Equivalences Register</a></li>
+				<li class="nav-item active"><a class="nav-link"
 					href="CommentAnalysis.jsp">Comment analysis</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="RelevantInformation.jsp">Information</a></li>
@@ -44,7 +46,7 @@
 		</div>
 	</nav>
 	<%DaoCareer db = new DaoCareer(); %>
-	<%ArrayList<Career> careerList = db.selectQueryCareer("SELECT * FROM CAREERS");%>
+	<%ArrayList<Career> careerList = db.selectQuery("SELECT * FROM CAREERS");%>
 	<%ArrayList planList = (ArrayList) request.getAttribute("listPlans");%>
 	<!--End of Navbar-->
 	<br>

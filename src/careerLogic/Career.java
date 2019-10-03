@@ -2,7 +2,7 @@ package careerLogic;
 
 import java.util.ArrayList;
 
-public class Career {
+public class Career implements CareerInterface{
 	private String id;
 	private String name;
 	private ArrayList<RelevantInfo> infos;

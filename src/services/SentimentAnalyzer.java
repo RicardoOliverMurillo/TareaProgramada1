@@ -1,4 +1,4 @@
-package servicios;
+package services;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;
 
 import userLogic.Comment;
 
-public class SentimentAnalyzer {
+public class SentimentAnalyzer implements SentimentAnalyzerInterface{
 	
 	private String apiKey = "wbgiPCmqKEdP0E62x86JNO4cgy51VJDwMEAXZT0uOsc5";
 	private String url = "https://gateway.watsonplatform.net/tone-analyzer/api";
@@ -36,7 +36,7 @@ public class SentimentAnalyzer {
 		return toneAnalyzer;
 	}
 	
-	private ArrayList<Comment> parseInfo(ToneAnalysis toneAnalysis, String text) {
+	public ArrayList<Comment> parseInfo(ToneAnalysis toneAnalysis, String text) {
 		JSONObject obj = new JSONObject(toneAnalysis);
 		ArrayList<Comment> result = new ArrayList<Comment>();
 
