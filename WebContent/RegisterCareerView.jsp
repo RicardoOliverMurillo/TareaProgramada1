@@ -30,7 +30,7 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterPlanView.jsp">Plan Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
-					href="RegisterCourse.jsp">Course Register</a></li>
+					href="AdminView.jsp">Course Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="RegisterEquivalencesView.jsp">Equivalences Register</a></li>
 				<li class="nav-item active"><a class="nav-link"
