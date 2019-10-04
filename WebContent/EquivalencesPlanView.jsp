@@ -45,8 +45,8 @@
 	<%
 		String[][] result = (String[][]) request.getAttribute("result");
 		ArrayList<String> pass = (ArrayList<String>) request.getAttribute("pass");
-		int passCredits = (int) request.getAttribute("passCredits");
-		int totalCredits = (int) request.getAttribute("totalCredits");
+		String passCredits = (String) request.getAttribute("passCredits");
+		String totalCredits = (String) request.getAttribute("totalCredits");
 		String plan = (String) request.getAttribute("planId");
 		Course course = new Course();
 	%>
