@@ -45,8 +45,6 @@
 	<%
 		String[][] result = (String[][]) request.getAttribute("result");
 		ArrayList<String> pass = (ArrayList<String>) request.getAttribute("pass");
-		String passCredits = (String) request.getAttribute("passCredits");
-		String totalCredits = (String) request.getAttribute("totalCredits");
 		String plan = (String) request.getAttribute("planId");
 		Course course = new Course();
 	%>
@@ -54,7 +52,7 @@
 		if (result != null) {
 	%>
 	<br>
-	<h3 align="center" class="font-weight-bold text-center">Study plan # <%=plan %></h3>
+	<h3 align="center" class="font-weight-bold text-center">Study plan #<%=plan %></h3>
 	<br>
 	<form action="CourseController" method="GET">
 		<table id="plan" class="table table-borderless">
