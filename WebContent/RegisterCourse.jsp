@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="careerLogic.Course" %>
 <%@page import="java.util.ArrayList" %>
+<%@ page import="dao.DaoKnowledgeArea" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,6 +46,8 @@
 	</nav>
 	<%ArrayList<Course> data = (ArrayList<Course>)request.getAttribute("data");%>
 	<%String planId = (String) request.getAttribute("planId");%>
+	<%DaoKnowledgeArea db = new DaoKnowledgeArea(); %>
+	<%ArrayList<String> knowledgeAreaList = db.selectQuery("SELECT * FROM KNOWLEDGEAREAS WHERE IDPLAN = "+planId);%>
 	<!--End of Navbar-->
 	<br><br>
 	<div class="row">
@@ -79,14 +82,9 @@
 						<div>
 							<select class="custom-select" name="knowledgeArea">
 								<option selected>Choose a knowledge area...</option>
-								<option value="Plataforma Tecnológica de las Organizaciones">Plataforma
-									Tecnológica de las Organizaciones</option>
-								<option value="Fundamentos de las Organizaciones">Fundamentos
-									de las Organizaciones</option>
-								<option value="Conocimientos y Competencias Fundamentales">Conocimientos
-									y Competencias Fundamentales</option>
-								<option value="Desarrollo Tecnológico Empresarial">Desarrollo
-									Tecnológico Empresarial</option>
+								<% for (int i = 0; i < knowledgeAreaList.size(); i++) { %>
+								<option value=<%=knowledgeAreaList.get(i)%>><%=knowledgeAreaList.get(i)%></option>
+								<% } %>
 								<option value=" ">Sin área</option>
 							</select>
 						</div>

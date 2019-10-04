@@ -10,7 +10,7 @@ public class Plan implements PlanInterface{
 	
 	public Plan(String pId) {
 		id = pId;
-		knowledgeAreaDesciption = new ArrayList<String>();
+		this.knowledgeAreaDesciption = new ArrayList<String>();
 		courses = new ArrayList<Course>();
 	}
 	public Plan(String pId, Career pCareer) {
@@ -28,9 +28,16 @@ public class Plan implements PlanInterface{
 	public void generateNetView() {
 		
 	}
-	
+
 	public void addKnowledgeArea(String description) {
-		knowledgeAreaDesciption.add(description);
+		this.knowledgeAreaDesciption.add(description);
+	}
+	
+	/**
+	 * @return the knowledgeAreaDesciption
+	 */
+	public ArrayList<String> getKnowledgeAreaDesciption() {
+		return knowledgeAreaDesciption;
 	}
 	
 	/**

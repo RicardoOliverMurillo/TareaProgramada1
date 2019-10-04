@@ -47,6 +47,7 @@ import careerLogic.Plan;
 import careerLogic.PlanInterface;
 import dao.DaoPlan;
 import dao.DaoCareer;
+import dao.DaoKnowledgeArea;
 
 /**
  * Servlet implementation class PlanController
@@ -54,8 +55,10 @@ import dao.DaoCareer;
 @WebServlet("/PlanController")
 public class PlanController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	DaoPlan dbPlan = new DaoPlan();
-	DaoCareer dbCareer = new DaoCareer();
+	private DaoPlan dbPlan = new DaoPlan();
+	private DaoCareer dbCareer = new DaoCareer();
+	private DaoKnowledgeArea dbKnowledgeArea = new DaoKnowledgeArea();
+	private String idPlan = "";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -84,13 +87,13 @@ public class PlanController extends HttpServlet{
 		}
 		else if (request.getParameter("addPlan") != null) {
 			String id = request.getParameter("idPlan");
-			System.out.println(id);
+			//System.out.println(id);
 			String idCareer = request.getParameter("idCareer");
-			System.out.println(idCareer);
+			//System.out.println(idCareer);
 			ArrayList<Career> careerList = new ArrayList<Career>();
 			try {
 				careerList = getCareer(idCareer);
-				System.out.println(careerList);
+				//System.out.println(careerList);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -98,10 +101,38 @@ public class PlanController extends HttpServlet{
 			Plan newPlan = new Plan(id, career);
 			try {
 				addPlan(newPlan);
+				idPlan = id;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			response.sendRedirect("RegisterPlanView.jsp");
+			response.sendRedirect("AddKnowledgeAreaView.jsp");
+			
+		} else if (request.getParameter("allKnowledgeArea") != null) {
+			ArrayList<String> knowledgeAreaList = new ArrayList<String>();
+			try {
+				knowledgeAreaList = getKnowledgeArea();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			request.setAttribute("listPlanWithKnowledgeArea", knowledgeAreaList);
+			RequestDispatcher rd = request.getRequestDispatcher("AddKnowledgeAreaView.jsp");
+			rd.forward(request, response);
+			
+		} else if (request.getParameter("addKnowledgeArea") != null) {
+			String knowledgeArea = request.getParameter("knowledgeArea");
+			//System.out.println("knowledgeArea: "+knowledgeArea);
+			ArrayList<Plan> planList = new ArrayList<Plan>();
+			try {
+				setKnowledgeArea(knowledgeArea);
+				planList = getPlan();
+				Plan plan = (Plan) planList.get(0);
+				//System.out.println("PlanKA: "+plan.getId());
+				//plan.addKnowledgeArea(knowledgeArea);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			response.sendRedirect("AddKnowledgeAreaView.jsp");
+			planList.clear();
 		}
 	}
 	
@@ -117,11 +148,27 @@ public class PlanController extends HttpServlet{
 	}
 	
 	private ArrayList<Plan> getPlans(String idCareer) throws SQLException {
-		System.out.println(idCareer+" hola");
 		ArrayList<Plan> result = new ArrayList<Plan>();
 		result = dbPlan.selectQuery("SELECT * FROM PLANS WHERE IDCAREER = '"+idCareer+"'");
-		System.out.println("entró");
+		//System.out.println("entró");
 		return result;
+	}
+	
+	private ArrayList<Plan> getPlan() throws SQLException {
+		ArrayList<Plan> result = new ArrayList<Plan>();
+		result = dbPlan.selectQuery("SELECT * FROM PLANS WHERE IDPLAN = '"+idPlan+"'");
+		return result;
+	}
+	
+	private ArrayList<String> getKnowledgeArea() throws SQLException {
+		ArrayList<String> result = new ArrayList<String>();
+		result = dbKnowledgeArea.selectQuery("SELECT * FROM KNOWLEDGEAREAS WHERE IDPLAN = '"+idPlan+"'");
+		return result;
+	}
+	
+	private void setKnowledgeArea(String pKnowledgeArea) throws SQLException {
+		dbKnowledgeArea.manipulationQuery("INSERT INTO KNOWLEDGEAREAS(IDPLAN,DESCRIPTION) VALUES "
+				+ "('"+idPlan+"','"+pKnowledgeArea+"')");
 	}
 
 }

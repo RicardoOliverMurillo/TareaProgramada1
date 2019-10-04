@@ -204,6 +204,8 @@ public class CourseController extends HttpServlet {
 		int total = 0;
 		for(int i = 0; i < courses.size(); i++) {
 			Course course = getCourse(courses.get(i), idPlan);
+			System.out.println("id"+ course.getName());
+			System.out.println("credits"+ course.getSumCredits());
 			total = total + course.getSumCredits();
 		}
 		return total;
