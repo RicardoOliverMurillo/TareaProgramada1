@@ -63,8 +63,6 @@ public class CourseController extends HttpServlet {
 				matriz = getCourses(plan);
 				request.setAttribute("result", matriz);
 				request.setAttribute("pass", getPassCoursesEquivalences(Session.getUser()));
-				request.setAttribute("passCredits", getPassCredits(getPassCoursesEquivalences(Session.getUser()),plan));
-				request.setAttribute("totalCredits", getTotalCredits(plan));
 				request.setAttribute("planId", plan);
 				RequestDispatcher rd = request.getRequestDispatcher("EquivalencesPlanView.jsp");
 				rd.forward(request, response);
@@ -205,6 +203,7 @@ public class CourseController extends HttpServlet {
 		for(int i = 0; i < courses.size(); i++) {
 			Course course = getCourse(courses.get(i), idPlan);
 			total = total + course.getSumCredits();
+			System.out.println(total);
 		}
 		return String.valueOf(total);
 	}
