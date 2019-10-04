@@ -200,23 +200,23 @@ public class CourseController extends HttpServlet {
 			return null;
 	}
 	
-	private int getPassCredits(ArrayList<String> courses, String idPlan) throws SQLException {
+	private String getPassCredits(ArrayList<String> courses, String idPlan) throws SQLException {
 		int total = 0;
 		for(int i = 0; i < courses.size(); i++) {
 			Course course = getCourse(courses.get(i), idPlan);
 			total = total + course.getSumCredits();
 		}
-		return total;
+		return String.valueOf(total);
 	}
 	
-	private int getTotalCredits(String pla) throws SQLException {
+	private String getTotalCredits(String plan) throws SQLException {
 		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = " + plan);
 		int total = 0;
 		for(int i = 0; i < data.size(); i++) {
 			total= total + data.get(i).getSumCredits();
 		}
 		data.clear();
-		return total;
+		return String.valueOf(total);
 	}
 	
 	private ArrayList<String> getRequirements(String idCourse, String idPlan) throws SQLException{
