@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="careerLogic.RelevantInfo" %>
-<%@ page import="careerLogic.Career" %>
-<%@ page import="dao.DaoCareer" %>
+<%@ page import="careerLogic.Course"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page import="careerLogic.Plan" %>
+<%@ page import="dao.DaoPlan" %>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -27,8 +28,10 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="StudentView.jsp">Study plans</a></li>
-				<li class="nav-item active"><a class="nav-link" href="ReportsView.jsp">Reports</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="StudentView.jsp">Study plans</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="ReportsView.jsp">Reports</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="AddComment.jsp">Comment</a></li>
 				<li class="nav-item active"><a class="nav-link"
@@ -42,24 +45,22 @@
 	</nav>
 	<!--End of Navbar-->
 	<br>
-	<%
-		ArrayList result = (ArrayList) request.getAttribute("result");
-	%>
-	<% DaoCareer db = new DaoCareer(); %>
-	<% ArrayList<Career> careers = (ArrayList<Career>) db.selectQuery("SELECT * FROM CAREERS"); %>
+	<% DaoPlan db = new DaoPlan(); %>
+	<% ArrayList<Plan> plans = (ArrayList<Plan>) db.selectQuery("SELECT * FROM PLANS"); %>
 	<div class="col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">
-			<h4 align="center">View career information</h4>
-				<form action="InformationController" method="GET">
-					<select class="custom-select" id="groupOptions1" name="career">
-						<option selected>Choose a career...</option>
-						<%for(int i = 0; i < careers.size(); i++){ %>
-							<option value=<%=careers.get(i).getId() %>><%=careers.get(i).getName() %></option>
+				<h4 align="center">View report by plan</h4>
+				<form action="CourseController" method="GET">
+					<select class="custom-select" id="groupOptions1"
+						name="planSelected">
+						<option selected>Choose a plan...</option>
+						<%for(int i = 0; i < plans.size(); i++){ %>
+						<option value=<%=plans.get(i).getId()%>><%= plans.get(i).getId() %></option>
 						<%} %>
 					</select>
 					<div>
-						<button name="searchInfo" type="submit"
+						<button name="planReports" type="submit"
 							class="btn btn-info btn-block">Search</button>
 					</div>
 				</form>
@@ -68,36 +69,36 @@
 	</div>
 	<br>
 	<%
-		if (result != null) {
+		String pass = (String) request.getAttribute("passCourses");
+		String passCredits = (String) request.getAttribute("passCredits");
+		String totalCredits = (String) request.getAttribute("totalCredits");
+		String pendingCourses = (String) request.getAttribute("pendingCourses");
+	%>
+	<%
+		if (pass != null) {
 	%>
 	<div class="col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">
-				<table class="table table-sm col-md-12 mx-auto">
+				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th scope="col">Type</th>
-							<th scope="col">Information</th>
-							<th scope="col">Listen</th>
+							<th>Courses Approved</th>
+							<th>Total Credits</th>
+							<th>Pending Courses</th>
+							<th>Pass Credits</th>
 						</tr>
 					</thead>
 					<tbody>
-						<%
-							for (int i = 0; i < result.size(); i++) {
-						%>
-						<%
-							RelevantInfo info = (RelevantInfo) result.get(i);
-						%>
+					<tbody>
 						<tr>
-							<td class="font-weight-bold"><%=info.getType()%></td>
-							<td><%=info.getDescription()%></td>
-							<form action="InformationController" method="GET">
-								<td><button name="makeSound" value="<%=info.getDescription()%>" type="submit" class="btn btn-info btn-block">Play</button></td>
-							</form>
+							<td><%=pass%></td>
+							<td><%=totalCredits%></td>
+							<td><%=pendingCourses%></td>
+							<td><%=passCredits%></td>
 						</tr>
-						<%
-							}
-						%>
+					</tbody>
+
 					</tbody>
 				</table>
 				<%

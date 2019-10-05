@@ -28,7 +28,7 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
 					href="StudentView.jsp">Study plans</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">Reports</a></li>
+				<li class="nav-item active"><a class="nav-link" href="ReportsView.jsp">Reports</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="AddComment.jsp">Comment</a></li>
 				<li class="nav-item active"><a class="nav-link"
@@ -89,6 +89,13 @@
 							}
 						%>
 					</ul>
+				</div>
+				<br>
+				<br>
+				<div>
+					<form action="CourseController" method="GET">
+						<button name="translateCourse" value="<%=course.getName()%>" type="submit" class="btn btn-info btn-block">Translate</button>
+					</form>
 				</div>
 				<br>
 			</div>
