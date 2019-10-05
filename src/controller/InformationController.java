@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import careerLogic.Career;
 import careerLogic.RelevantInfo;
 import dao.DaoRelevantInfo;
+import services.AudioManipulation;
+import services.TextToSpeechClass;
 
 /**
  * Servlet implementation class InformationController
@@ -82,6 +84,18 @@ public class InformationController extends HttpServlet {
 			try {
 				request.setAttribute("result", getInformation(career));
 			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("ViewInformation.jsp");
+			rd.forward(request, response);
+		}
+		else if(request.getParameter("makeSound") != null){
+			try {String description = request.getParameter("makeSound");
+				TextToSpeechClass txt = new TextToSpeechClass();
+				txt.create_Audio(description);
+				AudioManipulation audio = new AudioManipulation();
+				audio.playAudio();
+			}catch(Exception e) {
 				e.printStackTrace();
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("ViewInformation.jsp");

@@ -25,7 +25,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link" href="StudentView.jsp">Study plans</a></li>
-				<li class="nav-item active"><a class="nav-link" href="#">Reports</a></li>
+				<li class="nav-item active"><a class="nav-link" href="ReportsView.jsp">Reports</a></li>
 				<li class="nav-item active"><a class="nav-link"
 					href="AddComment.jsp">Comment</a></li>
 				<li class="nav-item active"><a class="nav-link"

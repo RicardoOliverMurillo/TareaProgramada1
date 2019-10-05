@@ -15,6 +15,9 @@ import careerLogic.Course;
 import careerLogic.Plan;
 import dao.DaoCourse;
 import dao.DaoEquivalences;
+import services.AudioManipulation;
+import services.TextToSpeechClass;
+import services.TranslateText;
 import userLogic.Session;
 
 /**
@@ -121,6 +124,33 @@ public class CourseController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		else if(request.getParameter("planReports") != null) {
+			plan = request.getParameter("planSelected");
+			System.out.println(plan);
+			try {
+				request.setAttribute("passCourses", String.valueOf(getPassCourses(Session.getUser()).size()));
+				request.setAttribute("passCredits", getPassCredits(getPassCourses(Session.getUser()),plan));
+				request.setAttribute("totalCredits", getTotalCredits(plan));
+				request.setAttribute("pendingCourses", String.valueOf(getCoursesLength(plan)- getPassCourses(Session.getUser()).size()));
+				RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
+				rd.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(request.getParameter("translateCourse") != null){
+			try {String courseName = request.getParameter("translateCourse");
+				TranslateText text = new TranslateText();
+				TextToSpeechClass txt = new TextToSpeechClass();
+				txt.create_Audio(text.translate_text(courseName));
+				AudioManipulation audio = new AudioManipulation();
+				audio.playAudio();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("ViewInformation.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -155,7 +185,6 @@ public class CourseController extends HttpServlet {
 			int semester = Integer.parseInt(request.getParameter("semester"));
 			String knowledgeArea = request.getParameter("knowledgeArea");
 			Plan plan = new Plan(request.getParameter("plan"));
-		
 			Course newCourse = new Course(id, name, sumCredits, semester, knowledgeArea, plan);
 			try {
 				registerCourse(newCourse);
@@ -203,9 +232,9 @@ public class CourseController extends HttpServlet {
 		for(int i = 0; i < courses.size(); i++) {
 			Course course = getCourse(courses.get(i), idPlan);
 			total = total + course.getSumCredits();
-			System.out.println(total);
 		}
 		return String.valueOf(total);
+		
 	}
 	
 	private String getTotalCredits(String plan) throws SQLException {
@@ -257,5 +286,33 @@ public class CourseController extends HttpServlet {
 		}
 		data.clear();
 		return result;
+	}
+	
+	private int getCoursesLength(String plan) throws SQLException{
+		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = "+plan);
+		return data.size();
+	}
+	
+	private int getPassCreditsByPlan(String idStudent, String plan) throws SQLException {
+		ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDCOURSE FROM STUDENTCOURSE WHERE IDSTUDENT = '"+idStudent+"'");
+		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = "+plan);
+		int total = 0;
+		for(int i = 0; i < data.size(); i++) {
+			for (int j = 0; j < result.size(); j++) {
+				System.out.println(data.get(i).getId());
+				System.out.println(result.get(j));
+				Plan tempPlan = data.get(i).getPlan();
+				System.out.println(tempPlan.getId());
+				System.out.println(plan);
+				if (data.get(i).getId() == result.get(j) && (data.get(i).getPlan()).getId() == plan) {
+					total= total + data.get(i).getSumCredits();
+					System.out.println(total);
+				}
+			}
+		}
+		System.out.println("---------------------------------------------");
+		System.out.println(total);
+		data.clear();
+		return total;
 	}
 }
