@@ -18,15 +18,10 @@ public class Plan implements PlanInterface{
 		career = pCareer;
 	}
 	
-	public Plan() {
-		// TODO Auto-generated constructor stub
-	}
+	public Plan() {}
+	
 	public void addCourse(Course course) {
 		courses.add(course);
-	}
-	
-	public void generateNetView() {
-		
 	}
 	
 	public void addKnowledgeArea(String description) {

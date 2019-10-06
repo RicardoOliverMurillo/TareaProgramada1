@@ -125,15 +125,27 @@ public class CourseController extends HttpServlet {
 			}
 		}
 		else if(request.getParameter("planReports") != null) {
-			plan = request.getParameter("planSelected");
+			plan = request.getParameter("planSelected");;
 			System.out.println(plan);
 			try {
-				request.setAttribute("passCourses", String.valueOf(getPassCourses(Session.getUser()).size()));
-				request.setAttribute("passCredits", getPassCredits(getPassCourses(Session.getUser()),plan));
-				request.setAttribute("totalCredits", getTotalCredits(plan));
-				request.setAttribute("pendingCourses", String.valueOf(getCoursesLength(plan)- getPassCourses(Session.getUser()).size()));
-				RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
-				rd.forward(request, response);
+				if (plan.equals("2050")) {
+					System.out.println("entre al plan "+ plan);
+					request.setAttribute("passCourses", String.valueOf(getPassCourses(Session.getUser()).size()));
+					request.setAttribute("passCredits", getPassCredits(getPassCourses(Session.getUser()),plan));
+					request.setAttribute("totalCredits", getTotalCredits(plan));
+					request.setAttribute("pendingCourses", String.valueOf(getCoursesLength(plan)- getPassCourses(Session.getUser()).size()));
+					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
+					rd.forward(request, response);
+				}else if (plan.equals("2051")) {
+					System.out.println("entre al plan "+ plan);
+					System.out.println(getPassCoursesEquivalencesReport(Session.getUser()).size());
+					request.setAttribute("passCourses", String.valueOf(getPassCoursesEquivalencesReport(Session.getUser()).size()));
+					request.setAttribute("passCredits", getPassCreditsEquivalences(getPassCoursesEquivalencesReport(Session.getUser()),plan));
+					request.setAttribute("totalCredits", getTotalCredits(plan));
+					request.setAttribute("pendingCourses", String.valueOf(getCoursesLength(plan)- getPassCoursesEquivalencesReport(Session.getUser()).size()));
+					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
+					rd.forward(request, response);
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -234,7 +246,6 @@ public class CourseController extends HttpServlet {
 			total = total + course.getSumCredits();
 		}
 		return String.valueOf(total);
-		
 	}
 	
 	private String getTotalCredits(String plan) throws SQLException {
@@ -293,26 +304,22 @@ public class CourseController extends HttpServlet {
 		return data.size();
 	}
 	
-	private int getPassCreditsByPlan(String idStudent, String plan) throws SQLException {
-		ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDCOURSE FROM STUDENTCOURSE WHERE IDSTUDENT = '"+idStudent+"'");
-		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = "+plan);
+	private String getPassCreditsEquivalences(ArrayList<String> courses, String idPlan) throws SQLException {
 		int total = 0;
-		for(int i = 0; i < data.size(); i++) {
-			for (int j = 0; j < result.size(); j++) {
-				System.out.println(data.get(i).getId());
-				System.out.println(result.get(j));
-				Plan tempPlan = data.get(i).getPlan();
-				System.out.println(tempPlan.getId());
-				System.out.println(plan);
-				if (data.get(i).getId() == result.get(j) && (data.get(i).getPlan()).getId() == plan) {
-					total= total + data.get(i).getSumCredits();
-					System.out.println(total);
-				}
-			}
+		for(int i = 0; i < courses.size(); i++) {
+			Course course = getCourse(courses.get(i), idPlan);
+			total = total + course.getSumCredits();
 		}
-		System.out.println("---------------------------------------------");
-		System.out.println(total);
-		data.clear();
-		return total;
+		return String.valueOf(total);
+	}
+	private ArrayList<String> getPassCoursesEquivalencesReport(String idStudent) throws SQLException{
+		ArrayList<String> data = getPassCourses(idStudent);
+		ArrayList<String> result = new ArrayList<String>();
+		for(int i = 0; i < data.size(); i++) {
+			String equivalence = getEquivalences(data.get(i));
+			if(equivalence != null)
+				result.add(equivalence);
+		}
+		return result;
 	}
 }

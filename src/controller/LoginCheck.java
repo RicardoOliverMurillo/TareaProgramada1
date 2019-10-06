@@ -40,12 +40,16 @@ public class LoginCheck extends HttpServlet {
 		String password = request.getParameter("password");
 		String role = request.getParameter("role");
 		Session session = new Session(username);
+		System.out.println("USER:"+username);
+		System.out.println("Pass:"+password);
+		System.out.println("Role:"+role);
 		
 		try {
 			if(session.login(username, password, role)) {
-				if(role.equals("admin")) {
+				System.out.println("Entre");
+				if(role.equals("Admin")) {
 					response.sendRedirect("AdminView.jsp");
-				}else if(role.equals("student")){
+				}else if(role.equals("Student")){
 					response.sendRedirect("StudentView.jsp");
 				}	
 			}else {
