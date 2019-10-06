@@ -92,18 +92,18 @@
 					<tbody>
 					<tbody>
 						<tr>
-							<td><%=pass%></td>
-							<td><%=totalCredits%></td>
-							<td><%=pendingCourses%></td>
-							<td><%=passCredits%></td>
+							<td><%= pass %></td>
+							<td><%= totalCredits %></td>
+							<td><%= pendingCourses %></td>
+							<td><%= passCredits %></td>
 						</tr>
 					</tbody>
 
 					</tbody>
 				</table>
 				<%
-					}
-				%>
+		}
+		%>
 			</div>
 		</div>
 	</div>

@@ -31,8 +31,8 @@
 					<div>
 					<select class="custom-select" id="groupOptions1" name="role">
 						<option selected>Choose role...</option>
-						<option value="student">Student</option>
-						<option value="admin">Admin</option>
+						<option value="Student">Student</option>
+						<option value="Admin">Admin</option>
 					</select>
 					</div>
 					<br>
