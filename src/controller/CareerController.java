@@ -68,11 +68,21 @@ public class CareerController extends HttpServlet{
 		}
 	}
 	
+	/**
+	 * the method inserts the information of the career in the database 
+	 * @param career the career that it's going to be stored
+	 * @throws SQLException
+	 */
 	private void addCareer(Career career) throws SQLException {
 		dbCareer.manipulationQuery("INSERT INTO CAREERS(IDCAREER,NAME) VALUES "
 				+ "('"+career.getId()+"','"+career.getName()+"')");
 	}
 	
+	/**
+	 * the method return all the careers stored in the database 
+	 * @return result ArrayList with the careers stored in the database
+	 * @throws SQLException
+	 */
 	private ArrayList<Career> getAllCareer() throws SQLException {
 		ArrayList<Career> result = new ArrayList<Career>();
 		result = dbCareer.selectQuery("SELECT * FROM CAREERS");

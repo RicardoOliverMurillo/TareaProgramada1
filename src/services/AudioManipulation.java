@@ -6,8 +6,17 @@ import java.io.IOException;
 
 import sun.audio.*;
 
-
+/**
+ * 
+ * @author Marco Gómez, Ricardo Oliver, Anjelica Tristani
+ * Class AudioManipulation to reproduce audio files
+ *
+ */
 public class AudioManipulation {
+	/**
+	 * method that reproduce the wav file
+	 * @throws IOException
+	 */
 	public void playAudio() throws IOException  {
 		FileInputStream f = new FileInputStream("description.wav");
 		AudioStream audio = new AudioStream(f);

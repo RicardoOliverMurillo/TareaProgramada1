@@ -5,12 +5,23 @@ import java.util.ArrayList;
 
 import careerLogic.RelevantInfo;
 
+/**
+ * 
+ * @author Marco Gómez, Ricardo Oliver, Anjelica Tristani 
+ *
+ * Class DaoRelevantInfo to execute the database operations of the RelevantInfo. 
+ * The class inherits the class Dao.
+ */
 public class DaoRelevantInfo extends Dao{
     
     public DaoRelevantInfo() {
 		super();
     }
     
+    /**
+     * The method execute the SELECT query that retrieves information of the relevantInfo from the database
+     * @param query with the query that is going to be executed
+     */
     @Override
     public ArrayList<RelevantInfo> selectQuery(String query) throws SQLException{
         ArrayList<RelevantInfo> result = new ArrayList<RelevantInfo>();

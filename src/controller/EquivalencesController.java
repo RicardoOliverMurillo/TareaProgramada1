@@ -102,17 +102,38 @@ public class EquivalencesController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Method that register a new equivalence in the database
+	 * @param idCourse1 id of the first course
+	 * @param idPlan1 the id of the plan where the first course belongs
+	 * @param idCourse2 id of the second course  
+	 * @param idPlan2 the id of the plan where the first course belongs
+	 * @throws SQLException
+	 */
 	private void addEquivalence(String idCourse1,String idPlan1,String idCourse2, String idPlan2) throws SQLException {
 		dbCourse.manipulationQuery("INSERT INTO EQUIVALENCES(IDCOURSE1,IDPLAN1,IDCOURSE2,IDPLAN2) VALUES "
 				+ "('"+idCourse1+"','"+idPlan1+"','"+idCourse2+"','"+idPlan2+"')");
 	}
 	
+	/**
+	 * the method returns an specific course from an specific plan
+	 * @param idPlan the id of the plan that has the requested course
+	 * @param idCourse the id of the course requested
+	 * @return result with the Course requested
+	 * @throws SQLException
+	 */
 	private ArrayList<Course> getCourse(String idPlan, String idCourse) throws SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
 		result = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDCOURSE = '"+idCourse+"'"+" AND "+"IDPLAN = '"+idPlan+"'");
 		return result;
 	}
 	
+	/**
+	 * the method returns the courses of an specific plan
+	 * @param idPlan the id of the plan that has the courses 
+	 * @return result Array List with the specific courses 
+	 * @throws SQLException
+	 */
 	private ArrayList<Course> getCourses(String idPlan) throws SQLException {
 		ArrayList<Course> result = new ArrayList<Course>();
 		result = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = '"+idPlan+"'");

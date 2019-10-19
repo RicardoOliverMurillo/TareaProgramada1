@@ -138,7 +138,11 @@ public class InformationController extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
-	
+	/**
+	 * the method inserts the relevant information of the career in the database 
+	 * @param info the career that has the information that wants to be stored
+	 * @throws SQLException
+	 */
 	private void insertInformation(Career info) throws SQLException {
 		ArrayList<RelevantInfo> data = info.getInfos(); 
 		for(int i = 0; i < data.size(); i++) {
@@ -147,6 +151,13 @@ public class InformationController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * the method retrieves the relevant information of an specific career 
+	 * @param type the type of information that is requested
+	 * @param career the career that has the information
+	 * @return text description of the relevantInfo of the career
+	 * @throws SQLException
+	 */
 	private String getInformation(String type, String career) throws SQLException {
 		String text = new String();
 		ArrayList<RelevantInfo> data = db.selectQuery("SELECT * FROM INFORMATIONS WHERE TYPE = '"+type+
@@ -157,6 +168,11 @@ public class InformationController extends HttpServlet {
 		return text;
 	}
 	
+	/**
+	 * the method updates the relevant information of the career 
+	 * @param info the career with the info that wants to be updated
+	 * @throws SQLException
+	 */
 	private void updateInformation(Career info) throws SQLException {
 		ArrayList<RelevantInfo> data = info.getInfos(); 
 		for(int i = 0; i < data.size(); i++) {
@@ -168,6 +184,12 @@ public class InformationController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * the method return the relevant information of an specific career
+	 * @param career that has the relevant information requested 
+	 * @return result with the relevant information 
+	 * @throws SQLException
+	 */
 	private ArrayList<RelevantInfo> getInformation(String career) throws SQLException{
 		ArrayList<RelevantInfo> result = new ArrayList<RelevantInfo>();
 		result = db.selectQuery("SELECT * FROM INFORMATIONS WHERE IDCAREER = '"+ career+"'");

@@ -5,12 +5,24 @@ import java.util.ArrayList;
 
 import careerLogic.Course;
 
+/**
+ * 
+ * @author Marco Gómez, Ricardo Oliver, Anjelica Tristani 
+ *
+ * Class DaoCourse to execute the database operations of the courses. 
+ * The class inherits the class Dao.
+ * 
+ */
 public class DaoCourse extends Dao{
     
     public DaoCourse() {
 		super();
     }
 	
+    /**
+     * The method execute the SELECT query that retrieves information of the courses from the database
+     * @param query with the query that is going to be executed
+     */
     @Override
 	public ArrayList<Course> selectQuery(String query) throws SQLException{		
 		ArrayList<Course> result = new ArrayList<Course>();

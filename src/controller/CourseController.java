@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import careerLogic.Course;
 import careerLogic.Plan;
+import dao.Dao;
 import dao.DaoCourse;
 import dao.DaoEquivalences;
 import services.AudioManipulation;
@@ -207,6 +208,13 @@ public class CourseController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * the method return an specific course from an specific plan
+	 * @param idCourse of the course requested
+	 * @param idPlan of the plan where the course is located
+	 * @return result ArrayList with the course in the database 
+	 * @throws SQLException
+	 */
 	private Course getCourse(String idCourse, String idPlan) throws SQLException {
 		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDCOURSE = '"+idCourse+"' AND IDPLAN = '"+idPlan+"'");
 		Course course = null;
@@ -216,11 +224,23 @@ public class CourseController extends HttpServlet {
 		return course;
 	}
 	
+	/**
+	 * The method get the pass courses of the student
+	 * @param idStudent id of the student that request the information
+	 * @return result ArrayList with the approved courses
+	 * @throws SQLException
+	 */
 	private ArrayList<String> getPassCourses(String idStudent) throws SQLException {
 		ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDCOURSE FROM STUDENTCOURSE WHERE IDSTUDENT = '"+idStudent+"'");
 		return result;
 	}
 	
+	/**
+	 * the method get the courses approved in a different plan 
+	 * @param idStudent the student that request the information
+	 * @return result Array List with the pass courses in a different plan
+	 * @throws SQLException
+	 */
 	private ArrayList<String> getPassCoursesEquivalences(String idStudent) throws SQLException{
 		ArrayList<String> data = getPassCourses(idStudent);
 		ArrayList<String> result = new ArrayList<String>();
@@ -231,6 +251,12 @@ public class CourseController extends HttpServlet {
 		return result;
 	}
 	
+	/**
+	 * the method get the equivalences from an specific course	
+	 * @param idCourse the course requested
+	 * @return result with the id of the course equivalence 
+	 * @throws SQLException
+	 */
 	private String getEquivalences(String idCourse) throws SQLException{
 			ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDCOURSE2 FROM EQUIVALENCES WHERE IDCOURSE1 = '"+idCourse+"'");
 			if(result.size()>0) {
@@ -239,15 +265,32 @@ public class CourseController extends HttpServlet {
 			return null;
 	}
 	
+	/**
+	 * the method return the pass credits of the plan requested
+	 * @param courses id of the courses approved
+	 * @param idPlan id of the plan where the courses are located
+	 * @return the value of the pass credits of the specific plan
+	 * @throws SQLException
+	 */
 	private String getPassCredits(ArrayList<String> courses, String idPlan) throws SQLException {
 		int total = 0;
+		System.out.println("SIZE:"+courses.size());
 		for(int i = 0; i < courses.size(); i++) {
 			Course course = getCourse(courses.get(i), idPlan);
 			total = total + course.getSumCredits();
+			System.out.println("CREDITOS:"+course.getSumCredits());
+			System.out.println("nombre:"+course.getName());
 		}
+		System.out.println("TOTAL:"+total);
 		return String.valueOf(total);
 	}
 	
+	/**
+	 * the method returns the sum of the courses credits in an specific plan
+	 * @param plan plan where the courses are located 
+	 * @return the value of the total credits in the plan 
+	 * @throws SQLException
+	 */
 	private String getTotalCredits(String plan) throws SQLException {
 		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = " + plan);
 		int total = 0;
@@ -258,29 +301,68 @@ public class CourseController extends HttpServlet {
 		return String.valueOf(total);
 	}
 	
+	/**
+	 * the method retrieve the requirements of an specific course 
+	 * @param idCourse id of the course requested 
+	 * @param idPlan id of the plan where the course is located
+	 * @return result Arraylist with the course requirements 
+	 * @throws SQLException
+	 */
 	private ArrayList<String> getRequirements(String idCourse, String idPlan) throws SQLException{
 		ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDREQUIREMENT FROM REQUIREMENTS WHERE IDCOURSE = '"+idCourse+"' AND IDPLAN = '"+idPlan+"'");
 		return result;
 	}
 	
+	/**
+	 * the method retrieve the corequirements of an specific course 
+	 * @param idCourse id of the course requested 
+	 * @param idPlan id of the plan where the course is located
+	 * @return result Arraylist with the course corequirements 
+	 * @throws SQLException
+	 */
 	private ArrayList<String> getCorequirements(String idCourse, String idPlan) throws SQLException{
 		ArrayList<String> result = dbEquivalences.selectQuery("SELECT IDCOREQUIREMENT FROM COREQUIREMENTS WHERE IDCOURSE = '"+idCourse+"' AND IDPLAN = '"+idPlan+"'");
 		return result;
 	}
 	
+	/**
+	 * the method register a new course in the database
+	 * @param course the course that is going to be stored
+	 * @throws Exception
+	 */
 	private void registerCourse(Course course) throws Exception {
 		dbCourse.manipulationQuery("INSERT INTO COURSES (IDCOURSE,NAME,SUMCREDITS, SEMESTER, KNOWLEDGEAREA, IDPLAN) VALUES ('"+course.getId()+"','"+
 				course.getName()+"','"+course.getSumCredits()+"','"+course.getSemester()+"','"+course.getKnowledgeArea()+"','"+course.getPlan().getId()+"')");
 	}
 	
+	/**
+	 * the method register the requirements of an specific course
+	 * @param idCourse 
+	 * @param idRequirement
+	 * @param idPlan
+	 * @throws Exception
+	 */
 	private void registerRequirements(String idCourse, String idRequirement, String idPlan) throws Exception {
 		dbEquivalences.manipulationQuery("INSERT INTO REQUIREMENTS (IDCOURSE,IDREQUIREMENT,IDPLAN) VALUES ('"+idCourse+"','"+idRequirement+"','"+idPlan+"')");
 	}
 	
+	/**
+	 * the method register the corequirements of an specific course
+	 * @param idCourse
+	 * @param idCorequirement
+	 * @param idPlan
+	 * @throws Exception
+	 */
 	private void registerCorequirements(String idCourse, String idCorequirement,String idPlan) throws Exception {
 		dbEquivalences.manipulationQuery("INSERT INTO COREQUIREMENTS (IDCOURSE,IDCOREQUIREMENT,IDPLAN) VALUES ('"+idCourse+"','"+idCorequirement+"','"+idPlan+"')");
 	}
 	
+	/**
+	 * method that gets the courses of an specific plan and build a matrix	
+	 * @param plan the plan that has the courses
+	 * @return result ArrayList with the courses requested 
+	 * @throws SQLException
+	 */
 	private String[][] getCourses(String plan) throws SQLException{
 		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = "+plan);
 		String[][] result = new String[10][11];
@@ -299,11 +381,24 @@ public class CourseController extends HttpServlet {
 		return result;
 	}
 	
+	/**
+	 * the method returns the number of course registers in the database of an specific plan 
+	 * @param plan the plan that has the courses requested
+	 * @return integer with the number of registers
+	 * @throws SQLException
+	 */
 	private int getCoursesLength(String plan) throws SQLException{
 		ArrayList<Course> data = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = "+plan);
 		return data.size();
 	}
 	
+	/**
+	 * the method returns the pass credits in other plan, using the equivalences
+	 * @param courses Array list with the courses approved
+	 * @param idPlan of the plan where the course is located
+	 * @return return the number of credits approved in a different plan
+	 * @throws SQLException
+	 */
 	private String getPassCreditsEquivalences(ArrayList<String> courses, String idPlan) throws SQLException {
 		int total = 0;
 		for(int i = 0; i < courses.size(); i++) {
@@ -312,6 +407,13 @@ public class CourseController extends HttpServlet {
 		}
 		return String.valueOf(total);
 	}
+	
+	/**
+	 * the method returns the number of course approved by the student in a different plan
+	 * @param idStudent id of the student that request the information
+	 * @return
+	 * @throws SQLException
+	 */
 	private ArrayList<String> getPassCoursesEquivalencesReport(String idStudent) throws SQLException{
 		ArrayList<String> data = getPassCourses(idStudent);
 		ArrayList<String> result = new ArrayList<String>();

@@ -5,12 +5,23 @@ import java.util.ArrayList;
 
 import userLogic.Comment;
 
+/**
+ * 
+ * @author Marco Gómez, Ricardo Oliver, Anjelica Tristani 
+ *
+ * Class DaoComment to execute the database operations of the comments. 
+ * The class inherits the class Dao.
+ */
 public class DaoComment extends Dao{
 
     public DaoComment() {
 		super();
     }
 	
+    /**
+     * The method execute the SELECT query that retrieves information of the comments from the database
+     * @param query with the query that is going to be executed
+     */
     @Override
 	public ArrayList<Comment> selectQuery(String query) throws SQLException{
 		ArrayList<Comment> result = new ArrayList<Comment>();
