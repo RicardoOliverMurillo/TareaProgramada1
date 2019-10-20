@@ -5,13 +5,30 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+<<<<<<< HEAD
+=======
+/**
+ * 
+ * @author Marco Gómez, Ricardo Oliver, Anjelica Tristani 
+ *
+ * Class ConnectionSingleton for to control the creation of the database connection instance
+ */
+>>>>>>> 61806a086b0613b3d3bf5d063a60f4c5de3ee55d
 public class ConnectionSingleton {
 	
 	private static Connection conn;
 	
+	/**
+	 * the default constructor it's private because the connection is going to be instantiated inside this class
+	 * because of the design pattern Singleton
+	 */
 	private ConnectionSingleton() {
 	}
     
+	/**
+     * the method returns the instance of the connection to the database 
+     * @return conn the connection to the database
+     */
     public static Connection getInstance() {
     	if (conn == null){
     		String hostName = "server1pyr.database.windows.net";

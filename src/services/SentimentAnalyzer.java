@@ -20,6 +20,11 @@ public class SentimentAnalyzer implements SentimentAnalyzerInterface{
 	
 	public SentimentAnalyzer() {}
 	
+	/**
+	 * Method that analyzed the sentiments of the comment
+	 * @param comment that is going to be analyzed
+	 * @return result array list with the sentiments analysis 
+	 */
 	public ArrayList<Comment> analyzeComment(Comment comment) {
 		System.out.println("Entro a analyzer");
 		ToneAnalyzer toneAnalyzer = authentication();
@@ -28,7 +33,10 @@ public class SentimentAnalyzer implements SentimentAnalyzerInterface{
 		ArrayList<Comment> result = parseInfo(toneAnalysis, comment.getDescription());
 		return result;
 	}
-	
+	/**
+	 * method that return the instance of the api ToneAnalyzer
+	 * @return toneAnalyzer 
+	 */
 	private ToneAnalyzer authentication() {
 		IamOptions options = new IamOptions.Builder().apiKey(apiKey).build();
 		ToneAnalyzer toneAnalyzer = new ToneAnalyzer(version, options);
@@ -36,6 +44,11 @@ public class SentimentAnalyzer implements SentimentAnalyzerInterface{
 		return toneAnalyzer;
 	}
 	
+	/**
+	 * method that parse the result of the sentiment analysis 
+	 * @param toneAnalaysis the tones that ar going to be analyzed 
+	 * @param text that is going to be analyzed 
+	 */
 	public ArrayList<Comment> parseInfo(ToneAnalysis toneAnalysis, String text) {
 		JSONObject obj = new JSONObject(toneAnalysis);
 		ArrayList<Comment> result = new ArrayList<Comment>();

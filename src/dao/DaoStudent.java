@@ -5,7 +5,13 @@ import java.util.ArrayList;
 
 import userLogic.Student;
 
-
+/**
+ * 
+ * @author Marco Gómez, Ricardo Oliver, Anjelica Tristani 
+ *
+ * Class DaoStudent to execute the database operations of the students. 
+ * The class inherits the class Dao.
+ */
 public class DaoStudent extends Dao{
 
     
@@ -13,6 +19,10 @@ public class DaoStudent extends Dao{
 		super();
     }
 	
+    /**
+     * The method execute the SELECT query that retrieves information of the students from the database
+     * @param query with the query that is going to be executed
+     */
 	@Override
 	public ArrayList<Student> selectQuery(String query) throws SQLException{
 		ArrayList<Student> result = new ArrayList<Student>();

@@ -105,17 +105,34 @@ public class PlanController extends HttpServlet{
 		}
 	}
 	
+	/**
+	 * the method add the plan information to the database
+	 * @param plan the plan that is going to be added
+	 * @throws SQLException
+	 */
 	private void addPlan(Plan plan) throws SQLException {
 		dbPlan.manipulationQuery("INSERT INTO PLANS(IDPLAN,IDCAREER) VALUES "
 				+ "('"+plan.getId()+"','"+plan.getCareer().getId()+"')");
 	}
 	
+	/**
+	 * the method retrieves the careers stored in the database
+	 * @param idCareer 
+	 * @return result ArrayList with the careers requested
+	 * @throws SQLException
+	 */
 	private ArrayList<Career> getCareer(String idCareer) throws SQLException {
 		ArrayList<Career> result = new ArrayList<Career>();
 		result = dbCareer.selectQuery("SELECT * FROM CAREERS WHERE IDCAREER = '"+idCareer+"'");
 		return result;
 	}
 	
+	/**
+	 * The method gets all the plans of an specific career 
+	 * @param idCareer the id of the career that has the plans  
+	 * @return result Array List with the plans requested 
+	 * @throws SQLException
+	 */
 	private ArrayList<Plan> getPlans(String idCareer) throws SQLException {
 		System.out.println(idCareer+" hola");
 		ArrayList<Plan> result = new ArrayList<Plan>();

@@ -87,6 +87,11 @@ public class AddComment extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * the method add the comment of the user in the database
+	 * @param result the comments of the user
+	 * @throws SQLException
+	 */
 	private void addComment(ArrayList<Comment> result) throws SQLException {
 		for(int i = 0; i < result.size(); i++) {
 			Comment comment = result.get(i);
@@ -96,12 +101,24 @@ public class AddComment extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * the method returns the comments with an specific sentiment tone
+	 * @param option the sentiment tone requested 
+	 * @return result Arraylist with the comments that match the sentiment tone 
+	 * @throws SQLException
+	 */
 	private ArrayList<Comment> getComment(String option) throws SQLException {
 		ArrayList<Comment> result = new ArrayList<Comment>();
 		result = db.selectQuery("SELECT * FROM COMMENTS WHERE TONENAME = '"+option+"'");
 		return result;
 	}
 	
+	/**
+	 * the method retrieves the comments made by an specific student
+	 * @param id of the student that request the info
+	 * @return result Array with the comments of an specific student 
+	 * @throws SQLException
+	 */
 	private ArrayList<Comment> getCommentStudent(String id) throws SQLException {
 		ArrayList<Comment> result = new ArrayList<Comment>();
 		result = db.selectQuery("SELECT * FROM COMMENTS WHERE IDOWNER = '"+id+"'");
