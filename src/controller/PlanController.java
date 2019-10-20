@@ -54,8 +54,7 @@ import dao.DaoCareer;
 @WebServlet("/PlanController")
 public class PlanController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	DaoPlan dbPlan = new DaoPlan();
-	DaoCareer dbCareer = new DaoCareer();
+	private Plan plan = new Plan();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -73,7 +72,7 @@ public class PlanController extends HttpServlet{
 			String id = request.getParameter("careerOption");
 			ArrayList<Plan> planList = new ArrayList<Plan>();
 			try {
-				planList = getPlans(id);
+				planList = plan.getPlans(id);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -89,7 +88,7 @@ public class PlanController extends HttpServlet{
 			System.out.println(idCareer);
 			ArrayList<Career> careerList = new ArrayList<Career>();
 			try {
-				careerList = getCareer(idCareer);
+				careerList = plan.getCareer(idCareer);
 				System.out.println(careerList);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -97,48 +96,11 @@ public class PlanController extends HttpServlet{
 			Career career = careerList.get(0);
 			Plan newPlan = new Plan(id, career);
 			try {
-				addPlan(newPlan);
+				plan.addPlan(newPlan);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			response.sendRedirect("RegisterPlanView.jsp");
 		}
 	}
-	
-	/**
-	 * the method add the plan information to the database
-	 * @param plan the plan that is going to be added
-	 * @throws SQLException
-	 */
-	private void addPlan(Plan plan) throws SQLException {
-		dbPlan.manipulationQuery("INSERT INTO PLANS(IDPLAN,IDCAREER) VALUES "
-				+ "('"+plan.getId()+"','"+plan.getCareer().getId()+"')");
-	}
-	
-	/**
-	 * the method retrieves the careers stored in the database
-	 * @param idCareer 
-	 * @return result ArrayList with the careers requested
-	 * @throws SQLException
-	 */
-	private ArrayList<Career> getCareer(String idCareer) throws SQLException {
-		ArrayList<Career> result = new ArrayList<Career>();
-		result = dbCareer.selectQuery("SELECT * FROM CAREERS WHERE IDCAREER = '"+idCareer+"'");
-		return result;
-	}
-	
-	/**
-	 * The method gets all the plans of an specific career 
-	 * @param idCareer the id of the career that has the plans  
-	 * @return result Array List with the plans requested 
-	 * @throws SQLException
-	 */
-	private ArrayList<Plan> getPlans(String idCareer) throws SQLException {
-		System.out.println(idCareer+" hola");
-		ArrayList<Plan> result = new ArrayList<Plan>();
-		result = dbPlan.selectQuery("SELECT * FROM PLANS WHERE IDCAREER = '"+idCareer+"'");
-		System.out.println("entró");
-		return result;
-	}
-
 }

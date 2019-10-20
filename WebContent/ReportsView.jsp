@@ -45,8 +45,8 @@
 	</nav>
 	<!--End of Navbar-->
 	<br>
-	<% DaoPlan db = new DaoPlan(); %>
-	<% ArrayList<Plan> plans = (ArrayList<Plan>) db.selectQuery("SELECT * FROM PLANS"); %>
+	<% Plan plan = new Plan(); %>
+	<% ArrayList<Plan> plans = (ArrayList<Plan>) plan.getAllPlans(); %>
 	<div class="col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">

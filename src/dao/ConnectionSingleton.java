@@ -5,12 +5,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 /**
  * 
  * @author Marco Gómez, Ricardo Oliver, Anjelica Tristani 
  *
  * Class ConnectionSingleton for to control the creation of the database connection instance
  */
+
 public class ConnectionSingleton {
 	
 	private static Connection conn;

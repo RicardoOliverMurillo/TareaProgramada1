@@ -1,6 +1,11 @@
 package userLogic;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import dao.DaoComment;
+import dao.DaoInterface;
+import dao.DaoStudent;
 
 /**
  * 
@@ -8,6 +13,7 @@ import java.util.ArrayList;
  *
  * Class Student for the insertion and manipulation of the student information. 
  */
+
 public class Student implements StudentInterface{
 	
 	private String id;
@@ -17,14 +23,19 @@ public class Student implements StudentInterface{
 	private String password;
 	private String role = "Student";
 	private ArrayList<Comment> comments;
+	private DaoInterface dbStudent, dbComment;
 	
-	public Student () {}
+	public Student () {
+		dbStudent = new DaoStudent();
+		dbComment = new DaoComment();
+	}
 	
 	/**
 	 * Constructor of the class Student with the id
 	 * @param id of the student
 	 */
 	public Student(String id) {
+		this();
 		this.id = id;
 		this.comments = new ArrayList<Comment>();
 	}
@@ -50,9 +61,58 @@ public class Student implements StudentInterface{
 	 * Method that add a new comment in the array list
 	 * @param text the comment that wants to be added 
 	 */
-	public void addComment(String text) {
+	public void setComment(String text) {
 		Comment comment = new Comment(text);
 		comments.add(comment);
+	}
+	
+	
+	/**
+	 * Method that registers a new student in the database
+	 * @param student the student information
+	 * @throws Exception SQLException
+	 */
+	public void registerStudent(Student student) throws Exception {
+		dbStudent.manipulationQuery("INSERT INTO USERS (IDUSER, NAME, LASTNAME, EMAIL, PASSWORD, ROLE) VALUES ('"+student.getId()+"','"+
+				student.getName()+"','"+student.getLastName()+"','"+student.getEmail()+"','"+student.getPassword()+"','"+student.getRole()+"')");
+	}
+	
+	/**
+	 * the method add the comment of the user in the database
+	 * @param result the comments of the user
+	 * @throws SQLException
+	 */
+	public void addComment(ArrayList<Comment> result) throws SQLException {
+		for(int i = 0; i < result.size(); i++) {
+			Comment comment = result.get(i);
+			dbComment.manipulationQuery("INSERT INTO COMMENTS (IDOWNER, DESCRIPTION, TONENAME, SCORE) VALUES "
+					+ "('"+Session.getUser()+"','"+comment.getDescription()+"','"+comment.getToneName()
+					+ "',"+comment.getScore()+")");
+		}
+	}
+	
+	/**
+	 * the method returns the comments with an specific sentiment tone
+	 * @param option the sentiment tone requested 
+	 * @return result Arraylist with the comments that match the sentiment tone 
+	 * @throws SQLException
+	 */
+	public ArrayList<Comment> getComment(String option) throws SQLException {
+		ArrayList<Comment> result = new ArrayList<Comment>();
+		result = (ArrayList<Comment>) dbComment.selectQuery("SELECT * FROM COMMENTS WHERE TONENAME = '"+option+"'");
+		return result;
+	}
+	
+	/**
+	 * the method retrieves the comments made by an specific student
+	 * @param id of the student that request the info
+	 * @return result Array with the comments of an specific student 
+	 * @throws SQLException
+	 */
+	public ArrayList<Comment> getCommentStudent(String id) throws SQLException {
+		ArrayList<Comment> result = new ArrayList<Comment>();
+		result = (ArrayList<Comment>) dbComment.selectQuery("SELECT * FROM COMMENTS WHERE IDOWNER = '"+id+"'");
+		return result;
 	}
 	
 	/**

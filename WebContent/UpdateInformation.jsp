@@ -46,8 +46,8 @@
 	<br>
 	<%String text = (String) request.getAttribute("text"); %>
 	<% String type = (String)request.getAttribute("type"); %>
-	<% DaoCareer db = new DaoCareer(); %>
-	<% ArrayList<Career> careers = (ArrayList<Career>) db.selectQuery("SELECT * FROM CAREERS"); %>
+	<% Career career = new Career(); %>
+	<% ArrayList<Career> careers = (ArrayList<Career>) career.getAllCareer(); %>
 	<h4 class="text-center">Update career information</h4>
 	<div class="col-md-8 mx-auto">
 		<div class="card">

@@ -18,7 +18,7 @@ import userLogic.Student;
 @WebServlet("/RegisterStudent")
 public class RegisterStudent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DaoStudent db = new DaoStudent();
+	private Student student = new Student();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,18 +40,13 @@ public class RegisterStudent extends HttpServlet {
 		
 		Student newStudent = new Student(id, name, lastName, email, password);
 		try {
-			registerStudent(newStudent);
+			student.registerStudent(newStudent);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		response.sendRedirect("loginView.jsp");
-	}
-	
-	private void registerStudent(Student student) throws Exception {
-		db.manipulationQuery("INSERT INTO USERS (IDUSER, NAME, LASTNAME, EMAIL, PASSWORD, ROLE) VALUES ('"+student.getId()+"','"+
-				student.getName()+"','"+student.getLastName()+"','"+student.getEmail()+"','"+student.getPassword()+"','"+student.getRole()+"')");
 	}
 }
 

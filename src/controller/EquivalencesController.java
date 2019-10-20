@@ -20,7 +20,7 @@ import dao.DaoCourse;
 @WebServlet("/EquivalencesController")
 public class EquivalencesController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DaoCourse dbCourse = new DaoCourse();
+	private Course courseCtrl = new Course();
 	private String selectedPlan1;
 	private String selectedPlan2;
 	private String selectedCourse1;
@@ -42,7 +42,7 @@ public class EquivalencesController extends HttpServlet {
 			String idPlan1 = request.getParameter("idPlan1");
 			ArrayList<Course> courseList1 = new ArrayList<Course>();
 			try {
-				courseList1 = getCourses(idPlan1);
+				courseList1 = courseCtrl.getCoursesPlan(idPlan1);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -61,7 +61,7 @@ public class EquivalencesController extends HttpServlet {
 			String idPlan2 = request.getParameter("idPlan2");
 			ArrayList<Course> courseList2 = new ArrayList<Course>();
 			try {
-				courseList2 = getCourses(idPlan2);
+				courseList2 = courseCtrl.getCoursesPlan(idPlan2);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -77,20 +77,18 @@ public class EquivalencesController extends HttpServlet {
 			response.sendRedirect("RegisterEquivalencesView.jsp");
 		}
 		else if (request.getParameter("addEquivalence") != null) {
-			ArrayList<Course> courseList1 = new ArrayList<Course>();
-			ArrayList<Course> courseList2 = new ArrayList<Course>();
+			Course course1 = new Course();
+			Course course2 = new Course();
 			try {
-				courseList1 = getCourse(selectedPlan1, selectedCourse1);
-				courseList2 = getCourse(selectedPlan2, selectedCourse2);
+				course1 = courseCtrl.getCourse(selectedCourse1,selectedPlan1);
+				course2 = courseCtrl.getCourse(selectedCourse2,selectedPlan2);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			Course course1 = courseList1.get(0);
-			Course course2 = courseList2.get(0);
 			course1.addEquivalences(course2);
 			course2.addEquivalences(course1);
 			try {
-				addEquivalence(selectedCourse1,selectedPlan1,selectedCourse2,selectedPlan2);
+				courseCtrl.addEquivalence(selectedCourse1,selectedPlan1,selectedCourse2,selectedPlan2);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -101,43 +99,4 @@ public class EquivalencesController extends HttpServlet {
 			response.sendRedirect("RegisterEquivalencesView.jsp");
 		}
 	}
-	
-	/**
-	 * Method that register a new equivalence in the database
-	 * @param idCourse1 id of the first course
-	 * @param idPlan1 the id of the plan where the first course belongs
-	 * @param idCourse2 id of the second course  
-	 * @param idPlan2 the id of the plan where the first course belongs
-	 * @throws SQLException
-	 */
-	private void addEquivalence(String idCourse1,String idPlan1,String idCourse2, String idPlan2) throws SQLException {
-		dbCourse.manipulationQuery("INSERT INTO EQUIVALENCES(IDCOURSE1,IDPLAN1,IDCOURSE2,IDPLAN2) VALUES "
-				+ "('"+idCourse1+"','"+idPlan1+"','"+idCourse2+"','"+idPlan2+"')");
-	}
-	
-	/**
-	 * the method returns an specific course from an specific plan
-	 * @param idPlan the id of the plan that has the requested course
-	 * @param idCourse the id of the course requested
-	 * @return result with the Course requested
-	 * @throws SQLException
-	 */
-	private ArrayList<Course> getCourse(String idPlan, String idCourse) throws SQLException {
-		ArrayList<Course> result = new ArrayList<Course>();
-		result = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDCOURSE = '"+idCourse+"'"+" AND "+"IDPLAN = '"+idPlan+"'");
-		return result;
-	}
-	
-	/**
-	 * the method returns the courses of an specific plan
-	 * @param idPlan the id of the plan that has the courses 
-	 * @return result Array List with the specific courses 
-	 * @throws SQLException
-	 */
-	private ArrayList<Course> getCourses(String idPlan) throws SQLException {
-		ArrayList<Course> result = new ArrayList<Course>();
-		result = dbCourse.selectQuery("SELECT * FROM COURSES WHERE IDPLAN = '"+idPlan+"'");
-		return result;
-	}
-
 }

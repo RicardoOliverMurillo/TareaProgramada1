@@ -23,7 +23,8 @@ import services.TextToSpeechClass;
 @WebServlet("/InformationController")
 public class InformationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	DaoRelevantInfo db = new DaoRelevantInfo();
+	private Career career = new Career();
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,7 +46,7 @@ public class InformationController extends HttpServlet {
 			career.addInfo(type, information);
 			
 			try {
-				insertInformation(career);
+				career.insertInformation(career);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -53,11 +54,11 @@ public class InformationController extends HttpServlet {
 		}
 		else if(request.getParameter("search") != null){
 			String type = request.getParameter("type");
-			String career = request.getParameter("career");
+			String careerName = request.getParameter("career");
 			request.setAttribute("type", type);
-			request.setAttribute("career",career);
+			request.setAttribute("career",careerName);
 			try {
-				String text = getInformation(type, career);
+				String text = career.getInformation(type, careerName);
 				request.setAttribute("text",text);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -73,16 +74,16 @@ public class InformationController extends HttpServlet {
 			career.addInfo(type, information);
 			
 			try {
-				updateInformation(career);
+				career.updateInformation(career);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			response.sendRedirect("RelevantInformation.jsp");
 		}
 		else if(request.getParameter("searchInfo") != null){
-			String career = request.getParameter("career");
+			String careerName = request.getParameter("career");
 			try {
-				request.setAttribute("result", getInformation(career));
+				request.setAttribute("result", career.getInformation(careerName));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -137,62 +138,5 @@ public class InformationController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("UpdateInformation.jsp");
 			rd.forward(request, response);
 		}
-	}
-	/**
-	 * the method inserts the relevant information of the career in the database 
-	 * @param info the career that has the information that wants to be stored
-	 * @throws SQLException
-	 */
-	private void insertInformation(Career info) throws SQLException {
-		ArrayList<RelevantInfo> data = info.getInfos(); 
-		for(int i = 0; i < data.size(); i++) {
-			db.manipulationQuery("INSERT INTO INFORMATIONS(TYPE,DESCRIPTION,IDCAREER) VALUES "
-					+ "('"+data.get(i).getType()+"','"+data.get(i).getDescription()+"','"+info.getId()+"')");
-		}
-	}
-	
-	/**
-	 * the method retrieves the relevant information of an specific career 
-	 * @param type the type of information that is requested
-	 * @param career the career that has the information
-	 * @return text description of the relevantInfo of the career
-	 * @throws SQLException
-	 */
-	private String getInformation(String type, String career) throws SQLException {
-		String text = new String();
-		ArrayList<RelevantInfo> data = db.selectQuery("SELECT * FROM INFORMATIONS WHERE TYPE = '"+type+
-				"' AND IDCAREER = '"+ career+"'");
-		for(int i = 0; i < data.size(); i++) {
-			text = data.get(i).getDescription();
-		}
-		return text;
-	}
-	
-	/**
-	 * the method updates the relevant information of the career 
-	 * @param info the career with the info that wants to be updated
-	 * @throws SQLException
-	 */
-	private void updateInformation(Career info) throws SQLException {
-		ArrayList<RelevantInfo> data = info.getInfos(); 
-		for(int i = 0; i < data.size(); i++) {
-			db.manipulationQuery("UPDATE INFORMATIONS SET TYPE = '"+data.get(i).getType()+"', "
-				+ "DESCRIPTION = '"+data.get(i).getDescription()+"', "
-				+ "IDCAREER = '"+info.getId()+"' WHERE "
-				+ "TYPE = '"+data.get(i).getType()+"' AND "
-				+ "IDCAREER = '"+info.getId()+"'");
-		}
-	}
-	
-	/**
-	 * the method return the relevant information of an specific career
-	 * @param career that has the relevant information requested 
-	 * @return result with the relevant information 
-	 * @throws SQLException
-	 */
-	private ArrayList<RelevantInfo> getInformation(String career) throws SQLException{
-		ArrayList<RelevantInfo> result = new ArrayList<RelevantInfo>();
-		result = db.selectQuery("SELECT * FROM INFORMATIONS WHERE IDCAREER = '"+ career+"'");
-		return result;
 	}
 }

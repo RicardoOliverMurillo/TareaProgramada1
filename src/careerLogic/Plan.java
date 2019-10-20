@@ -1,6 +1,11 @@
 package careerLogic;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import dao.DaoCareer;
+import dao.DaoInterface;
+import dao.DaoPlan;
 
 /**
  * 
@@ -13,12 +18,23 @@ public class Plan implements PlanInterface{
 	private Career career;
 	private ArrayList<String> knowledgeAreaDesciption;
 	private ArrayList<Course> courses;
+	private DaoInterface dbPlan, dbCareer;
+	
+	/**
+	 *  Constructor of the class Plan
+	 */
+	public Plan() {
+		dbPlan = new DaoPlan();
+		dbCareer = new DaoCareer();
+	}
+	
 	/**
 	 * Constructor of the class Plan with the id
 	 * @param pId id of the plan
 	 */
-	public Plan(String pId) {
-		id = pId;
+	public Plan(String id) {
+		this();
+		this.id = id;
 		knowledgeAreaDesciption = new ArrayList<String>();
 		courses = new ArrayList<Course>();
 	}
@@ -27,12 +43,10 @@ public class Plan implements PlanInterface{
 	 * @param pId id of the plan
 	 * @param pCareer career where the plan belongs
 	 */
-	public Plan(String pId, Career pCareer) {
-		this(pId);
-		career = pCareer;
+	public Plan(String id, Career career) {
+		this(id);
+		this.career = career;
 	}
-	
-	public Plan() {}
 	
 	/**
 	 * the method add a new course to the plan array list
@@ -48,6 +62,51 @@ public class Plan implements PlanInterface{
 	 */
 	public void addKnowledgeArea(String description) {
 		knowledgeAreaDesciption.add(description);
+	}
+	
+	/**
+	 * the method add the plan information to the database
+	 * @param plan the plan that is going to be added
+	 * @throws SQLException
+	 */
+	public void addPlan(Plan plan) throws SQLException {
+		dbPlan.manipulationQuery("INSERT INTO PLANS(IDPLAN,IDCAREER) VALUES "
+				+ "('"+plan.getId()+"','"+plan.getCareer().getId()+"')");
+	}
+	
+	/**
+	 * the method retrieves the careers stored in the database
+	 * @param idCareer 
+	 * @return result ArrayList with the careers requested
+	 * @throws SQLException
+	 */
+	public ArrayList<Career> getCareer(String idCareer) throws SQLException {
+		ArrayList<Career> result = new ArrayList<Career>();
+		result = (ArrayList<Career>) dbCareer.selectQuery("SELECT * FROM CAREERS WHERE IDCAREER = '"+idCareer+"'");
+		return result;
+	}
+	
+	/**
+	 * The method gets all the plans of an specific career 
+	 * @param idCareer the id of the career that has the plans  
+	 * @return result Array List with the plans requested 
+	 * @throws SQLException
+	 */
+	public ArrayList<Plan> getPlans(String idCareer) throws SQLException {
+		ArrayList<Plan> result = new ArrayList<Plan>();
+		result = (ArrayList<Plan>) dbPlan.selectQuery("SELECT * FROM PLANS WHERE IDCAREER = '"+idCareer+"'");
+		return result;
+	}
+	
+	/**
+	 * The method gets all the plans   
+	 * @return result Array List with the plans requested 
+	 * @throws SQLException
+	 */
+	public ArrayList<Plan> getAllPlans() throws SQLException {
+		ArrayList<Plan> result = new ArrayList<Plan>();
+		result = (ArrayList<Plan>) dbPlan.selectQuery("SELECT * FROM PLANS");
+		return result;
 	}
 	
 	/**

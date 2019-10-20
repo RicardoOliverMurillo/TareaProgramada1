@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="careerLogic.Career" %>
-<%@ page import="dao.DaoCareer" %>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -46,8 +45,8 @@
 	</nav>
 	<br>
 	<% String type = (String)request.getAttribute("type"); %>
-	<% DaoCareer db = new DaoCareer(); %>
-	<% ArrayList<Career> careers = (ArrayList<Career>) db.selectQuery("SELECT * FROM CAREERS"); %>
+	<% Career career = new Career(); %>
+	<% ArrayList<Career> careers = career.getAllCareer(); %>
 	<h4 class="text-center">Add career information</h4>
 	<div class="col-md-8 mx-auto">
 		<div class="card">
