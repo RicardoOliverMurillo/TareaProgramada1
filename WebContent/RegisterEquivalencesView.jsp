@@ -53,7 +53,8 @@
 	<%ArrayList courseList1 = (ArrayList) request.getAttribute("list1Courses");%>
 	<%ArrayList courseList2 = (ArrayList) request.getAttribute("list2Courses");%>
 	<!--End of Navbar-->
-	<h4 class="text-center">Register Plan</h4>
+	<br>
+	<h4 class="text-center">Register equivalence</h4>
 	<div class="col-md-6 mx-auto">
 		<div class="card">
 			<div class="card-body">
@@ -105,6 +106,7 @@
 					</div>
 					<br>
 					<button name = "addEquivalence" type="submit" class="btn btn-success btn-block">Add Equivalence</button>
+				</form>
 			</div>
 		</div>
 	</div>

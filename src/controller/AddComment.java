@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.DaoComment;
 import services.SentimentAnalyzer;
+import services.SentimentAnalyzerInterface;
 import userLogic.Comment;
 import userLogic.Session;
 import userLogic.Student;
@@ -25,14 +26,14 @@ import userLogic.Student;
 public class AddComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DaoComment db = new DaoComment();
-	SentimentAnalyzer analyzer = new SentimentAnalyzer();
+	SentimentAnalyzerInterface analyzer;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public AddComment() {
         super();
-        // TODO Auto-generated constructor stub
+        analyzer = new SentimentAnalyzer();
     }
 
 	/**

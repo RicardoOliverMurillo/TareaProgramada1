@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import careerLogic.Course;
 import careerLogic.Plan;
+import dao.Dao;
 import dao.DaoCourse;
 import dao.DaoEquivalences;
 import services.AudioManipulation;
@@ -241,10 +242,14 @@ public class CourseController extends HttpServlet {
 	
 	private String getPassCredits(ArrayList<String> courses, String idPlan) throws SQLException {
 		int total = 0;
+		System.out.println("SIZE:"+courses.size());
 		for(int i = 0; i < courses.size(); i++) {
 			Course course = getCourse(courses.get(i), idPlan);
 			total = total + course.getSumCredits();
+			System.out.println("CREDITOS:"+course.getSumCredits());
+			System.out.println("nombre:"+course.getName());
 		}
+		System.out.println("TOTAL:"+total);
 		return String.valueOf(total);
 	}
 	

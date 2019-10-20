@@ -146,12 +146,12 @@ public class ApprovedCoursesController extends HttpServlet {
 	}
 	
 	private ArrayList<Course> getCoursesSemester(String semester) throws SQLException{
-		ArrayList<Course> data = db.selectQuery("SELECT * FROM COURSES WHERE SEMESTER = '"+semester+"'");
+		ArrayList<Course> data = db.selectQuery("SELECT * FROM COURSES WHERE SEMESTER = '"+semester+"' AND IDPLAN = 2050");
 		return data;
 	}
 	
 	private ArrayList<Course> getCoursesArea(String area) throws SQLException{
-		ArrayList<Course> data = db.selectQuery("SELECT * FROM COURSES WHERE KNOWLEDGEAREA  = '"+area+"'");
+		ArrayList<Course> data = db.selectQuery("SELECT * FROM COURSES WHERE KNOWLEDGEAREA  = '"+area+"' AND IDPLAN = 2050");
 		return data;
 	}
 	
