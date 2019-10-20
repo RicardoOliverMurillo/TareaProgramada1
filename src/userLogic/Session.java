@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
 
+import dao.DaoInterface;
 import dao.DaoStudent;
 
 /**
@@ -16,12 +17,14 @@ import dao.DaoStudent;
 public class Session implements SessionInterface{
 	
 	private static String user;
+	private DaoInterface dbStudent;
 	
 	/**
 	 * The Constructor of the class Session
 	 * @param user that sign in the platform
 	 */
 	public Session(String user) {
+		dbStudent = new DaoStudent();
 		Session.setUser(user);
 	}
 	
@@ -34,9 +37,8 @@ public class Session implements SessionInterface{
 	 * @return boolean if true login success if false credentials error 
 	 */
 	public boolean login(String username, String password, String role) throws SQLException {
-		DaoStudent db = new DaoStudent();
-		ArrayList<Student> result = db.selectQuery("SELECT * FROM USERS WHERE IDUSER = '"+ username+"' AND ROLE = '"+role+"'");
-		System.out.println(result.size());
+		
+		ArrayList<Student> result = (ArrayList<Student>) dbStudent.selectQuery("SELECT * FROM USERS WHERE IDUSER = '"+ username+"' AND ROLE = '"+role+"'");
 		for(int i = 0; i < result.size(); i++) {
 			String tempPassword = result.get(i).getPassword();
 			String decryptedPassword = "";

@@ -25,7 +25,7 @@ import userLogic.Student;
 @WebServlet("/AddComment")
 public class AddComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DaoComment db = new DaoComment();
+	private Student student = new Student();
 	SentimentAnalyzerInterface analyzer;
        
     /**
@@ -43,7 +43,7 @@ public class AddComment extends HttpServlet {
 		ArrayList<Comment> commentList = new ArrayList<Comment>();
 		String option = request.getParameter("option");
 		try {
-			commentList = getComment(option);
+			commentList = student.getComment(option);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -62,7 +62,7 @@ public class AddComment extends HttpServlet {
 		if(request.getParameter("historial") != null) {
 			ArrayList<Comment> commentList = new ArrayList<Comment>();
 			try {
-				commentList = getCommentStudent(Session.getUser());
+				commentList = student.getCommentStudent(Session.getUser());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -74,11 +74,11 @@ public class AddComment extends HttpServlet {
 		else if (request.getParameter("add") != null) {
 			String text = request.getParameter("comment");
 			Student student = new Student(Session.getUser());
-			student.addComment(text);
+			student.setComment(text);
 			try {
 				for(int i = 0; i < student.getComments().size(); i++) {
 					ArrayList<Comment> result = analyzer.analyzeComment(student.getComments().get(i));
-					addComment(result);
+					student.addComment(result);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -86,44 +86,4 @@ public class AddComment extends HttpServlet {
 			response.sendRedirect("StudentView.jsp");
 		}
 	}
-	
-	/**
-	 * the method add the comment of the user in the database
-	 * @param result the comments of the user
-	 * @throws SQLException
-	 */
-	private void addComment(ArrayList<Comment> result) throws SQLException {
-		for(int i = 0; i < result.size(); i++) {
-			Comment comment = result.get(i);
-			db.manipulationQuery("INSERT INTO COMMENTS (IDOWNER, DESCRIPTION, TONENAME, SCORE) VALUES "
-					+ "('"+Session.getUser()+"','"+comment.getDescription()+"','"+comment.getToneName()
-					+ "',"+comment.getScore()+")");
-		}
-	}
-	
-	/**
-	 * the method returns the comments with an specific sentiment tone
-	 * @param option the sentiment tone requested 
-	 * @return result Arraylist with the comments that match the sentiment tone 
-	 * @throws SQLException
-	 */
-	private ArrayList<Comment> getComment(String option) throws SQLException {
-		ArrayList<Comment> result = new ArrayList<Comment>();
-		result = db.selectQuery("SELECT * FROM COMMENTS WHERE TONENAME = '"+option+"'");
-		return result;
-	}
-	
-	/**
-	 * the method retrieves the comments made by an specific student
-	 * @param id of the student that request the info
-	 * @return result Array with the comments of an specific student 
-	 * @throws SQLException
-	 */
-	private ArrayList<Comment> getCommentStudent(String id) throws SQLException {
-		ArrayList<Comment> result = new ArrayList<Comment>();
-		result = db.selectQuery("SELECT * FROM COMMENTS WHERE IDOWNER = '"+id+"'");
-		return result;
-	}
-	
-
 }

@@ -45,8 +45,8 @@
 			</ul>
 		</div>
 	</nav>
-	<%DaoCareer db = new DaoCareer(); %>
-	<%ArrayList<Career> careerList = db.selectQuery("SELECT * FROM CAREERS");%>
+	<%Career career = new Career(); %>
+	<%ArrayList<Career> careerList = career.getAllCareer();%>
 	<%ArrayList planList = (ArrayList) request.getAttribute("listPlans");%>
 	<!--End of Navbar-->
 	<br>

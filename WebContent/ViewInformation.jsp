@@ -45,8 +45,8 @@
 	<%
 		ArrayList result = (ArrayList) request.getAttribute("result");
 	%>
-	<% DaoCareer db = new DaoCareer(); %>
-	<% ArrayList<Career> careers = (ArrayList<Career>) db.selectQuery("SELECT * FROM CAREERS"); %>
+	<% Career career = new Career(); %>
+	<% ArrayList<Career> careers = (ArrayList<Career>) career.getAllCareer(); %>
 	<div class="col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">

@@ -48,8 +48,8 @@
 			</ul>
 		</div>
 	</nav>
-	<%DaoPlan db = new DaoPlan(); %>
-	<%ArrayList<Plan> planList = db.selectQuery("SELECT * FROM PLANS");%>
+	<%Plan plan = new Plan(); %>
+	<%ArrayList<Plan> planList = plan.getAllPlans();%>
 	<%ArrayList courseList1 = (ArrayList) request.getAttribute("list1Courses");%>
 	<%ArrayList courseList2 = (ArrayList) request.getAttribute("list2Courses");%>
 	<!--End of Navbar-->
@@ -65,7 +65,7 @@
 							<option value=<%=planList.get(i).getId()%>><%=planList.get(i).getId()%></option>
 						<% } %>
 					</select>
-					<button name = "choosePlan1" type="submit" class="btn btn-success btn-block">Select Plan 1</button>
+					<button name = "choosePlan1" type="submit" class="btn btn-outline-info btn-block">Select Plan 1</button>
 					<br>
 					<div>
 						<select class="custom-select" name="idCourse1">
@@ -79,7 +79,7 @@
 							<% } %>
 							<% } %>
 						</select>
-						<button name = "chooseCourse1" type="submit" class="btn btn-success btn-block">Select Course 1</button>
+						<button name = "chooseCourse1" type="submit" class="btn btn-outline-info btn-block">Select Course 1</button>
 					</div>
 					<br>
 					<div>
@@ -89,7 +89,7 @@
 								<option value=<%=planList.get(i).getId()%>><%=planList.get(i).getId()%></option>
 							<% } %>
 						</select>
-						<button name = "choosePlan2" type="submit" class="btn btn-success btn-block">Select Plan 2</button>
+						<button name = "choosePlan2" type="submit" class="btn btn-outline-info btn-block">Select Plan 2</button>
 					</div>	
 					<br>
 					<div>
@@ -102,7 +102,7 @@
 							<% } %>
 							<% } %>
 						</select>
-						<button name = "chooseCourse2" type="submit" class="btn btn-success btn-block">Select Course 2</button>
+						<button name = "chooseCourse2" type="submit" class="btn btn-outline-info btn-block">Select Course 2</button>
 					</div>
 					<br>
 					<button name = "addEquivalence" type="submit" class="btn btn-success btn-block">Add Equivalence</button>
