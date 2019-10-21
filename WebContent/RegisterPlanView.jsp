@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page import="careerLogic.Plan"%>
-<%@ page import="careerLogic.Career" %>
+<%@ page import="businessLogic.Plan"%>
+<%@ page import="businessLogic.Career" %>
 <%@ page import="dao.DaoCareer" %>
 <!DOCTYPE html>
 <html>

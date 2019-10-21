@@ -10,7 +10,7 @@ import com.ibm.watson.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.tone_analyzer.v3.model.ToneOptions;
 
-import userLogic.Comment;
+import businessLogic.Comment;
 
 public class SentimentAnalyzer implements SentimentAnalyzerInterface{
 	

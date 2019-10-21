@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="careerLogic.Course" %>
+<%@ page import="businessLogic.Course" %>
 <%@page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>

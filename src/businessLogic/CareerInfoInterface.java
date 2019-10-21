@@ -1,4 +1,4 @@
-package careerLogic;
+package businessLogic;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

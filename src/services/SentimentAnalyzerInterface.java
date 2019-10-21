@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 
-import userLogic.Comment;
+import businessLogic.Comment;
 
 public interface SentimentAnalyzerInterface {
 	

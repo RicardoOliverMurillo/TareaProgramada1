@@ -1,11 +1,16 @@
-package userLogic;
+package businessLogic;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 
 import dao.DaoComment;
 import dao.DaoInterface;
 import dao.DaoStudent;
+import services.Email;
+import services.TranslateText;
 
 /**
  * 
@@ -113,6 +118,36 @@ public class Student implements StudentInterface{
 		ArrayList<Comment> result = new ArrayList<Comment>();
 		result = (ArrayList<Comment>) dbComment.selectQuery("SELECT * FROM COMMENTS WHERE IDOWNER = '"+id+"'");
 		return result;
+	}
+	
+	/**
+	 * the method prettify the student report information
+	 * @param course the list of courses
+	 * @param plan the plan that the user choose
+	 * @param user the user that made the request
+	 * @return String with the approved courses, credits, total credits of the plan and the pending courses 
+	 */
+	public String reportsToString(Course course, String plan, String user) {
+		try {
+			String msg = "";
+			if(plan.equals("2050")) {
+				msg+= "Approved Courses: " + String.valueOf(course.getPassCourses(user).size())+ "\t";
+				msg+= "Approved Credits: " + course.getPassCredits(course.getPassCourses(user),plan)+ "\t";
+				msg+= "Total Credits: " + course.getTotalCredits(plan)+ "\t";
+				msg+= "Pending Courses: " + String.valueOf(course.getCoursesLength(plan)- course.getPassCourses(user).size())+ "\t";
+				return msg;
+			} else if(plan.equals("2051")) {
+				msg+= "Approved Courses: " + String.valueOf(course.getPassCoursesEquivalencesReport(user).size())+ "\t";
+				msg+= "Approved Credits: " + course.getPassCreditsEquivalences(course.getPassCoursesEquivalencesReport(user),plan)+ "\t";
+				msg+= "Total Credits: " + course.getTotalCredits(plan) + "\t";
+				msg+= "Pending Courses: " + String.valueOf(course.getCoursesLength(plan)- course.getPassCoursesEquivalencesReport(user).size())+ "\t";
+				return msg;
+			}
+			return msg;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	/**
@@ -230,5 +265,20 @@ public class Student implements StudentInterface{
 	 */
 	public ArrayList<Comment> getComments(){
 		return comments;
+	}
+	
+	public String getStudentEmail(String user) {
+		ArrayList<Student> result;
+		try {
+			result = (ArrayList<Student>) dbStudent.selectQuery("SELECT * FROM USERS WHERE IDUSER = '"+ user+"'");
+			for(int i = 0; i < result.size(); i++) {
+				String userEmail= result.get(i).getEmail();
+				return userEmail;	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 }
