@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import careerLogic.Career;
-import careerLogic.CareerInterface;
-import careerLogic.Plan;
+import businessLogic.Career;
+import businessLogic.CareerInterface;
+import businessLogic.Plan;
 import dao.DaoCareer;
 
 /**

@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import careerLogic.Course;
-import careerLogic.Plan;
+import businessLogic.Course;
+import businessLogic.Plan;
+import businessLogic.Session;
+import businessLogic.Student;
 import services.AudioManipulation;
+import services.Email;
 import services.TextToSpeechClass;
 import services.TranslateText;
-import userLogic.Session;
 
 /**
  * Servlet implementation class CourseController
@@ -25,6 +27,7 @@ import userLogic.Session;
 public class CourseController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Course courseCtrl = new Course();
+	TranslateText txt = new TranslateText();
 	private static String plan = "";
     /**
      * @see HttpServlet#HttpServlet()
@@ -144,11 +147,50 @@ public class CourseController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		else if(request.getParameter("emailReport") != null) {
+			String language = request.getParameter("languageSelected");
+			Student tempStudent = new Student();
+			String userEmail = tempStudent.getStudentEmail(Session.getUser());
+			String msg = tempStudent.reportsToString(courseCtrl, plan, Session.getUser());
+			String subject = "Plan Report" + plan;
+			try {
+				if (language.equals("english")) {
+					Email.sendEmail(userEmail, subject, msg);
+					
+					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
+					rd.forward(request, response);
+					
+				}else if(language.equals("both")) {
+					String msgTranslated= txt.translate_text(msg, txt.getLanguage(msg), "es");
+					subject += " English and Spanish";
+					String finalMessage = "English \t";
+					finalMessage += msg + "\t";
+					finalMessage += "Español"+"\t";
+					finalMessage += msgTranslated + "\t";
+					
+					Email.sendEmail(userEmail, subject, finalMessage);
+					
+					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
+					rd.forward(request, response);
+				}
+				else {
+					String msgTranslated= txt.translate_text(msg, txt.getLanguage(msg), "es");
+					String subjectTranslated = txt.translate_text(subject, txt.getLanguage(subject), "es");
+					
+					Email.sendEmail(userEmail, subjectTranslated, msgTranslated);
+					
+					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
+					rd.forward(request, response);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else if(request.getParameter("translateCourse") != null){
 			try {String courseName = request.getParameter("translateCourse");
-				TranslateText text = new TranslateText();
-				TextToSpeechClass txt = new TextToSpeechClass();
-				txt.create_Audio(text.translate_text(courseName));
+			
+				TextToSpeechClass text = new TextToSpeechClass();
+				text.create_Audio(txt.translate_text(courseName,txt.getLanguage(courseName),"en"));
 				AudioManipulation audio = new AudioManipulation();
 				audio.playAudio();
 			}catch(Exception e) {

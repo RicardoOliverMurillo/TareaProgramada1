@@ -31,12 +31,12 @@ public class TranslateText {
 	 * @param text that is going to be translate 
 	 * @return result with the text translated
 	 */
-	public String translate_text(String text) {
+	public String translate_text(String text, String from_language, String to_language) {
 		LanguageTranslator languageTranslator = authentication();
 
 		TranslateOptions translateOptions = new TranslateOptions.Builder()
 		  .addText(text)
-		  .modelId("es-en")
+		  .modelId(from_language+"-"+to_language)
 		  .build();
 
 		TranslationResult result = languageTranslator.translate(translateOptions)
@@ -57,5 +57,4 @@ public class TranslateText {
 
 		return languages.getLanguages().get(0).getLanguage();
 	}
-	
 }

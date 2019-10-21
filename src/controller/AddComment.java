@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import businessLogic.Comment;
+import businessLogic.Session;
+import businessLogic.Student;
 import dao.DaoComment;
 import services.SentimentAnalyzer;
 import services.SentimentAnalyzerInterface;
-import userLogic.Comment;
-import userLogic.Session;
-import userLogic.Student;
 
 
 /**

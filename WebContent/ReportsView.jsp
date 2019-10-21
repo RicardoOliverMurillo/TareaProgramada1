@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="careerLogic.Course"%>
+<%@ page import="businessLogic.Course"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page import="careerLogic.Plan" %>
+<%@ page import="businessLogic.Plan" %>
 <%@ page import="dao.DaoPlan" %>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
@@ -104,6 +104,24 @@
 				<%
 		}
 		%>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8 mx-auto">
+		<div class="card">
+			<div class="card-body">
+				<h4 align="center">Send report by email</h4>
+				<form action="CourseController" method="GET">
+					<select class="custom-select" id="groupOptions1" name="languageSelected">
+						<option selected>Choose a language...</option>
+						<option value="spanish">Spanish</option>
+						<option value="english">English</option>
+						<option value="both">Both Languages</option>
+					</select>
+					<div>
+						<button name="emailReport" type="submit" class="btn btn-info btn-block">Send email</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

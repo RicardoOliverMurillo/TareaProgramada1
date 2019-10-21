@@ -3,7 +3,7 @@ package dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import careerLogic.RelevantInfo;
+import businessLogic.RelevantInfo;
 
 /**
  * 
