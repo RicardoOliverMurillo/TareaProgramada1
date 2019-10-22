@@ -1,4 +1,4 @@
-package userLogic;
+package businessLogic;
 
 import java.util.ArrayList;
 

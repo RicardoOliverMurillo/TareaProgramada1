@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import careerLogic.Career;
-import careerLogic.RelevantInfo;
+import businessLogic.Career;
+import businessLogic.RelevantInfo;
 import dao.DaoRelevantInfo;
 import services.AudioManipulation;
 import services.TextToSpeechClass;

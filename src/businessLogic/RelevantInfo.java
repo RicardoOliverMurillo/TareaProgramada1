@@ -1,4 +1,4 @@
-package careerLogic;
+package businessLogic;
 
 /**
  * 

@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import businessLogic.Session;
+import businessLogic.Student;
 import dao.DaoStudent;
-import userLogic.Session;
-import userLogic.Student;
 
 /**
  * Servlet implementation class RegisterStudent

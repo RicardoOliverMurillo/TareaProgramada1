@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import careerLogic.Course;
+import businessLogic.Course;
+import businessLogic.Session;
 import dao.DaoCourse;
-import userLogic.Session;
 
 /**
  * Servlet implementation class ApprovedCoursesController

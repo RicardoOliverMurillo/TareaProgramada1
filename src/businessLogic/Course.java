@@ -1,4 +1,4 @@
-package careerLogic;
+package businessLogic;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import dao.DaoCourse;
 import dao.DaoEquivalences;
 import dao.DaoInterface;
-import userLogic.Session;
 
 /**
  * 

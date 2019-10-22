@@ -41,10 +41,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import careerLogic.Career;
-import careerLogic.Course;
-import careerLogic.Plan;
-import careerLogic.PlanInterface;
+import businessLogic.Career;
+import businessLogic.Course;
+import businessLogic.Plan;
+import businessLogic.PlanInterface;
 import dao.DaoPlan;
 import dao.DaoCareer;
 
