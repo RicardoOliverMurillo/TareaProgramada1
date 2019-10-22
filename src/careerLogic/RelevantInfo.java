@@ -16,9 +16,9 @@ public class RelevantInfo {
 	 * @param pType type of information that is going to be added
 	 * @param pDescription the description of the information that is going to be added
 	 */
-	public RelevantInfo(String pType, String pDescription) {
-		type = pType;
-		description = pDescription;
+	public RelevantInfo(String type, String description) {
+		this.type = type;
+		this.description = description;
 	}
 	
 	public RelevantInfo() {

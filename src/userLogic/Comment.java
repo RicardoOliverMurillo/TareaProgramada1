@@ -31,8 +31,8 @@ public class Comment{
 	 * Constructor of the class Comment 
 	 * @param pDescription of the comment
 	 */
-	public Comment(String pDescription) {
-		description = pDescription;
+	public Comment(String description) {
+		this.description = description;
 		setId(count++);
 	}
 	
