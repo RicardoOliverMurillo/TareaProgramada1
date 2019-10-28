@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import businessLogic.Career;
 import businessLogic.RelevantInfo;
 import dao.DaoRelevantInfo;
+import observerLogic.Action;
+import observerLogic.CSV;
+import observerLogic.Record;
+import observerLogic.TXT;
+import observerLogic.XML;
 import services.AudioManipulation;
 import services.TextToSpeechClass;
 
@@ -24,6 +29,8 @@ import services.TextToSpeechClass;
 public class InformationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Career career = new Career();
+	private Record xml, csv, txt;
+	private Action action;
 	
        
     /**
@@ -31,7 +38,10 @@ public class InformationController extends HttpServlet {
      */
     public InformationController() {
         super();
-        // TODO Auto-generated constructor stub
+        action = new Action();
+        xml = new XML(action);
+		csv = new CSV(action);
+		txt = new TXT(action);
     }
 
 	/**
@@ -89,6 +99,7 @@ public class InformationController extends HttpServlet {
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("ViewInformation.jsp");
 			rd.forward(request, response);
+			action.setAction("view career information");
 		}
 		else if(request.getParameter("makeSound") != null){
 			try {String description = request.getParameter("makeSound");
@@ -101,6 +112,7 @@ public class InformationController extends HttpServlet {
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("ViewInformation.jsp");
 			rd.forward(request, response);
+			action.setAction("listen to career information");
 		}
 	}
 

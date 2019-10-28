@@ -46,6 +46,10 @@ import businessLogic.Course;
 import businessLogic.Plan;
 import businessLogic.PlanInterface;
 import dao.DaoPlan;
+import observerLogic.CSV;
+import observerLogic.Record;
+import observerLogic.TXT;
+import observerLogic.XML;
 import dao.DaoCareer;
 
 /**
@@ -55,13 +59,12 @@ import dao.DaoCareer;
 public class PlanController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private Plan plan = new Plan();
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public PlanController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

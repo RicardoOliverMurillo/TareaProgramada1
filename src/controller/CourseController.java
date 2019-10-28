@@ -15,6 +15,11 @@ import businessLogic.Course;
 import businessLogic.Plan;
 import businessLogic.Session;
 import businessLogic.Student;
+import observerLogic.Action;
+import observerLogic.CSV;
+import observerLogic.Record;
+import observerLogic.TXT;
+import observerLogic.XML;
 import services.AudioManipulation;
 import services.Email;
 import services.TextToSpeechClass;
@@ -27,14 +32,20 @@ import services.TranslateText;
 public class CourseController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Course courseCtrl = new Course();
-	TranslateText txt = new TranslateText();
+	TranslateText txtTranslate = new TranslateText();
 	private static String plan = "";
+	private Record xml, csv, txt;
+	private Action action;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
     public CourseController() {
         super();
-        // TODO Auto-generated constructor stub
+        action = new Action();
+        xml = new XML(action);
+		csv = new CSV(action);
+		txt = new TXT(action);
     }
 
 	/**
@@ -54,6 +65,7 @@ public class CourseController extends HttpServlet {
 				request.setAttribute("planId", plan);
 				RequestDispatcher rd = request.getRequestDispatcher("PlanView.jsp");
 				rd.forward(request, response);
+				action.setAction("view 2050 plan");
 				matriz = null;
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -69,6 +81,7 @@ public class CourseController extends HttpServlet {
 				request.setAttribute("planId", plan);
 				RequestDispatcher rd = request.getRequestDispatcher("EquivalencesPlanView.jsp");
 				rd.forward(request, response);
+				action.setAction("view 2051 plan");
 				matriz = null;
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -83,6 +96,7 @@ public class CourseController extends HttpServlet {
 				request.setAttribute("corequirements", courseCtrl.getCorequirements(id,plan));
 				RequestDispatcher rd = request.getRequestDispatcher("CourseInfoView.jsp");
 				rd.forward(request, response);
+				action.setAction("view course specific information");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -96,6 +110,7 @@ public class CourseController extends HttpServlet {
 				request.setAttribute("corequirements", courseCtrl.getCorequirements(id,plan));
 				RequestDispatcher rd = request.getRequestDispatcher("CourseInfoEquivalenceView.jsp");
 				rd.forward(request, response);
+				action.setAction("view course specific equivalence information");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -135,6 +150,7 @@ public class CourseController extends HttpServlet {
 					request.setAttribute("pendingCourses", String.valueOf(courseCtrl.getCoursesLength(plan)- courseCtrl.getPassCourses(Session.getUser()).size()));
 					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
 					rd.forward(request, response);
+					action.setAction("view 2050 plan report");
 				}else if (plan.equals("2051")) {
 					request.setAttribute("passCourses", String.valueOf(courseCtrl.getPassCoursesEquivalencesReport(Session.getUser()).size()));
 					request.setAttribute("passCredits", courseCtrl.getPassCreditsEquivalences(courseCtrl.getPassCoursesEquivalencesReport(Session.getUser()),plan));
@@ -142,6 +158,7 @@ public class CourseController extends HttpServlet {
 					request.setAttribute("pendingCourses", String.valueOf(courseCtrl.getCoursesLength(plan)- courseCtrl.getPassCoursesEquivalencesReport(Session.getUser()).size()));
 					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
 					rd.forward(request, response);
+					action.setAction("view 2051 plan report");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -156,12 +173,12 @@ public class CourseController extends HttpServlet {
 			try {
 				if (language.equals("english")) {
 					Email.sendEmail(userEmail, subject, msg);
-					
 					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
 					rd.forward(request, response);
+					action.setAction("send plan report by email");
 					
 				}else if(language.equals("both")) {
-					String msgTranslated= txt.translate_text(msg, txt.getLanguage(msg), "es");
+					String msgTranslated= txtTranslate.translate_text(msg, txtTranslate.getLanguage(msg), "es");
 					subject += " English and Spanish";
 					String finalMessage = "English \t";
 					finalMessage += msg + "\t";
@@ -172,15 +189,17 @@ public class CourseController extends HttpServlet {
 					
 					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
 					rd.forward(request, response);
+					action.setAction("send plan report by email");
 				}
 				else {
-					String msgTranslated= txt.translate_text(msg, txt.getLanguage(msg), "es");
-					String subjectTranslated = txt.translate_text(subject, txt.getLanguage(subject), "es");
+					String msgTranslated= txtTranslate.translate_text(msg, txtTranslate.getLanguage(msg), "es");
+					String subjectTranslated = txtTranslate.translate_text(subject, txtTranslate.getLanguage(subject), "es");
 					
 					Email.sendEmail(userEmail, subjectTranslated, msgTranslated);
 					
 					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
 					rd.forward(request, response);
+					action.setAction("send plan report by email");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -190,7 +209,7 @@ public class CourseController extends HttpServlet {
 			try {String courseName = request.getParameter("translateCourse");
 			
 				TextToSpeechClass text = new TextToSpeechClass();
-				text.create_Audio(txt.translate_text(courseName,txt.getLanguage(courseName),"en"));
+				text.create_Audio(txtTranslate.translate_text(courseName,txtTranslate.getLanguage(courseName),"en"));
 				AudioManipulation audio = new AudioManipulation();
 				audio.playAudio();
 			}catch(Exception e) {
@@ -198,6 +217,7 @@ public class CourseController extends HttpServlet {
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("ViewInformation.jsp");
 			rd.forward(request, response);
+			action.setAction("listen to course name");
 		}
 	}
 

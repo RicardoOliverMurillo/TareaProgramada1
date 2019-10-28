@@ -15,6 +15,11 @@ import businessLogic.Comment;
 import businessLogic.Session;
 import businessLogic.Student;
 import dao.DaoComment;
+import observerLogic.Action;
+import observerLogic.CSV;
+import observerLogic.Record;
+import observerLogic.TXT;
+import observerLogic.XML;
 import services.SentimentAnalyzer;
 import services.SentimentAnalyzerInterface;
 
@@ -27,6 +32,8 @@ public class AddComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Student student = new Student();
 	SentimentAnalyzerInterface analyzer;
+	private Record xml, csv, txt;
+	private Action action;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,6 +41,10 @@ public class AddComment extends HttpServlet {
     public AddComment() {
         super();
         analyzer = new SentimentAnalyzer();
+        action = new Action();
+        xml = new XML(action);
+		csv = new CSV(action);
+		txt = new TXT(action);
     }
 
 	/**
@@ -63,6 +74,7 @@ public class AddComment extends HttpServlet {
 			ArrayList<Comment> commentList = new ArrayList<Comment>();
 			try {
 				commentList = student.getCommentStudent(Session.getUser());
+				action.setAction("see comment historial");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -80,6 +92,7 @@ public class AddComment extends HttpServlet {
 					ArrayList<Comment> result = analyzer.analyzeComment(student.getComments().get(i));
 					student.addComment(result);
 				}
+				action.setAction("add comment");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

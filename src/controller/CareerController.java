@@ -15,6 +15,10 @@ import businessLogic.Career;
 import businessLogic.CareerInterface;
 import businessLogic.Plan;
 import dao.DaoCareer;
+import observerLogic.CSV;
+import observerLogic.Record;
+import observerLogic.TXT;
+import observerLogic.XML;
 
 /**
  * Servlet implementation class CareerController
@@ -29,7 +33,6 @@ public class CareerController extends HttpServlet{
      */
     public CareerController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 	
 	/**
