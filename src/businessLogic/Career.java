@@ -45,9 +45,9 @@ public class Career implements CareerInterface, CareerInfoInterface{
 	 * @param pId id of the course that is going to be created
 	 * @param pName name of the course that is going to be created
 	 */
-	public Career(String id, String pName){
+	public Career(String id, String name){
 		this(id);
-		this.name = pName;
+		this.name = name;
 	}
 
 	/**

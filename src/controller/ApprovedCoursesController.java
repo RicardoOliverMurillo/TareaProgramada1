@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import businessLogic.Course;
 import businessLogic.Session;
-import dao.DaoCourse;
+import observerLogic.Action;
+import observerLogic.CSV;
+import observerLogic.Record;
+import observerLogic.TXT;
+import observerLogic.XML;
 
 /**
  * Servlet implementation class ApprovedCoursesController
@@ -22,13 +26,18 @@ import dao.DaoCourse;
 public class ApprovedCoursesController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Course course = new Course();
+	private Record xml, csv, txt;
+	private Action action;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ApprovedCoursesController() {
         super();
-        // TODO Auto-generated constructor stub
+        action = new Action();
+        xml = new XML(action);
+		csv = new CSV(action);
+		txt = new TXT(action);
     }
 
 	/**
@@ -48,6 +57,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				try {
 					course.insertStudentCourse(studentId, idCourse);
 					response.sendRedirect("StudentView.jsp");
+					action.setAction("insert an approved course");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,6 +65,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				try {
 					course.deleteStudentCourse(studentId, idCourse);
 					response.sendRedirect("StudentView.jsp");
+					action.setAction("delete an approved course");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -65,6 +76,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesPlan(request.getParameter("addPlan"));
 				course.insertApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
+				action.setAction("insert an approved plan");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -75,6 +87,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesPlan(request.getParameter("removePlan"));
 				course.deleteApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
+				action.setAction("delete an approved plan");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -85,6 +98,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesSemester(request.getParameter("ApprovedSem"));
 				course.insertApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
+				action.setAction("insert an approved semester");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -95,6 +109,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesSemester(request.getParameter("ApprovedSem"));
 				course.deleteApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
+				action.setAction("delete an approved semester");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -106,6 +121,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesArea(request.getParameter("ApprovedArea"));
 				course.insertApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
+				action.setAction("insert an approved knowledge area");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -117,6 +133,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesArea(request.getParameter("ApprovedArea"));
 				course.deleteApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
+				action.setAction("delete an approved knowledge area");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();

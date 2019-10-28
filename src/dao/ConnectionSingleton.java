@@ -30,9 +30,9 @@ public class ConnectionSingleton {
      */
     public static Connection getInstance() {
     	if (conn == null){
-    		String hostName = "server1pyr.database.windows.net";
-		    String dbName = "PYR1";
-		    String user = "adminpyr@server1pyr";
+    		String hostName = "servidorpyr2v2.database.windows.net";
+		    String dbName = "PYR2VBD";
+		    String user = "adminpry2v2@servidorpyr2v2";
 		    String password = "Ati123456.";
 		    String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;"
 		            + "hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);

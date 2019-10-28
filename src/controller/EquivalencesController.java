@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import businessLogic.Course;
 import dao.DaoCourse;
+import observerLogic.Action;
+import observerLogic.CSV;
+import observerLogic.Record;
+import observerLogic.TXT;
+import observerLogic.XML;
 
 /**
  * Servlet implementation class EquivalencesController
@@ -21,17 +26,14 @@ import dao.DaoCourse;
 public class EquivalencesController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Course courseCtrl = new Course();
-	private String selectedPlan1;
-	private String selectedPlan2;
-	private String selectedCourse1;
-	private String selectedCourse2;
+	private String selectedPlan1,selectedPlan2,selectedCourse1,selectedCourse2;
+
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public EquivalencesController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
