@@ -74,7 +74,7 @@ public class AddComment extends HttpServlet {
 			ArrayList<Comment> commentList = new ArrayList<Comment>();
 			try {
 				commentList = student.getCommentStudent(Session.getUser());
-				action.setAction("see comment historial");
+				action.setAction("comment historial");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

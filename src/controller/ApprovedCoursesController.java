@@ -57,7 +57,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				try {
 					course.insertStudentCourse(studentId, idCourse);
 					response.sendRedirect("StudentView.jsp");
-					action.setAction("insert an approved course");
+					action.setAction("insert approved course");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -65,7 +65,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				try {
 					course.deleteStudentCourse(studentId, idCourse);
 					response.sendRedirect("StudentView.jsp");
-					action.setAction("delete an approved course");
+					action.setAction("delete approved course");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -76,7 +76,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesPlan(request.getParameter("addPlan"));
 				course.insertApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
-				action.setAction("insert an approved plan");
+				action.setAction("insert approved plan");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -87,7 +87,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesPlan(request.getParameter("removePlan"));
 				course.deleteApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
-				action.setAction("delete an approved plan");
+				action.setAction("delete approved plan");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -98,7 +98,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesSemester(request.getParameter("ApprovedSem"));
 				course.insertApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
-				action.setAction("insert an approved semester");
+				action.setAction("insert approved semester");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -109,7 +109,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesSemester(request.getParameter("ApprovedSem"));
 				course.deleteApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
-				action.setAction("delete an approved semester");
+				action.setAction("delete approved semester");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -121,7 +121,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesArea(request.getParameter("ApprovedArea"));
 				course.insertApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
-				action.setAction("insert an approved knowledge area");
+				action.setAction("insert approved area");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -133,7 +133,7 @@ public class ApprovedCoursesController extends HttpServlet {
 				ArrayList<Course> data = course.getCoursesArea(request.getParameter("ApprovedArea"));
 				course.deleteApprovedFilter(data);
 				response.sendRedirect("StudentView.jsp");
-				action.setAction("delete an approved knowledge area");
+				action.setAction("delete approved area");
 				data.clear();
 			} catch (Exception e) {
 				e.printStackTrace();

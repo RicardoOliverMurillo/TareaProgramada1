@@ -112,7 +112,7 @@ public class InformationController extends HttpServlet {
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("ViewInformation.jsp");
 			rd.forward(request, response);
-			action.setAction("listen to career information");
+			action.setAction("listen career information");
 		}
 	}
 

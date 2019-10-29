@@ -50,7 +50,7 @@
 	<div class="col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">
-				<h4 align="center">View report by plan</h4>
+				<h5 align="center">View report by plan</h5>
 				<form action="CourseController" method="GET">
 					<select class="custom-select" id="groupOptions1"
 						name="planSelected">
@@ -61,7 +61,7 @@
 					</select>
 					<div>
 						<button name="planReports" type="submit"
-							class="btn btn-info btn-block">Search</button>
+							class="btn btn-outline-info btn-block">Search</button>
 					</div>
 				</form>
 			</div>
@@ -110,7 +110,7 @@
 	<div class="col-md-8 mx-auto">
 		<div class="card">
 			<div class="card-body">
-				<h4 align="center">Send report by email</h4>
+				<h5 align="center">Send report by email</h5>
 				<form action="CourseController" method="GET">
 					<select class="custom-select" id="groupOptions1" name="languageSelected">
 						<option selected>Choose a language...</option>
@@ -119,7 +119,7 @@
 						<option value="both">Both Languages</option>
 					</select>
 					<div>
-						<button name="emailReport" type="submit" class="btn btn-info btn-block">Send email</button>
+						<button name="emailReport" type="submit" class="btn btn-outline-info btn-block">Send email</button>
 					</div>
 				</form>
 			</div>
