@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class XML extends Record{
 
+	public XML() {}
 	
 	public XML(Action action) {
 		this.action = action;
@@ -21,7 +22,7 @@ public class XML extends Record{
 	}
 
 	@Override
-	public ArrayList<Action> read() {
+	public String[] read() {
 		return null;
 	}
 	

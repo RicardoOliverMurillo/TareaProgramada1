@@ -7,6 +7,6 @@ public abstract class Record {
 	protected Action action;
 	
 	public abstract void register();
-	public abstract ArrayList<Action> read();
+	public abstract String[] read();
 
 }
