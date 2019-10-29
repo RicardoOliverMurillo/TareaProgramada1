@@ -1,9 +1,10 @@
 package observerLogic;
 
-import java.util.ArrayList;
 
 public class CSV extends Record {
 
+	public CSV() {}
+	
 	public CSV(Action action) {
 		this.action = action;
 		this.action.subscribe(this);
@@ -19,7 +20,7 @@ public class CSV extends Record {
 		System.out.println(action.getTime());
 	}
 	
-	public ArrayList<Action> read() {
+	public String[] read() {
 		return null;
 	}
 

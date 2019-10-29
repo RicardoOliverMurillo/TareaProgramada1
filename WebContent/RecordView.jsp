@@ -44,28 +44,43 @@
 			</ul>
 		</div>
 	</nav>
+	<br>
 	<!--End of navbar-->
-	<%ArrayList<Action> data = (ArrayList<Action>) request.getAttribute("list");  %>
-	<form action="RecordController" method="POST">
-		<div>
-			<select class="custom-select" id="groupOptions1" name="format">
-				<option selected>Choose a format...</option>
-				<option value="XML">XML</option>
-				<option value="CSV">CSV</option>
-				<option value="TXT">TXT</option>
-			</select>
+	<%String[] data = (String[]) request.getAttribute("data");%>
+	<div class="col-md-8 mx-auto">
+		<div class="card">
+			<div class="card-body">
+			<br>
+				<form action="RecordController" method="POST">
+					<div>
+						<select class="custom-select" id="groupOptions1" name="format">
+							<option selected>Choose a format...</option>
+							<option value="XML">XML</option>
+							<option value="CSV">CSV</option>
+							<option value="TXT">TXT</option>
+						</select>
+					</div>
+					<br>
+					<div>
+						<button type="submit" class="btn btn-success btn-block">View
+							record</button>
+					</div>
+				</form>
+				<br>
+				<h5 align="center">Information</h5>
+				<%
+					if (data != null) {
+				%>
+				<%
+					for (int i = 0; i < data.length; i++) {
+				%>
+				<p><%=data[i]%></p>
+				<%
+					}
+				%>
+				<%} %>
+			</div>
 		</div>
-		<div>
-			<button type="submit" class="btn btn-success btn-block">View record</button>
-		</div>
-	</form>
-	<%if(data != null) {%>
-		<%for(Action action : data) {%>
-			<p><%= action.getUserId() %></p>
-			<p><%= action.getAction() %></p>
-			<p><%= action.getDate() %></p>
-			<p><%= action.getTime() %></p>
-		<%} %>
-	<%} %>
+	</div>
 </body>
 </html>
