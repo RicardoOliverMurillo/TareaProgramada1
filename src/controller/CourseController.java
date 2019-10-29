@@ -96,7 +96,7 @@ public class CourseController extends HttpServlet {
 				request.setAttribute("corequirements", courseCtrl.getCorequirements(id,plan));
 				RequestDispatcher rd = request.getRequestDispatcher("CourseInfoView.jsp");
 				rd.forward(request, response);
-				action.setAction("view course specific information");
+				action.setAction("view course info");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -110,7 +110,7 @@ public class CourseController extends HttpServlet {
 				request.setAttribute("corequirements", courseCtrl.getCorequirements(id,plan));
 				RequestDispatcher rd = request.getRequestDispatcher("CourseInfoEquivalenceView.jsp");
 				rd.forward(request, response);
-				action.setAction("view course specific equivalence information");
+				action.setAction("view equivalence info");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -175,7 +175,7 @@ public class CourseController extends HttpServlet {
 					Email.sendEmail(userEmail, subject, msg);
 					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
 					rd.forward(request, response);
-					action.setAction("send plan report by email");
+					action.setAction("send report email english");
 					
 				}else if(language.equals("both")) {
 					String msgTranslated= txtTranslate.translate_text(msg, txtTranslate.getLanguage(msg), "es");
@@ -189,7 +189,7 @@ public class CourseController extends HttpServlet {
 					
 					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
 					rd.forward(request, response);
-					action.setAction("send plan report by email");
+					action.setAction("send report email both");
 				}
 				else {
 					String msgTranslated= txtTranslate.translate_text(msg, txtTranslate.getLanguage(msg), "es");
@@ -199,7 +199,7 @@ public class CourseController extends HttpServlet {
 					
 					RequestDispatcher rd = request.getRequestDispatcher("ReportsView.jsp");
 					rd.forward(request, response);
-					action.setAction("send plan report by email");
+					action.setAction("send report email spanish");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -217,7 +217,7 @@ public class CourseController extends HttpServlet {
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("ViewInformation.jsp");
 			rd.forward(request, response);
-			action.setAction("listen to course name");
+			action.setAction("listen course name");
 		}
 	}
 

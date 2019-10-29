@@ -1,7 +1,5 @@
 package observerLogic;
 
-import java.util.ArrayList;
-
 public abstract class Record {
 	
 	protected Action action;

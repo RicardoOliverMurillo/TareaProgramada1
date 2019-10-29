@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Record</title>
+<title>Record View</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -74,7 +74,7 @@
 				<%
 					for (int i = 0; i < data.length; i++) {
 				%>
-				<p><%=data[i]%></p>
+				<p align="center"><%=data[i]%></p>
 				<%
 					}
 				%>
