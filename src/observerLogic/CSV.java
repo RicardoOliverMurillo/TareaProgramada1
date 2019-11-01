@@ -45,7 +45,6 @@ public class CSV extends Record {
              
             fileWriter.flush();
             fileWriter.close();
-            System.out.println("CSV file was updated successfully !!!");
              
         } catch (Exception e) {
             System.out.println("Error in CsvFileWriter !!!");
