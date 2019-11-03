@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import creationalLogic.ConnectionSingleton;
+
 /**
  * 
  * @author Marco Gómez, Ricardo Oliver, Anjelica Tristani 

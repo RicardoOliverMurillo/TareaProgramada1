@@ -11,17 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.Comment;
-import businessLogic.Session;
-import businessLogic.Student;
+import behaviorLogic.Action;
+import behaviorLogic.CSV;
+import behaviorLogic.Record;
+import behaviorLogic.TXT;
+import behaviorLogic.XML;
+import businessLogic.services.SentimentAnalyzer;
+import businessLogic.services.SentimentAnalyzerInterface;
+import businessLogic.user.Comment;
+import businessLogic.user.Session;
+import businessLogic.user.Student;
 import dao.DaoComment;
-import observerLogic.Action;
-import observerLogic.CSV;
-import observerLogic.Record;
-import observerLogic.TXT;
-import observerLogic.XML;
-import services.SentimentAnalyzer;
-import services.SentimentAnalyzerInterface;
 
 
 /**
@@ -62,7 +62,7 @@ public class AddComment extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("CommentAnalysis.jsp");
 		rd.forward(request, response);
 		commentList.clear();
-
+		action.setAction("analyze comment");
 	}
 
 	/**

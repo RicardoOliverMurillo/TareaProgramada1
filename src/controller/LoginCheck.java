@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.Session;
-import observerLogic.Action;
-import observerLogic.CSV;
-import observerLogic.Record;
-import observerLogic.TXT;
-import observerLogic.XML;
+import behaviorLogic.Action;
+import behaviorLogic.CSV;
+import behaviorLogic.Record;
+import behaviorLogic.TXT;
+import behaviorLogic.XML;
+import businessLogic.user.Session;
 
 /**
  * Servlet implementation class LoginCheck
@@ -52,12 +52,12 @@ public class LoginCheck extends HttpServlet {
 		Session session = new Session(username);
 		try {
 			if(session.login(username, password, role)) {
-				
 				if(role.equals("Admin")) {
 					response.sendRedirect("AdminView.jsp");
+					action.setAction("admin login");
 				}else if(role.equals("Student")){
-					action.setAction("user login");
 					response.sendRedirect("StudentView.jsp");
+					action.setAction("student login");
 				}	
 			}else {
 				response.sendRedirect("loginView.jsp");

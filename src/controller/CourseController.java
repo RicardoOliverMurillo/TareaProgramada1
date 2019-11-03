@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.Course;
-import businessLogic.Plan;
-import businessLogic.Session;
-import businessLogic.Student;
-import observerLogic.Action;
-import observerLogic.CSV;
-import observerLogic.Record;
-import observerLogic.TXT;
-import observerLogic.XML;
-import services.AudioManipulation;
-import services.Email;
-import services.TextToSpeechClass;
-import services.TranslateText;
+import behaviorLogic.Action;
+import behaviorLogic.CSV;
+import behaviorLogic.Record;
+import behaviorLogic.TXT;
+import behaviorLogic.XML;
+import businessLogic.career.Course;
+import businessLogic.career.Plan;
+import businessLogic.services.AudioManipulation;
+import businessLogic.services.Email;
+import businessLogic.services.TextToSpeechClass;
+import businessLogic.services.TranslateText;
+import businessLogic.user.Session;
+import businessLogic.user.Student;
 
 /**
  * Servlet implementation class CourseController
@@ -126,6 +126,7 @@ public class CourseController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			action.setAction("course register view");
 		}
 		else if(request.getParameter("add2051Course") != null) {
 			plan = "2051";
@@ -138,6 +139,7 @@ public class CourseController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			action.setAction("course register view");
 		}
 		else if(request.getParameter("planReports") != null) {
 			plan = request.getParameter("planSelected");;
@@ -207,7 +209,6 @@ public class CourseController extends HttpServlet {
 		}
 		else if(request.getParameter("translateCourse") != null){
 			try {String courseName = request.getParameter("translateCourse");
-			
 				TextToSpeechClass text = new TextToSpeechClass();
 				text.create_Audio(txtTranslate.translate_text(courseName,txtTranslate.getLanguage(courseName),"en"));
 				AudioManipulation audio = new AudioManipulation();
@@ -245,6 +246,7 @@ public class CourseController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			action.setAction("add corequirement");
 			
 		} else {
 			String id = request.getParameter("id");
@@ -260,6 +262,7 @@ public class CourseController extends HttpServlet {
 				e.printStackTrace();
 			}
 			response.sendRedirect("AdminView.jsp");
+			action.setAction("register course");
 		}
 	}
 }

@@ -11,14 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.Career;
-import businessLogic.CareerInterface;
-import businessLogic.Plan;
+import behaviorLogic.Action;
+import behaviorLogic.CSV;
+import behaviorLogic.Record;
+import behaviorLogic.TXT;
+import behaviorLogic.XML;
+import businessLogic.career.Career;
+import businessLogic.career.CareerInterface;
+import businessLogic.career.Plan;
 import dao.DaoCareer;
-import observerLogic.CSV;
-import observerLogic.Record;
-import observerLogic.TXT;
-import observerLogic.XML;
 
 /**
  * Servlet implementation class CareerController
@@ -27,12 +28,18 @@ import observerLogic.XML;
 public class CareerController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private Career career = new Career();
+	private Record xml, csv, txt;
+	private Action action;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public CareerController() {
         super();
+        action = new Action();
+        xml = new XML(action);
+		csv = new CSV(action);
+		txt = new TXT(action);
     }
 	
 	/**
@@ -57,6 +64,7 @@ public class CareerController extends HttpServlet{
 			RequestDispatcher rd = request.getRequestDispatcher("RegisterCareerView.jsp");
 			rd.forward(request, response);
 			careerList.clear();
+			action.setAction("view all careers");
 		}
 		else if (request.getParameter("add") != null) {
 			String id = request.getParameter("id");
@@ -68,6 +76,7 @@ public class CareerController extends HttpServlet{
 				e.printStackTrace();
 			}
 			response.sendRedirect("RegisterCareerView.jsp");
+			action.setAction("register career");
 		}
 	}
 }

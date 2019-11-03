@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="businessLogic.Comment"%>
+<%@ page import="businessLogic.user.Comment"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>

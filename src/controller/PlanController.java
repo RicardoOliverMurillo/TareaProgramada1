@@ -41,15 +41,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.Career;
-import businessLogic.Course;
-import businessLogic.Plan;
-import businessLogic.PlanInterface;
+import behaviorLogic.Action;
+import behaviorLogic.CSV;
+import behaviorLogic.Record;
+import behaviorLogic.TXT;
+import behaviorLogic.XML;
+import businessLogic.career.Career;
+import businessLogic.career.Course;
+import businessLogic.career.Plan;
+import businessLogic.career.PlanInterface;
 import dao.DaoPlan;
-import observerLogic.CSV;
-import observerLogic.Record;
-import observerLogic.TXT;
-import observerLogic.XML;
 import dao.DaoCareer;
 
 /**
@@ -59,12 +60,18 @@ import dao.DaoCareer;
 public class PlanController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private Plan plan = new Plan();
+	private Record xml, csv, txt;
+	private Action action;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
     public PlanController() {
         super();
+        action = new Action();
+        xml = new XML(action);
+		csv = new CSV(action);
+		txt = new TXT(action);
     }
 
 	/**
@@ -83,6 +90,7 @@ public class PlanController extends HttpServlet{
 			RequestDispatcher rd = request.getRequestDispatcher("RegisterPlanView.jsp");
 			rd.forward(request, response);
 			planList.clear();
+			action.setAction("get all plans");
 		}
 		else if (request.getParameter("addPlan") != null) {
 			String id = request.getParameter("idPlan");
@@ -104,6 +112,7 @@ public class PlanController extends HttpServlet{
 				e.printStackTrace();
 			}
 			response.sendRedirect("RegisterPlanView.jsp");
+			action.setAction("register career plan");
 		}
 	}
 }
