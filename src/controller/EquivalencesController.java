@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.Course;
+import behaviorLogic.Action;
+import behaviorLogic.CSV;
+import behaviorLogic.Record;
+import behaviorLogic.TXT;
+import behaviorLogic.XML;
+import businessLogic.career.Course;
 import dao.DaoCourse;
-import observerLogic.Action;
-import observerLogic.CSV;
-import observerLogic.Record;
-import observerLogic.TXT;
-import observerLogic.XML;
 
 /**
  * Servlet implementation class EquivalencesController
@@ -27,6 +27,8 @@ public class EquivalencesController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Course courseCtrl = new Course();
 	private String selectedPlan1,selectedPlan2,selectedCourse1,selectedCourse2;
+	private Record xml, csv, txt;
+	private Action action;
 
        
     /**
@@ -34,6 +36,9 @@ public class EquivalencesController extends HttpServlet {
      */
     public EquivalencesController() {
         super();
+        xml = new XML(action);
+		csv = new CSV(action);
+		txt = new TXT(action);
     }
 
 	/**
@@ -53,11 +58,13 @@ public class EquivalencesController extends HttpServlet {
 			rd.forward(request, response);
 			selectedPlan1 = idPlan1;
 			courseList1.clear();
+			action.setAction("get all plans");
 		}
 		else if(request.getParameter("chooseCourse1") != null) {
 			String idCourse1 = request.getParameter("idCourse1");
 			selectedCourse1 = idCourse1;
 			response.sendRedirect("RegisterEquivalencesView.jsp");
+			action.setAction("get all courses");
 		}
 		else if(request.getParameter("choosePlan2") != null) {
 			String idPlan2 = request.getParameter("idPlan2");
@@ -72,11 +79,13 @@ public class EquivalencesController extends HttpServlet {
 			rd.forward(request, response);
 			selectedPlan2 = idPlan2;
 			courseList2.clear();
+			action.setAction("get all plans");
 		}
 		else if(request.getParameter("chooseCourse2") != null) {
 			String idCourse2 = request.getParameter("idCourse2");
 			selectedCourse2 = idCourse2;
 			response.sendRedirect("RegisterEquivalencesView.jsp");
+			action.setAction("get all courses");
 		}
 		else if (request.getParameter("addEquivalence") != null) {
 			Course course1 = new Course();
@@ -87,8 +96,8 @@ public class EquivalencesController extends HttpServlet {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			course1.addEquivalences(course2);
-			course2.addEquivalences(course1);
+			course1.setEquivalences(course2);
+			course2.setEquivalences(course1);
 			try {
 				courseCtrl.addEquivalence(selectedCourse1,selectedPlan1,selectedCourse2,selectedPlan2);
 			} catch (SQLException e) {
@@ -99,6 +108,7 @@ public class EquivalencesController extends HttpServlet {
 			selectedCourse1 = "";
 			selectedCourse2 = "";
 			response.sendRedirect("RegisterEquivalencesView.jsp");
+			action.setAction("register equivalence");
 		}
 	}
 }

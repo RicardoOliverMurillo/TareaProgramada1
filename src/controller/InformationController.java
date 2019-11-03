@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.Career;
-import businessLogic.RelevantInfo;
+import behaviorLogic.Action;
+import behaviorLogic.CSV;
+import behaviorLogic.Record;
+import behaviorLogic.TXT;
+import behaviorLogic.XML;
+import businessLogic.career.Career;
+import businessLogic.career.RelevantInfo;
+import businessLogic.services.AudioManipulation;
+import businessLogic.services.TextToSpeechClass;
 import dao.DaoRelevantInfo;
-import observerLogic.Action;
-import observerLogic.CSV;
-import observerLogic.Record;
-import observerLogic.TXT;
-import observerLogic.XML;
-import services.AudioManipulation;
-import services.TextToSpeechClass;
 
 /**
  * Servlet implementation class InformationController
@@ -61,6 +61,7 @@ public class InformationController extends HttpServlet {
 				e.printStackTrace();
 			}
 			response.sendRedirect("RelevantInformation.jsp");
+			action.setAction("add career info");
 		}
 		else if(request.getParameter("search") != null){
 			String type = request.getParameter("type");
@@ -73,9 +74,10 @@ public class InformationController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
+			action.setAction("get career info");
 			RequestDispatcher rd = request.getRequestDispatcher("UpdateInformation.jsp");
 			rd.forward(request, response);
+			
 		}
 		else if(request.getParameter("update") != null){
 			Career career = new Career(request.getParameter("career"));
@@ -89,6 +91,7 @@ public class InformationController extends HttpServlet {
 				e.printStackTrace();
 			}
 			response.sendRedirect("RelevantInformation.jsp");
+			action.setAction("update career info");
 		}
 		else if(request.getParameter("searchInfo") != null){
 			String careerName = request.getParameter("career");
@@ -124,31 +127,37 @@ public class InformationController extends HttpServlet {
 			request.setAttribute("type", "EmploymentArea");
 			RequestDispatcher rd = request.getRequestDispatcher("AddInformation.jsp");
 			rd.forward(request, response);
+			action.setAction("view EmploymentArea");
 		}
 		else if (request.getParameter("updateEA") != null) {
 			request.setAttribute("type", "EmploymentArea");
 			RequestDispatcher rd = request.getRequestDispatcher("UpdateInformation.jsp");
 			rd.forward(request, response);
+			action.setAction("view EmploymentArea");
 		}
 		else if (request.getParameter("addSP") != null) {
 			request.setAttribute("type", "StudentProfile");
 			RequestDispatcher rd = request.getRequestDispatcher("AddInformation.jsp");
 			rd.forward(request, response);
+			action.setAction("view StudentProfile");
 		}
 		else if (request.getParameter("updateSP") != null) {
 			request.setAttribute("type", "StudentProfile");
 			RequestDispatcher rd = request.getRequestDispatcher("UpdateInformation.jsp");
 			rd.forward(request, response);
+			action.setAction("view StudentProfile");
 		}
 		else if (request.getParameter("addMC") != null) {
 			request.setAttribute("type", "MajorCharacteristics");
 			RequestDispatcher rd = request.getRequestDispatcher("AddInformation.jsp");
 			rd.forward(request, response);
+			action.setAction("view Characteristics");
 		}
 		else if (request.getParameter("updateMC") != null) {
 			request.setAttribute("type", "MajorCharacteristics");
 			RequestDispatcher rd = request.getRequestDispatcher("UpdateInformation.jsp");
 			rd.forward(request, response);
+			action.setAction("view Characteristics");
 		}
 	}
 }

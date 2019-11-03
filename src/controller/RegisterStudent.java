@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.Session;
-import businessLogic.Student;
+import businessLogic.user.Session;
+import businessLogic.user.Student;
 import dao.DaoStudent;
 
 /**
